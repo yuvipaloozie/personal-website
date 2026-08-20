@@ -1,0 +1,44 @@
+YUVRAJ TRIPATHY
+yuvraj.tripathy@outlook.com | (404) 980-0180 | www.linkedin.com/in/yuvrajtripathy | https://github.com/yuvipaloozie
+EDUCATION
+Georgia Institute of Technology, Atlanta, GA
+MSc. Data Science May 2027
+BSc. Chemical and Biomolecular Engineering May 2024
+EXPERIENCE
+Wood, Process Automation Engineer May 2024 - Present
+● Spearheaded the greenfield configuration of a Wet Milling process using Keyence and Allen Bradley systems
+to translate legacy process data into a unified control standard and HMI, establishing a reusable logic library
+that reduced engineering time by 40% across 200+ I/O points
+● Reduced alarm rationalization timeline by 65% through development of a Python-based NLP clustering
+pipeline on unstructured HAZOP documentation to identify common alarm functional types and severity levels
+● Enabled the deployment of 50,000+ instrument alarms by executing complex SQL queries and using OCR
+scripts on process P&IDs to mine, restructure, and validate engineering data for DeltaV commissioning
+● Modernized refinery data visualization by scripting 50+ dynamic HMIWeb graphics and conducting
+pre-functional testing, ensuring user interface reliability during the migration from Honeywell Native Window
+Philadelphia College of Osteopathic Medicine, ML Researcher May 2025 - Present
+● Architected an end-to-end computer vision pipeline utilizing a custom U-Net++ Convolutional Neural Network
+(CNN) to automate the segmentation and counting of osteoclast cells in high-resolution microscopy, achieving
+>84% precision and eliminating manual laboratory workflows
+● Built and fine-tuned a Graph Attention Network (GAT) on the ChEMBL database to accelerate
+osteoclastogenesis inhibition drug discovery, systematically testing the model's zero-shot predictive
+effectiveness against existing FDA drug lists
+Alcon, Backend Equipment Engineering Co-op August 2023 - December 2023
+● Reduced dropped lens faults by 15% by designing an automated testing prototype using SolidWorks and
+ladder logic to validate revised pneumatic schemes through iterative experiments
+● Leveraged ARIMA and change detection models to identify filter failure states through root cause analysis to
+increase predictive maintenance capabilities and reduce process downtime by several weeks
+Bayer, Process Control Engineering Co-op June 2022 – December 2022
+● Achieved $250,000/yr savings on 4-way valve operations by programming DeltaV control modules to reduce
+process spread, based on root cause analysis of 5 years of historical data across 8+ process variables
+● Improved product transloader process accuracy by integrating existing standalone PLC system into plant DCS
+through installation of CHARMS I/O, programming basic automation, developing informative DeltaV Operate
+graphics, and providing operator training documents
+PROJECTS
+Semiconductor Yield Optimization 2025
+Engineered XGBoost/Isolation Forest pipeline on manufacturing data to predict semiconductor yield anomalies across
+590+ sensor inputs with class imbalance, capturing 48% of previously missed defects. Leveraged SHAP and partial
+dependence plots to suggest tighter control limits for sensor operation to minimize batch defects.
+TECHNICAL SKILLS
+Data Science/Machine Learning: Python (Pandas, NumPy, Scikit, Tensorflow/Pytorch), SQL, TypeScript, Tableau,
+PowerBI, Time-Series Modeling, OCR
+Engineering/Automation: DeltaV, Honeywell Experion, RSLogix 5000, SolidWorks, AutoCAD, Eaton
