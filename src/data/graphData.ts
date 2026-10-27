@@ -1,3 +1,5 @@
+import { career, education, profile } from "@/lib/profile";
+
 export type NodeData = {
   id: string;
   label: string;
@@ -25,14 +27,14 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
     // ROOT
     {
       id: "me",
-      label: "Yuvraj Tripathy",
+      label: profile.name,
       group: 0,
       type: "root",
       details: {
-        title: "Yuvraj Tripathy",
+        title: profile.name,
         subtitle: "Data Science & Process Engineering",
         description:
-          "Data Science and Chemical Engineering professional specializing in process safety knowledge graphs, machine learning, computer vision, and industrial automation. MSc Data Science at Georgia Tech.",
+          `${career.arclin.title} at ${career.arclin.employer} and graduate student in ${education.graduate.subject} at ${education.shortInstitution}. Interests include process safety knowledge graphs, machine learning, computer vision, and industrial automation.`,
         fullDescription: [
           "Welcome to my knowledge graph portfolio. I specialize in bridging the gap between heavy industrial engineering and modern data science.",
           "With a foundation in Chemical and Biomolecular Engineering, I approach software and ML with a rigorous, process-oriented mindset. My goal is to build automated, highly reliable systems that solve complex physical and digital problems.",
@@ -40,7 +42,7 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
         ],
         image: "/profile.jpg",
         link: "/about",
-        github: "https://github.com/yuvipaloozie",
+        github: profile.github,
       },
     },
 
@@ -285,19 +287,31 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
 
     // EXPERIENCE
     {
-      id: "e_wood",
-      label: "Wood Plc",
+      id: "e_arclin",
+      label: career.arclin.employer,
       group: 2,
       type: "detail",
       details: {
-        title: "Process Automation Engineer",
-        subtitle: "Wood Plc | 2024 - Present",
-        description:
-          "Designing automated control systems, developing NLP engineering tooling, and optimizing legacy P&ID workflows.",
+        title: career.arclin.title,
+        subtitle: `${career.arclin.employer} | ${career.arclin.dates}`,
+        description: career.arclin.summary,
+        fullDescription: [career.arclin.summary],
+        link: "/experience/arclin",
+      },
+    },
+    {
+      id: "e_wood",
+      label: career.wood.employer,
+      group: 2,
+      type: "detail",
+      details: {
+        title: career.wood.title,
+        subtitle: `${career.wood.employer} | ${career.wood.dates}`,
+        description: career.wood.summary,
         fullDescription: [
-          "Working closely with industrial automation hardware to modernize legacy process controls.",
-          "Developed Python scripts and NLP tooling to automatically parse and cross-reference critical limits from 1000+ page HAZOP documents.",
-          "Reduced manual engineering verification time by 40% across capital infrastructure projects.",
+          "Worked with industrial automation hardware to modernize legacy process controls.",
+          "Built Python and NLP tools to structure HAZOP, PHA, and alarm-rationalization data.",
+          "Established a reusable controls logic library that reduced engineering time by 40% across more than 200 I/O points.",
         ],
         link: "/experience/wood-plc",
       },
@@ -308,14 +322,12 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
       group: 2,
       type: "detail",
       details: {
-        title: "Machine Learning Researcher",
-        subtitle: "PCOM | 2023 - 2024",
-        description:
-          "Applied deep learning and computer vision techniques to novel biomedical microscopy datasets.",
+        title: career.pcom.title,
+        subtitle: `PCOM | ${career.pcom.dates}`,
+        description: career.pcom.summary,
         fullDescription: [
           "Spearheaded the development of deep learning models for biomedical imaging analysis (Project CHANA).",
           "Collaborated with biologists to refine feature extraction and segmentation protocols for cellular datasets.",
-          "Published findings on optimized gradient flow and semi-supervised training in heavily imbalanced microscopy datasets.",
         ],
         link: "/experience/pcom-research",
       },
@@ -326,15 +338,28 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
       group: 2,
       type: "detail",
       details: {
-        title: "Backend Equipment Engineering Co-op",
-        subtitle: "Alcon | Aug 2023 - Dec 2023",
-        description:
-          "Leveraged ARIMA and change detection models for predictive maintenance, reducing downtime by weeks.",
+        title: career.alcon.title,
+        subtitle: `${career.alcon.employer} | ${career.alcon.dates}`,
+        description: career.alcon.summary,
         fullDescription: [
           "Worked on backend equipment engineering at Alcon during an August–December 2023 co-op.",
           "Applied ARIMA and change detection methods to equipment telemetry for predictive maintenance.",
         ],
         link: "/resume",
+      },
+    },
+
+    {
+      id: "e_bayer",
+      label: career.bayer.employer,
+      group: 2,
+      type: "detail",
+      details: {
+        title: career.bayer.title,
+        subtitle: `${career.bayer.employer} | ${career.bayer.dates}`,
+        description: career.bayer.summary,
+        fullDescription: [career.bayer.summary],
+        link: "/experience/bayer",
       },
     },
 
@@ -438,9 +463,11 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
     { source: "projects", target: "p_breastcancer" },
 
     // Experience to Category
+    { source: "experience", target: "e_arclin" },
     { source: "experience", target: "e_wood" },
     { source: "experience", target: "e_pcom" },
     { source: "experience", target: "e_alcon" },
+    { source: "experience", target: "e_bayer" },
 
     // Blog to Category
     { source: "blog", target: "b_unet" },
@@ -481,8 +508,10 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
     { source: "s_stats", target: "p_arrhythmia" },
 
     { source: "s_auto", target: "p_psm" },
+    { source: "s_auto", target: "e_arclin" },
     { source: "s_auto", target: "e_wood" },
     { source: "s_auto", target: "e_alcon" },
+    { source: "s_auto", target: "e_bayer" },
     { source: "s_auto", target: "b_iot" },
     { source: "s_auto", target: "b_dash" },
   ],

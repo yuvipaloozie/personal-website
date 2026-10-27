@@ -28,3 +28,9 @@ The user supplied a James Holt reference for sans-serif typography, black/white 
 No decorative gradient bands: removed at the user's request.
 
 Approved polish: use one graph-derived PSM illustration with halftone nodes. public/psm-connections.svg draws only method and work connections present in graphData; it represents this site index, not an exported PSM dataset. Keep all project dates in the same metadata position. Topic and reading controls share terminology. Standalone action links and mobile navigation have 44px minimum hit heights.
+
+## October 27 reference composition
+
+The latest user reference adds a pixel display headline, open spacing, offset project imagery, and stronger layered dithering. The homepage uses Geist Pixel Square only for the name (up to 96px), with Instrument Sans retained for readable body text and other headings. Selected projects alternate image and text on desktop and stack on phones. The full Projects index retains its academic bibliography structure.
+
+The ambient artwork combines a label-free version of the real project-connection diagram with 21st.dev's Paper Design Dithering shader. Reading content stays in full-contrast ink. A global shadcn Button pauses motion; reduced-motion preferences freeze it; hidden tabs suspend rendering; the shader pixel budget is bounded. The graph explorer keeps its original background. Attribution and local modifications are in THIRD_PARTY_NOTICES.md.

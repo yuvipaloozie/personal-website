@@ -876,6 +876,63 @@ img {
 
 /* A restrained typographic grid, informed by the supplied reference. */
 body { line-height: 1.7; }
+main, .site-footer { position: relative; z-index: 1; }
+.ambient-research {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.ambient-field {
+  position: absolute;
+  width: min(1050px, 90vw);
+  height: min(1000px, 110vh);
+  top: 20px;
+  right: -250px;
+  opacity: .12;
+  mask-image: radial-gradient(ellipse at 75% 30%, #000 5%, transparent 72%);
+}
+.ambient-graph {
+  position: absolute;
+  top: 110px;
+  right: -400px;
+  width: 1100px;
+  height: 770px;
+  opacity: .22;
+  background: url(/research-field.svg) center / contain no-repeat;
+  mix-blend-mode: multiply;
+  mask-image: radial-gradient(ellipse at 75% 30%, #000 10%, transparent 70%);
+}
+.ambient-control {
+  position: fixed;
+  right: 20px;
+  bottom: 16px;
+  z-index: 110;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 3px;
+  background: #f2f4f1;
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 12px;
+}
+.ambient-control:hover { background: #e8ece6; color: var(--text-color); }
+.ambient-control svg { width: 13px; height: 13px; }
+.site-footer { padding-bottom: 76px; }
+@media (max-width: 600px) {
+  .ambient-field { width: 600px; height: 700px; right: -350px; opacity: .09; }
+  .ambient-graph { right: -690px; opacity: .16; }
+  .ambient-control { right: 12px; bottom: 12px; }
+}
+@media print {
+  .ambient-research, .ambient-control { display: none !important; }
+}
 p { text-wrap: pretty; }
 h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance; }
 .site-header .header-inner { border-bottom: 1px solid #e1e3de; }
@@ -967,4 +1024,66 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
   .academic-profile .affiliation { margin-bottom: 18px; }
   .academic-profile figure { margin-top: 16px; }
   .site-header .header-inner { padding-block: 8px; gap: 0; }
+}
+
+@font-face {
+  font-family: "Geist Pixel";
+  src: url(/fonts/geist-pixel-square.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+/* Reference-led composition: display type, offset imagery, layered research art. */
+.academic-home { padding-top: 70px; }
+.academic-profile { grid-template-columns: minmax(0, 1fr) 248px; gap: 64px; padding-bottom: 30px; }
+.academic-profile h1 {
+  font-family: "Geist Pixel", "Instrument Sans", sans-serif;
+  font-size: clamp(64px, 8.8vw, 96px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: .94;
+  margin-bottom: 30px;
+}
+.academic-profile h1 span { display: block; }
+.academic-profile .affiliation { font-size: 15px; max-width: 35ch; line-height: 1.55; margin-bottom: 26px; }
+.academic-profile p:not(.affiliation) { max-width: 52ch; }
+.academic-profile figure { padding-top: 94px; }
+.academic-profile figure img { height: 310px; }
+.academic-home > section:not(.academic-profile) { border-top: 0; padding-top: 0; margin-top: 86px; }
+.research-interests { margin-bottom: 90px; }
+.academic-home .heading-row h2 { font-size: 34px; }
+.featured-index #project-results { display: flex; flex-direction: column; gap: 84px; margin-top: 40px; }
+.featured-index .project-entry { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 42px; margin: 0; }
+.featured-index .project-entry:nth-child(odd) .project-figure { order: 2; }
+.featured-index .project-figure img { width: 100%; height: 280px; object-fit: cover; }
+.featured-index .project-entry:first-child .project-figure img { object-fit: contain; background: #f1f3ef; }
+.featured-index .project-entry.project-text-only { display: block; max-width: 64ch; }
+.featured-index .project-text-only .project-figure { display: none; }
+.featured-index .project-entry h3 { font-size: 27px; max-width: 24ch; line-height: 1.2; margin-bottom: 14px; }
+.featured-index .project-entry p { font-size: 15px; line-height: 1.8; }
+.featured-index .project-links { margin-top: 12px; }
+.academic-home .notes-index { margin-top: 110px; }
+.ambient-field { width: 1150px; height: 1200px; top: -50px; right: -370px; opacity: .2; }
+.ambient-graph { width: 1450px; height: 1015px; top: 60px; right: -650px; opacity: .46; }
+@media (max-width: 1000px) and (min-width: 601px) {
+  .academic-profile { grid-template-columns: minmax(0, 1fr) 210px; gap: 28px; }
+  .academic-profile h1 { font-size: 76px; }
+  .academic-profile figure img { width: 210px; height: 265px; }
+}
+@media (max-width: 600px) {
+  .academic-home { padding-top: 48px; }
+  .academic-profile h1 { font-size: clamp(52px, 14.5vw, 72px); margin-bottom: 22px; }
+  .academic-profile .affiliation { font-size: 14px; }
+  .academic-profile figure { display: flex; padding-top: 0; margin-top: 24px; }
+  .academic-profile figure img { width: 148px; height: 176px; }
+  .academic-home > section:not(.academic-profile) { margin-top: 55px; }
+  .research-interests { margin-bottom: 60px; }
+  .academic-home .heading-row h2 { font-size: 28px; }
+  .featured-index #project-results { gap: 55px; margin-top: 28px; }
+  .featured-index .project-entry { display: flex; flex-direction: column; gap: 20px; align-items: stretch; }
+  .featured-index .project-entry:nth-child(odd) .project-figure { order: 0; }
+  .featured-index .project-figure img { height: 235px; }
+  .featured-index .project-entry h3 { font-size: 24px; }
+  .ambient-field { width: 750px; height: 800px; right: -430px; opacity: .15; }
+  .ambient-graph { top: 70px; right: -820px; opacity: .25; }
 }

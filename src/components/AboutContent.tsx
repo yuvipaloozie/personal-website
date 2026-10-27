@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { FaBook, FaFilm, FaMusic } from "react-icons/fa";
+import { career, education, profile } from "@/lib/profile";
 export default function AboutContent() {
   return (
     <div className="container section">
@@ -11,8 +12,8 @@ export default function AboutContent() {
         <div className="prose">
           <h1>About</h1>
           <p>
-            I’m Yuvraj, a process automation engineer at Wood and a graduate
-            student in Data Science at Georgia Tech.
+            I’m Yuvraj, a {career.arclin.title} at {career.arclin.employer} and a graduate
+            student in {education.graduate.subject} at {education.shortInstitution}.
           </p>
           <p>
             My foundation is in Chemical and Biomolecular Engineering. That
@@ -22,7 +23,7 @@ export default function AboutContent() {
           </p>
           <p>
             My projects span process safety knowledge graphs, semiconductor
-            sensor analysis, and biomedical computer vision. At PCOM, I worked
+            sensor analysis, and biomedical computer vision. As a {career.pcom.title} at PCOM, I work
             on deep learning methods for microscopy image analysis.
           </p>
           <p>
@@ -31,7 +32,7 @@ export default function AboutContent() {
           </p>
           <p>
             <Link href="/resume">Curriculum vitae</Link> ·{" "}
-            <a href="mailto:yuvraj.tripathy@outlook.com">Get in touch</a>
+            <a href={`mailto:${profile.email}`}>Get in touch</a>
           </p>
         </div>
         <figure>

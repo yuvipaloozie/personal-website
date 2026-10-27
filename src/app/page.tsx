@@ -3,6 +3,7 @@ import Link from "next/link";
 import ProjectIndex from "@/components/ProjectIndex";
 import ResearchThreads from "@/components/ResearchThreads";
 import { graphData } from "@/data/graphData";
+import { career, education, profile } from "@/lib/profile";
 
 export default function Home() {
   const notes = graphData.nodes
@@ -12,31 +13,31 @@ export default function Home() {
     <div className="container academic-home">
       <section className="academic-profile" aria-labelledby="profile-name">
         <div>
-          <h1 id="profile-name">Yuvraj Tripathy</h1>
+          <h1 id="profile-name" aria-label={profile.name}>{profile.name.split(" ").map((part) => <span key={part}>{part}</span>)}</h1>
           <p className="affiliation">
             Process engineering · Applied machine learning
           </p>
           <p>
-            I’m a process automation engineer at Wood and a graduate student in
-            Data Science at Georgia Tech. My work connects process engineering
+            I’m a {career.arclin.title} at {career.arclin.employer} and a graduate student in
+            {" "}{education.graduate.subject} at {education.shortInstitution}. My work connects process engineering
             with applied machine learning.
           </p>
           <div className="social-links">
             <a
-              href="https://github.com/yuvipaloozie"
+              href={profile.github}
               target="_blank"
               rel="noreferrer"
             >
               GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/yuvrajtripathy"
+              href={profile.linkedin}
               target="_blank"
               rel="noreferrer"
             >
               LinkedIn
             </a>
-            <a href="mailto:yuvraj.tripathy@outlook.com">Email</a>
+            <a href={`mailto:${profile.email}`}>Email</a>
           </div>
         </div>
         <figure>
@@ -48,7 +49,7 @@ export default function Home() {
             sizes="(max-width: 600px) 148px, (max-width: 760px) 185px, 248px"
             preload
           />
-          <figcaption>Atlanta, Georgia</figcaption>
+          <figcaption>{profile.location}</figcaption>
         </figure>
       </section>
       <section className="research-interests">

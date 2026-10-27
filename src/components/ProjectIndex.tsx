@@ -43,7 +43,7 @@ export default function ProjectIndex({
         : projects
       : projects.filter((node) => memberships[topic]?.includes(node.id));
   return (
-    <div className="project-index">
+    <div className={featured ? "project-index featured-index" : "project-index"}>
       <ToggleGroup
         className="topic-filter"
         aria-label="Filter projects by topic"
@@ -64,15 +64,15 @@ export default function ProjectIndex({
       </p>
       <div id="project-results">
         {visible.map((node) => (
-          <article className="project-entry" key={node.id}>
+          <article className={node.details!.image ? "project-entry" : "project-entry project-text-only"} key={node.id}>
             <div className="project-figure">
               {node.details!.image && (
                 <Image
                   src={node.details!.image}
                   alt={node.details!.title}
-                  width={112}
-                  height={86}
-                  sizes="112px"
+                  width={featured ? 480 : 112}
+                  height={featured ? 336 : 86}
+                  sizes={featured ? "(max-width: 600px) 90vw, 460px" : "112px"}
                 />
               )}
             </div>

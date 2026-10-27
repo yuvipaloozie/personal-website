@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PrintResume from "@/components/PrintResume";
 import { graphData } from "@/data/graphData";
+import { education, profile, technicalSkills } from "@/lib/profile";
 export const metadata: Metadata = {
   title: "Curriculum vitae",
   description:
@@ -15,18 +16,18 @@ export default function Resume() {
     <div className="container section">
       <h1 className="page-title">Curriculum vitae</h1>
       <p className="page-intro">
-        Yuvraj Tripathy · Atlanta, Georgia
+        {profile.name} · {profile.location}
         <br />
-        <a href="mailto:yuvraj.tripathy@outlook.com">
-          yuvraj.tripathy@outlook.com
+        <a href={`mailto:${profile.email}`}>
+          {profile.email}
         </a>
       </p>
       <PrintResume />
       <section className="cv-section">
         <h2>Education</h2>
-        <h3>Georgia Institute of Technology</h3>
-        <p>MSc. Data Science · Expected May 2027</p>
-        <p>BSc. Chemical and Biomolecular Engineering · May 2024</p>
+        <h3>{education.institution}</h3>
+        <p>{education.graduate.degree} · {education.graduate.completion}</p>
+        <p>{education.undergraduate.degree} · {education.undergraduate.completion}</p>
       </section>
       <section className="cv-section">
         <h2>Experience</h2>
@@ -46,19 +47,9 @@ export default function Resume() {
       </section>
       <section className="cv-section">
         <h2>Technical background</h2>
-        <p>
-          <strong>Data science & machine learning:</strong> Python, Pandas,
-          NumPy, Scikit-learn, TensorFlow, PyTorch, SQL, time-series modeling,
-          computer vision, NLP.
-        </p>
-        <p>
-          <strong>Engineering & automation:</strong> DeltaV, Honeywell Experion,
-          RSLogix 5000, SolidWorks, AutoCAD.
-        </p>
-        <p>
-          <strong>Software:</strong> TypeScript, React, Next.js, FastAPI,
-          Docker.
-        </p>
+        {technicalSkills.map(({ area, tools }) => (
+          <p key={area}><strong>{area}:</strong> {tools}</p>
+        ))}
       </section>
     </div>
   );

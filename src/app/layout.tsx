@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import AmbientResearch from "@/components/AmbientResearch";
+import { profile } from "@/lib/profile";
 export const metadata: Metadata = {
   title: {
     default: "Yuvraj Tripathy | Research & Engineering",
@@ -16,13 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <AmbientResearch />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
         <Navbar />
         <main id="main-content">{children}</main>
         <footer className="container site-footer">
-          <span>Yuvraj Tripathy · Atlanta, Georgia</span>
+          <span>{profile.name} · {profile.location}</span>
           <Link href="/graph">Knowledge graph</Link>
           <a href="mailto:yuvraj.tripathy@outlook.com">Email</a>
         </footer>
