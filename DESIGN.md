@@ -44,3 +44,5 @@ About's Outside the work and On my shelf sections are removed at the user's requ
 ## Bold monochrome refinement
 
 The graph silhouette is removed from the ambient layer. The grayscale wave is the only animated background: ink #111111 against white, at stronger desktop opacity and lower phone opacity. All foreground text and control surfaces use charcoal and neutral gray. Portraits stay grayscale with increased contrast and a subtle ordered pixel overlay; they no longer animate back to color. Project imagery uses the same grayscale treatment. Preserve the knowledge-graph explorer and the PSM illustration as content; removal applies to the background silhouette only.
+
+Latest user correction: retain the grayscale wave but restore full-color portraits without a pixel overlay. Use restrained navy #243d63 for actions, #203858 for display headings/signature, and pale blue-gray selected controls. Reading text remains charcoal.

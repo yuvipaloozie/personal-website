@@ -9,8 +9,8 @@
   --bg-color: #fff;
   --text-color: #1b1b1b;
   --text-muted: #3e3e3e;
-  --accent-color: #292929;
-  --accent-hover: #080808;
+  --accent-color: #243d63;
+  --accent-hover: #142844;
   --card-bg: #fff;
   --card-border: 1px solid #e4e8eb;
   --card-shadow: none;
@@ -1033,7 +1033,7 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
 .project-detail > .prose, .note-reading > .prose { line-height: 1.72; letter-spacing: -.008em; }
 .academic-profile figure img, .about-profile img {
   animation: none;
-  filter: grayscale(1) contrast(1.22) brightness(.98);
+  filter: none;
 }
 .portrait-frame { position: relative; display: inline-block; max-width: 100%; line-height: 0; }
 .portrait-frame::after {
@@ -1042,7 +1042,7 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
   inset: 0;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Cpath fill='%23000' d='M0 0h1v1H0zM2 2h1v1H2z'/%3E%3C/svg%3E");
-  opacity: .12;
+  opacity: 0;
 }
 .about-profile { grid-template-columns: minmax(0, 1fr) 248px; gap: 48px; }
 .about-profile img { width: 248px; height: 310px; }
@@ -1060,3 +1060,14 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
   .about-profile img { width: 148px; height: 176px; }
   .ambient-field { opacity: .25; width: 850px; right: -440px; }
 }
+
+/* Navy accents and the original full-colour portrait. */
+:root { --surface-soft: #f0f3f7; --selected-surface: #e1e8f1; }
+.academic-profile h1, .about-profile h1, .page-title, .section-title,
+.site-name, .footer-signature { color: #203858; }
+.site-header nav a[aria-current] { color: var(--accent-color); }
+.topic-filter button[aria-pressed="true"], .topic-filter button[data-pressed],
+.thread-choices button[aria-pressed="true"] { color: #203858; }
+.academic-profile figure img, .about-profile img { filter: none; }
+.portrait-frame::after { display: none; }
+::selection { background: #dbe5f2; color: #142844; }
