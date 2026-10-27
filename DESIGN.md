@@ -6,10 +6,10 @@ Use a calm white reading surface, compact biography, modest right-hand portrait,
 
 ## Tokens
 
-- Typography: locally hosted Source Serif 4 for headings and long-form reading; Source Sans 3 for navigation, indexes, labels, and the graph. Latin variable WOFF2 fonts with Georgia and Arial fallbacks. Licenses: public/fonts/SourceSerif4-OFL.txt and SourceSans3-OFL.txt. Selected in the user-requested typography refinement.
-- Ground: #ffffff. Text: #283039. Secondary: #596570. Accent: #24618b. Hover: #164563.
-- Reading container: 920px including 40px side padding; 25px padding under 760px and 22px under 600px.
-- Body: 16px, line height 1.75. Homepage name: 37px, 31px on phones. Section headings: 22–24px. Project headings: 18px. Supporting metadata: 12–14px.
+- Typography: Instrument Sans throughout, locally hosted as a Latin variable WOFF2, with Arial/Helvetica fallback. No serif fonts: explicitly requested by the user. License: public/fonts/InstrumentSans-OFL.txt. Headings use 500 weight and tighter spacing; body uses 400.
+- Ground: #ffffff. Text: #222420. Secondary: #62665f. Accent: #334f5b. Hover: #172d36.
+- Reading container: 1000px including 40px side padding; 25px padding under 760px and 22px under 600px.
+- Body: 16px, line height 1.75. Homepage name: 56px, 38px on phones. Section headings: 25px. Project headings: 21px, 18px on phones. Supporting metadata: 12–14px.
 - Profile: text plus 185×225 portrait, 36px gap. Stack below 600px and reduce portrait to 110×135.
 - Sections: around 42px apart; no full-screen promotional hero, recruitment CTA, numbered spec labels, or decorative motion on reading pages.
 
@@ -22,3 +22,5 @@ Reading connections appear on both project and note pages, with existing summari
 ## Reference
 
 Approved study: outputs/research-site-directions.html (Al-folio, refined), created in this chat's projectless workspace. Structural reference: https://alshedivat.github.io/al-folio/.
+
+The user supplied a James Holt reference for sans-serif typography, black/white contrast, fine rules, and deliberate alignment. Apply those details inside the academic structure. Keep the original portrait and imagery; no full-screen promotional typography, distortion effects, or invented achievements. Horizontal rules mark content sections rather than drawing a decorative grid across the page.

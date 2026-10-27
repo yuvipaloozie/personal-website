@@ -1,23 +1,16 @@
 @font-face {
-  font-family: "Source Sans 3";
-  src: url(/fonts/source-sans-3-latin.woff2) format("woff2");
-  font-weight: 200 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Source Serif 4";
-  src: url(/fonts/source-serif-4-latin.woff2) format("woff2");
-  font-weight: 200 900;
+  font-family: "Instrument Sans";
+  src: url(/fonts/instrument-sans-latin.woff2) format("woff2");
+  font-weight: 400 700;
   font-style: normal;
   font-display: swap;
 }
 :root {
   --bg-color: #fff;
-  --text-color: #283039;
-  --text-muted: #596570;
-  --accent-color: #24618b;
-  --accent-hover: #164563;
+  --text-color: #222420;
+  --text-muted: #62665f;
+  --accent-color: #334f5b;
+  --accent-hover: #172d36;
   --card-bg: #fff;
   --card-border: 1px solid #e4e8eb;
   --card-shadow: none;
@@ -34,7 +27,7 @@ html {
 body {
   background: var(--bg-color);
   color: var(--text-color);
-  font-family: "Source Sans 3", Arial, Helvetica, sans-serif;
+  font-family: "Instrument Sans", Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
@@ -61,7 +54,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Source Serif 4", Georgia, serif;
+  font-family: "Instrument Sans", Arial, Helvetica, sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   line-height: 1.3;
@@ -89,7 +82,7 @@ img {
   color: #162d3e;
 }
 .container {
-  max-width: 920px;
+  max-width: 1000px;
   padding: 0 40px;
   margin: 0 auto;
   width: 100%;
@@ -833,7 +826,7 @@ img {
 .project-summary,
 .project-detail > .prose,
 .note-reading > .prose {
-  font-family: "Source Serif 4", Georgia, serif;
+  font-family: "Instrument Sans", Arial, Helvetica, sans-serif;
   font-optical-sizing: auto;
   font-size: 17px;
   line-height: 1.8;
@@ -874,9 +867,68 @@ img {
   padding-block: 10px;
 }
 .media-shelf h3 {
-  font-family: "Source Sans 3", Arial, sans-serif;
+  font-family: "Instrument Sans", Arial, sans-serif;
 }
 @media (max-width: 600px) {
   .academic-profile p:not(.affiliation) { font-size: 16px; }
   .note-reading > .prose { font-size: 17px; }
+}
+
+/* A restrained typographic grid, informed by the supplied reference. */
+body { line-height: 1.7; }
+p { text-wrap: pretty; }
+h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance; }
+.site-header .header-inner { border-bottom: 1px solid #e1e3de; }
+.site-name { font-weight: 600; letter-spacing: -0.035em; }
+.site-header nav a { color: var(--text-color); }
+.site-header nav a[aria-current] { text-decoration-thickness: 1px; text-underline-offset: 7px; }
+.academic-home { padding-top: 52px; }
+.academic-profile { gap: 48px; }
+.academic-profile h1 { font-size: clamp(38px, 4.8vw, 56px); line-height: 1.04; margin-bottom: 20px; }
+.academic-profile .affiliation { font-size: 13px; margin-bottom: 24px; }
+.academic-profile p:not(.affiliation),
+.about-profile .prose,
+.personal-section > p,
+.project-summary,
+.project-detail > .prose,
+.note-reading > .prose { font-size: 16px; line-height: 1.8; }
+.academic-home > section:not(.academic-profile) { margin-top: 45px; padding-top: 26px; border-top: 1px solid #e1e3de; }
+.research-interests { display: grid; grid-template-columns: 185px minmax(0, 1fr); gap: 28px; }
+.research-interests h2 { font-size: 20px; }
+.research-interests ul { font-size: 15px; }
+.heading-row { margin-bottom: 18px; }
+.heading-row h2, .threads-heading h2 { font-size: 25px; }
+.project-entry { grid-template-columns: 112px minmax(0, 1fr); gap: 28px; }
+.project-entry h3 { font-size: 21px; font-weight: 500; letter-spacing: -0.025em; }
+.project-entry p { max-width: 72ch; }
+.project-figure img { border-radius: 0; }
+.project-entry h3 a, .notes-index li > a, .reading-preview > a { color: var(--text-color); }
+.project-entry h3 a:hover, .notes-index li > a:hover, .reading-preview > a:hover { color: var(--accent-color); }
+.about-profile { gap: 48px; }
+.about-profile h1, .page-title, .section-title { font-size: 46px; line-height: 1.12; }
+.about-profile h1 { margin-bottom: 28px; }
+.about-profile .prose > p { max-width: 66ch; }
+.personal-section { border-top: 1px solid #e1e3de; padding-top: 26px; }
+.personal-section h2 { font-size: 25px; }
+.site-footer { border-top: 1px solid #e1e3de; }
+.note-reading { max-width: 70ch; }
+.note-reading .page-title { max-width: 27ch; font-size: 40px; }
+.note-reading .project-summary { font-size: 18px; line-height: 1.65; }
+.related-reading { border-top: 1px solid #e1e3de; margin-top: 44px; padding-top: 24px; }
+.related-reading h2 { font-size: 25px; }
+@media (max-width: 760px) {
+  .academic-profile, .about-profile { gap: 28px; }
+  .research-interests { grid-template-columns: 150px minmax(0, 1fr); gap: 25px; }
+}
+@media (max-width: 600px) {
+  .academic-home { padding-top: 32px; }
+  .academic-profile h1 { font-size: 38px; }
+  .about-profile h1, .page-title, .section-title { font-size: 36px; }
+  .research-interests { display: block; }
+  .research-interests h2 { margin-bottom: 15px; }
+  .academic-home > section:not(.academic-profile) { margin-top: 33px; padding-top: 23px; }
+  .project-entry { grid-template-columns: 75px minmax(0, 1fr); gap: 16px; }
+  .project-entry h3 { font-size: 18px; }
+  .note-reading .page-title { font-size: 32px; }
+  .note-reading .project-summary { font-size: 17px; }
 }
