@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { Pause, Play } from "lucide-react";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 import { Button } from "@/components/ui/button";
 
 const DitherShader = dynamic(
@@ -49,7 +49,7 @@ export default function AmbientResearch() {
           aria-pressed={paused}
           aria-label={paused ? "Resume animations" : "Pause animations"}
         >
-          {paused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
+          <PixelIcon name={paused ? "play" : "pause"} />
           <span>{paused ? "Resume motion" : "Pause motion"}</span>
         </Button>
       )}

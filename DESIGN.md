@@ -46,3 +46,22 @@ About's Outside the work and On my shelf sections are removed at the user's requ
 The graph silhouette is removed from the ambient layer. The grayscale wave is the only animated background: ink #111111 against white, at stronger desktop opacity and lower phone opacity. All foreground text and control surfaces use charcoal and neutral gray. Portraits stay grayscale with increased contrast and a subtle ordered pixel overlay; they no longer animate back to color. Project imagery uses the same grayscale treatment. Preserve the knowledge-graph explorer and the PSM illustration as content; removal applies to the background silhouette only.
 
 Latest user correction: retain the grayscale wave but restore full-color portraits without a pixel overlay. Use restrained navy #243d63 for actions, #203858 for display headings/signature, and pale blue-gray selected controls. Reading text remains charcoal.
+
+## Dither material and controls — 27 October 2026
+
+Preserve the academic reading structure, Instrument Sans, Geist Pixel display headings, navy accent and original colour portrait. Dithering belongs to material transitions and interaction states, while labels and reading text stay sharp.
+
+- Portrait: a still photo, irregular rounded perimeter, transparent 8x8 Bayer cells mixed with slowly interpolated seeded noise. Its CPU mask samples the ambient WebGL clock and wave equation at the photo's actual screen coordinates. Match the wave's pixel budget and cell alignment; round raster cell boundaries to prevent hairlines. Keep the facial core opaque. Pause both systems together; suspend invisible work. Reduced motion uses the original still photo.
+- Controls: 44px targets, square corners, thin blue-gray outlines, navy ink. A selected filter gains a navy field that dissolves over its final 12px using the same Bayer family. Keep labels over the solid part. No continuous loops inside controls.
+- Icons: one authored 8x8 grid vocabulary, rendered at 16px, currentColor, decorative beside explicit labels. Pixel arrows, code, document, mail, graph and pause/play share the display lettering's material. Leave long text links and main navigation quiet.
+- Images and content: preserve original project images and bibliography-style entries. Do not texture body copy, introduce decorative cards, or add shader instances per control.
+
+### Research and adaptation
+
+References inspected on 27 October 2026. These are inspirations, not copied assets or claims of common authorship.
+
+1. Sean Galvin, https://sean.rest/ and https://sean.rest/blog/personal-site-2026/ — live personal site and first-person account of using Paper's dithering shader. Borrow the separation between a calm reading layer and an expressive ambient field. Preserve our sans-serif brief rather than its serif typography or marketing copy.
+2. Maxime Heckel, https://maximeheckel.com/ and https://blog.maximeheckel.com/posts/the-art-of-dithering-and-retro-shading-web/ — shader-led personal work and explanation of ordered dithering/postprocessing. Borrow a consistent graphic vocabulary and mathematical treatment of texture, scaled down for an academic site.
+3. Low-tech Magazine, https://solar.lowtechmagazine.com/2018/09/how-to-build-a-low-tech-website/ — editorial site with dithered imagery and reading-first structure. This reference uses static dithered images; it is not an animated background example. Borrow clear text, limited colour and treating dithering as a coherent image language.
+4. Paper, https://shaders.paper.design/dithering — direct shader reference for wave forms, random/ordered matrices, pixel size and controlled motion.
+5. Awesome DESIGN.md's Vercel analysis (local reference library, third-party interpretation) — useful for compact controls and restrained spacing, not a source for a new palette or hero layout.

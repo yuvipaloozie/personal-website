@@ -1,5 +1,6 @@
 import FloatingPortrait from "@/components/FloatingPortrait";
 import Link from "next/link";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 import ProjectIndex from "@/components/ProjectIndex";
 import ResearchThreads from "@/components/ResearchThreads";
 import { graphData } from "@/data/graphData";
@@ -76,7 +77,7 @@ export default function Home() {
       </section>
       <ResearchThreads />
       <aside className="graph-reference">
-        <Link href="/graph">Explore the knowledge graph</Link>
+        <Link href="/graph"><PixelIcon name="graph" />Explore the knowledge graph<PixelIcon name="arrow" /></Link>
         <p>
           An alternative way to follow connections between projects, methods,
           and experience.

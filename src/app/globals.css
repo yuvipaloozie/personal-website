@@ -1092,3 +1092,75 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
   .edge-portrait[data-ready="true"] > img { opacity: 1; }
   .portrait-dither { display: none; }
 }
+
+/* Flat controls borrow the artwork's pixel material only at their state edges. */
+:root { --control-ink: #203858; --control-border: #c3cbd6; }
+.pixel-icon { display: inline-block; flex: 0 0 16px; vertical-align: middle; }
+.project-links a, .graph-reference > a { display: inline-flex; align-items: center; gap: 7px; }
+.project-links .pixel-icon { width: 14px; height: 14px; flex-basis: 14px; }
+.thread-entries .pixel-icon { width: 16px; height: 16px; }
+.topic-filter, .thread-choices { gap: 8px; }
+.topic-filter button, .thread-choices button, .ambient-control {
+  position: relative;
+  isolation: isolate;
+  border: 1px solid var(--control-border);
+  border-radius: 0;
+  min-height: 44px;
+  background: #fff;
+  color: var(--control-ink);
+  font-weight: 500;
+  padding: 8px 16px;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+}
+.topic-filter button:hover, .thread-choices button:hover, .ambient-control:hover {
+  border-color: var(--control-ink);
+  background: #f0f3f7;
+}
+.topic-filter button[aria-pressed="true"], .topic-filter button[data-pressed],
+.thread-choices button[aria-pressed="true"], .ambient-control[aria-pressed="true"] {
+  background: transparent;
+  border-color: transparent;
+  color: #fff;
+  text-decoration: none;
+}
+.topic-filter button::before, .thread-choices button::before, .ambient-control::before,
+.topic-filter button::after, .thread-choices button::after, .ambient-control::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  opacity: 0;
+  background: var(--control-ink);
+  transition: opacity 160ms ease;
+}
+.topic-filter button::before, .thread-choices button::before, .ambient-control::before { left: 0; right: 12px; }
+.topic-filter button::after, .thread-choices button::after, .ambient-control::after {
+  right: 0;
+  width: 12px;
+  mask: url('/dither-edge.svg') right top / 12px 24px repeat-y;
+}
+.topic-filter button[aria-pressed="true"]::before, .topic-filter button[data-pressed]::before,
+.thread-choices button[aria-pressed="true"]::before, .ambient-control[aria-pressed="true"]::before,
+.topic-filter button[aria-pressed="true"]::after, .topic-filter button[data-pressed]::after,
+.thread-choices button[aria-pressed="true"]::after, .ambient-control[aria-pressed="true"]::after { opacity: 1; }
+.ambient-control { position: fixed; gap: 9px; padding: 8px 18px 8px 12px; }
+.ambient-control .pixel-icon { width: 16px; height: 16px; }
+@media (max-width: 600px) {
+  .topic-filter button, .thread-choices button { padding-inline: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .topic-filter button, .thread-choices button, .ambient-control,
+  .topic-filter button::before, .thread-choices button::before, .ambient-control::before,
+  .topic-filter button::after, .thread-choices button::after, .ambient-control::after { transition: none; }
+}
+@media (forced-colors: active) {
+  .topic-filter button[aria-pressed="true"], .topic-filter button[data-pressed],
+  .thread-choices button[aria-pressed="true"], .ambient-control[aria-pressed="true"] {
+    background: Highlight; color: HighlightText; border-color: ButtonText;
+  }
+}
+.profile-actions { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.profile-actions a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+.print-action { display: inline-flex; align-items: center; gap: 8px; border-radius: 0; min-height: 44px; }

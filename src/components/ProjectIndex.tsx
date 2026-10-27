@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { Toggle } from "@base-ui/react/toggle";
 import { graphData } from "@/data/graphData";
@@ -84,6 +85,7 @@ export default function ProjectIndex({
               <div className="project-links">
                 <Link href={node.details!.link!}>
                   Read project
+                  <PixelIcon name="arrow" />
                   <span className="sr-only">: {node.details!.title}</span>
                 </Link>
                 {node.details!.github && (
@@ -93,6 +95,7 @@ export default function ProjectIndex({
                     rel="noreferrer"
                   >
                     Source code
+                    <PixelIcon name="code" />
                     <span className="sr-only">: {node.details!.title}</span>
                   </a>
                 )}

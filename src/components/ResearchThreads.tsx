@@ -1,4 +1,5 @@
 "use client";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 
 import { useEffect, useState } from "react";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
@@ -67,13 +68,7 @@ export default function ResearchThreads() {
                 {node.id.startsWith("b_") ? "Note" : "Project"}
               </span>
               <span>{node.details!.title}</span>
-              <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
-                <path
-                  d="M4 10h11m-4-4 4 4-4 4"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                />
-              </svg>
+              <PixelIcon name="arrow" />
             </Link>
           </li>
         ))}

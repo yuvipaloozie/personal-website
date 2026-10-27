@@ -1,5 +1,6 @@
 import FloatingPortrait from "@/components/FloatingPortrait";
 import Link from "next/link";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 import { career, education, profile } from "@/lib/profile";
 export default function AboutContent() {
   return (
@@ -26,9 +27,9 @@ export default function AboutContent() {
             This site brings together those projects and the technical ideas
             that connect them.
           </p>
-          <p>
-            <Link href="/resume">Curriculum vitae</Link> ·{" "}
-            <a href={`mailto:${profile.email}`}>Get in touch</a>
+          <p className="profile-actions">
+            <Link href="/resume"><PixelIcon name="document" />Curriculum vitae</Link>
+            <a href={`mailto:${profile.email}`}><PixelIcon name="mail" />Get in touch</a>
           </p>
         </div>
         <figure>

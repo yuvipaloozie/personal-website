@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-
-const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+import { bayer8, readWaveFrame, seededNoise, waveField } from "@/lib/wave-field";
 
 export default function FloatingPortrait({ width, height, preload = false }: {
   width: number;
@@ -28,9 +27,9 @@ export default function FloatingPortrait({ width, height, preload = false }: {
     let disposed = false;
     let visible = false;
     let request = 0;
-    let previous = 0;
     let painted = 0;
-    let elapsed = 0;
+    // One random arrangement per mount, interpolated slowly rather than flickering.
+    const seed = Math.random() * 1000;
 
     function draw() {
       if (!still.width || !source.naturalWidth) return;
@@ -38,17 +37,43 @@ export default function FloatingPortrait({ width, height, preload = false }: {
       const h = output!.height;
       context!.clearRect(0, 0, w, h);
       context!.drawImage(still, 0, 0);
-      // Only the perimeter dissolves. The original colour and facial detail stay intact.
-      const cell = 3;
-      const band = Math.min(34, w * .16);
-      for (let y = 0; y < h; y += cell) {
-        for (let x = 0; x < w; x += cell) {
-          const distance = Math.min(x, y, w - x - cell, h - y - cell);
-          if (distance > band + 5) continue;
-          const drift = Math.sin(elapsed * .65 + x * .025 + y * .018) * 5;
-          const coverage = Math.max(0, Math.min(1, distance / (band + drift)));
-          const threshold = (BAYER[((y / cell) % 4) * 4 + (x / cell) % 4] + .5) / 16;
-          if (coverage < threshold) context!.clearRect(x, y, cell, cell);
+      const wave = readWaveFrame();
+      const time = wave?.time ?? 0;
+      const bounds = element!.getBoundingClientRect();
+      // Match the ground's 3-framebuffer-pixel grid, including its pixel budget.
+      const cell = wave ? 3 * wave.width / wave.pixelsWide : 3;
+      const originX = wave ? wave.left : 0;
+      const originY = wave ? wave.top + wave.height : 0;
+      const startX = Math.floor((bounds.left - originX) / cell) * cell + originX - bounds.left;
+      const startY = Math.floor((bounds.top - originY) / cell) * cell + originY - bounds.top;
+      const epoch = Math.floor(time * .32);
+      const fraction = time * .32 - epoch;
+      const blend = fraction * fraction * (3 - 2 * fraction);
+      for (let y = startY; y < h; y += cell) {
+        for (let x = startX; x < w; x += cell) {
+          const nx = (x + cell / 2 - w / 2) / (w * .5);
+          const ny = (y + cell / 2 - h / 2) / (h * .5);
+          const radius = Math.hypot(nx, ny);
+          if (radius < .57) continue; // Keep the face and core photograph untouched.
+          const screenX = bounds.left + x + cell / 2;
+          const screenY = bounds.top + y + cell / 2;
+          const px = wave ? (screenX - wave.left - wave.width / 2) / Math.min(wave.width, wave.height) * wave.scale : nx;
+          const py = wave ? (wave.top + wave.height / 2 - screenY) / Math.min(wave.width, wave.height) * wave.scale : -ny;
+          const field = waveField(px, py, time);
+          const angle = Math.atan2(ny, nx);
+          const contour = .025 * Math.sin(angle * 3 + seed + time * .21)
+            + .02 * Math.sin(angle * 7 - time * .17) + (field - .5) * .13;
+          const fade = Math.max(0, Math.min(1, (radius - .61 - contour) / .43));
+          const coverage = 1 - fade * fade * (3 - 2 * fade);
+          const gx = Math.floor((screenX - originX) / cell);
+          const gy = Math.floor((originY - screenY) / cell);
+          const random = seededNoise(gx, gy, seed + epoch) * (1 - blend)
+            + seededNoise(gx, gy, seed + epoch + 1) * blend;
+          const threshold = .55 * bayer8(gx, gy) + .45 * random;
+          // Rasterize shared cell boundaries to whole pixels so transparent cells
+          // leave no antialiased hairlines in the dissolved corners.
+          if (coverage < threshold) context!.clearRect(Math.round(x), Math.round(y),
+            Math.round(x + cell) - Math.round(x), Math.round(y + cell) - Math.round(y));
         }
       }
     }
@@ -61,8 +86,6 @@ export default function FloatingPortrait({ width, height, preload = false }: {
     function tick(now: number) {
       request = 0;
       if (!running()) return;
-      if (previous) elapsed += Math.min(now - previous, 100) / 1000;
-      previous = now;
       // Bound image work to 12fps; the photographic centre never changes.
       if (now - painted >= 1000 / 12) {
         draw();
@@ -74,7 +97,6 @@ export default function FloatingPortrait({ width, height, preload = false }: {
     function sync() {
       cancelAnimationFrame(request);
       request = 0;
-      previous = 0;
       if (running()) request = requestAnimationFrame(tick);
     }
 

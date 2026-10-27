@@ -9,6 +9,7 @@
 
 
 import { useEffect, useRef } from "react"
+import { publishWaveFrame, WAVE_GLSL } from "@/lib/wave-field"
 
 const VERT = `attribute vec2 a_position;
 void main() {
@@ -190,11 +191,10 @@ float bayer8(vec2 p) {
   return (rank + 0.5) / 64.0;
 }
 
+${WAVE_GLSL}
 vec3 shade(vec2 uv, vec2 p, float t) {
   vec2 pixel = floor(gl_FragCoord.xy / max(u_paramA, 1.0));
-  float axis = p.y * 0.95 + 0.32 * sin(p.x * 1.9 + t * 0.45)
-    + 0.12 * sin(p.x * 3.6 - t * 0.28);
-  float field = 0.5 + 0.5 * sin(axis * 5.2 - t * 0.22);
+  float field = waveField(p, t);
   float threshold = bayer8(pixel);
   float dithered = floor(clamp(field * 3.0 + threshold, 0.0, 3.0)) / 3.0;
   return palette(dithered);
@@ -567,6 +567,9 @@ export function ShaderBackground({ className, paused = false, colorBack = "#ffff
       resizeCanvas()
       const width = canvas.width
       const height = canvas.height
+      publishWaveFrame({ time: elapsed, left: bounds.left, top: bounds.top,
+        width: bounds.width, height: bounds.height, pixelsWide: width,
+        pixelsHigh: height, scale: UNIFORMS.scale })
       gl.uniform4f(
         uni.scene,
         width,

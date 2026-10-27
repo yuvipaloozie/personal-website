@@ -1,4 +1,5 @@
 "use client";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 export default function PrintResume() {
   return (
     <button
@@ -6,7 +7,7 @@ export default function PrintResume() {
       type="button"
       onClick={() => window.print()}
     >
-      Print / save as PDF
+      <PixelIcon name="document" />Print / save as PDF
     </button>
   );
 }
