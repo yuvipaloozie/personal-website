@@ -1,38 +1,32 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-
+import Link from "next/link";
 export const metadata: Metadata = {
-  title: "Yuvraj Tripathy | Research & Engineering",
-  description: "Research, projects, and technical notes by Yuvraj Tripathy: process engineering, machine learning, knowledge graphs, and biomedical computer vision.",
+  title: {
+    default: "Yuvraj Tripathy | Research & Engineering",
+    template: "%s | Yuvraj Tripathy",
+  },
+  description:
+    "Research, projects, and technical notes by Yuvraj Tripathy: process engineering, machine learning, knowledge graphs, and biomedical computer vision.",
 };
-
-import { ThemeProvider } from "@/components/theme-provider";
-
-import { BackgroundSnippets } from "@/components/ui/background-snippets";
-
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased" style={{ position: 'relative' }}>
-        <BackgroundSnippets />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Navbar />
-          <main style={{ minHeight: '100vh', position: 'relative', zIndex: 1, paddingTop: '80px' }}>
-            {children}
-          </main>
-        </ThemeProvider>
+    <html lang="en">
+      <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main-content">{children}</main>
+        <footer className="container site-footer">
+          <span>Yuvraj Tripathy · Atlanta, Georgia</span>
+          <Link href="/graph">Knowledge graph</Link>
+          <a href="mailto:yuvraj.tripathy@outlook.com">Email</a>
+        </footer>
       </body>
     </html>
   );
 }
-

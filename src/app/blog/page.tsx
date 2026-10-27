@@ -1,27 +1,29 @@
-import Card from "@/components/Card";
-import AnimateIn from "@/components/AnimateIn";
+import type { Metadata } from "next";
+import Link from "next/link";
 import { graphData } from "@/data/graphData";
-
-export default function Blog() {
-  const blogNodes = graphData.nodes.filter(n => n.type === 'detail' && n.id.startsWith('b_'));
-
+export const metadata: Metadata = {
+  title: "Technical notes",
+  description:
+    "Notes on machine learning, biomedical image analysis, and engineering software.",
+};
+export default function Notes() {
+  const notes = graphData.nodes.filter((n) => n.id.startsWith("b_"));
   return (
     <div className="container section">
-      <AnimateIn delay={0.1}>
-        <h1 className="section-title">blog</h1>
-      </AnimateIn>
-      
-      <div className="grid grid-2">
-        {blogNodes.map((node, i) => (
-          <AnimateIn delay={0.2 + (i * 0.1)} key={node.id}>
-            <Card 
-              title={node.details!.title}
-              subtitle={node.details!.subtitle}
-              description={node.details!.description}
-              link={node.details!.link}
-            />
-          </AnimateIn>
-        ))}
+      <h1 className="page-title">Technical notes</h1>
+      <p className="page-intro">
+        Ideas and methods from working across engineering and machine learning.
+      </p>
+      <div className="notes-index">
+        <ul>
+          {notes.map((n) => (
+            <li key={n.id}>
+              <Link href={n.details!.link!}>{n.details!.title}</Link>
+              <p>{n.details!.description}</p>
+              <span className="entry-date">{n.details!.subtitle}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
