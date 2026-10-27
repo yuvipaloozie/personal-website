@@ -40,8 +40,8 @@ export default function FloatingPortrait({ width, height, preload = false }: {
       const wave = readWaveFrame();
       const time = wave?.time ?? 0;
       const bounds = element!.getBoundingClientRect();
-      // Match the ground's 3-framebuffer-pixel grid, including its pixel budget.
-      const cell = wave ? 3 * wave.width / wave.pixelsWide : 3;
+      // Match the ground's pixel grid, including its density and pixel budget.
+      const cell = wave ? wave.cellSize * wave.width / wave.pixelsWide : 2;
       const originX = wave ? wave.left : 0;
       const originY = wave ? wave.top + wave.height : 0;
       const startX = Math.floor((bounds.left - originX) / cell) * cell + originX - bounds.left;

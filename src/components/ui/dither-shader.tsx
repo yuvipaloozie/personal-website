@@ -569,7 +569,7 @@ export function ShaderBackground({ className, paused = false, colorBack = "#ffff
       const height = canvas.height
       publishWaveFrame({ time: elapsed, left: bounds.left, top: bounds.top,
         width: bounds.width, height: bounds.height, pixelsWide: width,
-        pixelsHigh: height, scale: UNIFORMS.scale })
+        pixelsHigh: height, scale: UNIFORMS.scale, cellSize: Math.max(1, pxSize) })
       gl.uniform4f(
         uni.scene,
         width,

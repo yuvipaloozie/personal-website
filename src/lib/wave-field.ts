@@ -6,7 +6,7 @@ float waveField(vec2 p, float t) {
   return 0.5 + 0.5 * sin(axis * 5.2 - t * 0.22);
 }`;
 
-type WaveFrame = { time: number; left: number; top: number; width: number; height: number; pixelsWide: number; pixelsHigh: number; scale: number };
+type WaveFrame = { time: number; left: number; top: number; width: number; height: number; pixelsWide: number; pixelsHigh: number; scale: number; cellSize: number };
 let frame: WaveFrame | null = null;
 export function publishWaveFrame(value: WaveFrame) { frame = value; }
 export function readWaveFrame() { return frame; }

@@ -65,3 +65,7 @@ References inspected on 27 October 2026. These are inspirations, not copied asse
 3. Low-tech Magazine, https://solar.lowtechmagazine.com/2018/09/how-to-build-a-low-tech-website/ — editorial site with dithered imagery and reading-first structure. This reference uses static dithered images; it is not an animated background example. Borrow clear text, limited colour and treating dithering as a coherent image language.
 4. Paper, https://shaders.paper.design/dithering — direct shader reference for wave forms, random/ordered matrices, pixel size and controlled motion.
 5. Awesome DESIGN.md's Vercel analysis (local reference library, third-party interpretation) — useful for compact controls and restrained spacing, not a source for a new palette or hero layout.
+
+### Primary aesthetic anchor
+
+The user selected Sean Galvin as the closest overall aesthetic on 27 October 2026. Treat its open composition, fine animated ground and quiet controls as the atmosphere reference. Keep our al-folio reading hierarchy and routes, original content, navy accent and sans-serif preference. Retain the existing pixel display lettering as a restrained signature. Use 2px background cells with matching portrait sampling, 27% desktop field opacity and 20% on phones; lighten inactive control outlines. Keep text and project organization calm. Do not import Sean's serif face, freelance/booking pitch, or one-page panel structure.

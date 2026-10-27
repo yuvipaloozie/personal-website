@@ -1094,7 +1094,7 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
 }
 
 /* Flat controls borrow the artwork's pixel material only at their state edges. */
-:root { --control-ink: #203858; --control-border: #c3cbd6; }
+:root { --control-ink: #203858; --control-border: #d7dce3; }
 .pixel-icon { display: inline-block; flex: 0 0 16px; vertical-align: middle; }
 .project-links a, .graph-reference > a { display: inline-flex; align-items: center; gap: 7px; }
 .project-links .pixel-icon { width: 14px; height: 14px; flex-basis: 14px; }
@@ -1164,3 +1164,10 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
 .profile-actions { display: flex; flex-wrap: wrap; gap: 8px 24px; }
 .profile-actions a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
 .print-action { display: inline-flex; align-items: center; gap: 8px; border-radius: 0; min-height: 44px; }
+
+/* Sean Galvin is the atmosphere reference; al-folio remains the reading structure. */
+.ambient-field { opacity: .27; }
+.topic-filter button:not([aria-pressed="true"]):not([data-pressed]),
+.thread-choices button:not([aria-pressed="true"]) { background: rgba(255, 255, 255, .88); }
+.topic-filter button:hover, .thread-choices button:hover { border-color: #8a9ab1; }
+@media (max-width: 600px) { .ambient-field { opacity: .2; } }
