@@ -7,7 +7,7 @@ Use a calm white reading surface, compact biography, modest right-hand portrait,
 ## Tokens
 
 - Typography: Instrument Sans throughout, locally hosted as a Latin variable WOFF2, with Arial/Helvetica fallback. No serif fonts: explicitly requested by the user. License: public/fonts/InstrumentSans-OFL.txt. Headings use 500 weight and tighter spacing; body uses 400.
-- Ground: #ffffff. Text: #17332a. Secondary: #536b60. Accent: #246b52. Hover: #154631.
+- Ground: #ffffff. Text: #1b1b1b. Secondary: #3e3e3e. Accent: #292929. Hover: #080808.
 - Reading container: 1000px including 40px side padding; 25px padding under 760px and 22px under 600px.
 - Body: 16px, line height 1.75. Homepage name: 64px, 44px on phones. Section headings: 25px. Project headings: 21px, 18px on phones. Supporting metadata: 12–14px.
 - Homepage profile: text plus 248×292 portrait, 48px gap. Tablet portrait 185×225. Stack below 600px with 148×176 portrait. Keep the introduction to one concise paragraph. About retains its compact portrait.
@@ -40,3 +40,7 @@ The ambient artwork combines a label-free version of the real project-connection
 The latest requested background is a grayscale wave with 8×8 ordered Bayer dithering, three-pixel cells, and speed 0.6. The supplied demo API is implemented in src/components/ui/dithering-shader.tsx and wave-1.tsx. The counter placeholder from the pasted snippet is intentionally excluded. The wave replaces the random-looking field; muted graph geometry sits behind it. Deep-green foreground ink and soft mineral-green selected states share one palette. Cohere's third-party reference in the Awesome DESIGN.md library informed this restrained palette relationship, not its brand assets or fonts.
 
 About's Outside the work and On my shelf sections are removed at the user's request. Do not restore them automatically. Page titles and the footer signature now share the pixel display face. A short portrait color-development transition, project-image hover feedback, and slow graph drift support the wave. Pause, hidden-tab and reduced-motion states cover both looping layers.
+
+## Bold monochrome refinement
+
+The graph silhouette is removed from the ambient layer. The grayscale wave is the only animated background: ink #111111 against white, at stronger desktop opacity and lower phone opacity. All foreground text and control surfaces use charcoal and neutral gray. Portraits stay grayscale with increased contrast and a subtle ordered pixel overlay; they no longer animate back to color. Project imagery uses the same grayscale treatment. Preserve the knowledge-graph explorer and the PSM illustration as content; removal applies to the background silhouette only.

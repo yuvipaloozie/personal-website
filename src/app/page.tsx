@@ -41,6 +41,7 @@ export default function Home() {
           </div>
         </div>
         <figure>
+          <div className="portrait-frame">
           <Image
             src="/profile.jpg"
             alt="Yuvraj Tripathy"
@@ -49,6 +50,7 @@ export default function Home() {
             sizes="(max-width: 600px) 148px, (max-width: 760px) 185px, 248px"
             preload
           />
+          </div>
           <figcaption>{profile.location}</figcaption>
         </figure>
       </section>

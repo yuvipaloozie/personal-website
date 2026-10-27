@@ -32,12 +32,15 @@ export default function AboutContent() {
           </p>
         </div>
         <figure>
+          <div className="portrait-frame">
           <Image
             src="/profile.jpg"
             alt="Yuvraj Tripathy"
-            width={185}
-            height={225}
+            width={248}
+            height={310}
+            sizes="(max-width: 600px) 148px, (max-width: 760px) 185px, 248px"
           />
+          </div>
         </figure>
       </section>
     </div>

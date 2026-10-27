@@ -39,7 +39,6 @@ export default function AmbientResearch() {
         <div className="ambient-field">
           <DitherShader paused={paused || reduced || hidden} />
         </div>
-        <div className="ambient-graph" />
       </div>
       {!reduced && (
         <Button
