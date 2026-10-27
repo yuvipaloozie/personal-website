@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Card from "@/components/Card";
+import ResearchThreads from "@/components/ResearchThreads";
 import AnimateIn from "@/components/AnimateIn";
 import { graphData } from "@/data/graphData";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
@@ -355,6 +356,8 @@ export default function Home() {
                 launch full-screen explorer ↗
               </Link>
             </div>
+
+            <ResearchThreads />
 
             {/* Decorative Blueprint Corner Accent */}
             <div style={{ 

@@ -1,4 +1,5 @@
 import AnimateIn from "@/components/AnimateIn";
+import RelatedReading from "@/components/RelatedReading";
 import { graphData } from "@/data/graphData";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -88,6 +89,8 @@ export default async function ProjectPost({ params }: { params: Promise<{ slug: 
             ))}
           </div>
           
+          <RelatedReading nodeId={node.id} />
+
           {tags && tags.length > 0 && (
             <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: 'var(--card-border)' }}>
               <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--text-muted)', marginBottom: '0.75rem', fontWeight: 700 }}>Technologies & Methodologies</p>
