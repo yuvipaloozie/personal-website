@@ -17,15 +17,9 @@ export default function Home() {
             Process engineering · Applied machine learning
           </p>
           <p>
-            I work at the intersection of process engineering and data science.
-            I am a Process Automation Engineer at Wood and a graduate student in
-            Data Science at Georgia Tech, with a background in Chemical and
-            Biomolecular Engineering.
-          </p>
-          <p>
-            My interests include knowledge representations for process safety,
-            interpretable machine learning for manufacturing, and computer
-            vision for biomedical imaging.
+            I’m a process automation engineer at Wood and a graduate student in
+            Data Science at Georgia Tech. My work connects process engineering
+            with applied machine learning.
           </p>
           <div className="social-links">
             <a
@@ -49,9 +43,9 @@ export default function Home() {
           <Image
             src="/profile.jpg"
             alt="Yuvraj Tripathy"
-            width={185}
-            height={225}
-            sizes="(max-width: 600px) 110px, 185px"
+            width={248}
+            height={292}
+            sizes="(max-width: 600px) 148px, (max-width: 760px) 185px, 248px"
             preload
           />
           <figcaption>Atlanta, Georgia</figcaption>

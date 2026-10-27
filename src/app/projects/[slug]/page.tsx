@@ -44,13 +44,16 @@ export default async function Project({
       <p className="project-summary">{description}</p>
       {image && (
         <Image
-          className="detail-image"
+          className={node.id === "p_psm" ? "detail-image psm-image" : "detail-image"}
           src={image}
           alt={title}
           width={840}
           height={400}
           sizes="(max-width: 900px) 100vw, 840px"
         />
+      )}
+      {node.id === "p_psm" && (
+        <p className="psm-caption">PSM and its shared methods, drawn from this site’s knowledge graph.</p>
       )}
       <div className="prose">
         {fullDescription?.map((paragraph, index) => (

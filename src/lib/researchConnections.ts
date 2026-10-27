@@ -1,10 +1,10 @@
 import { graphData } from "@/data/graphData";
 
 export const researchThreads = [
-  { id: "s_auto", label: "Process systems" },
-  { id: "s_gnn", label: "Knowledge graphs" },
-  { id: "s_cv", label: "Computer vision" },
-  { id: "s_stats", label: "Statistical models" },
+  { id: "s_auto", label: "Industrial systems" },
+  { id: "s_gnn", label: "Graphs" },
+  { id: "s_cv", label: "Biomedical" },
+  { id: "s_stats", label: "Modeling" },
 ];
 
 // The canvas library resolves link endpoints to objects while it runs.

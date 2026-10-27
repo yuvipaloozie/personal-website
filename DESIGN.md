@@ -9,8 +9,8 @@ Use a calm white reading surface, compact biography, modest right-hand portrait,
 - Typography: Instrument Sans throughout, locally hosted as a Latin variable WOFF2, with Arial/Helvetica fallback. No serif fonts: explicitly requested by the user. License: public/fonts/InstrumentSans-OFL.txt. Headings use 500 weight and tighter spacing; body uses 400.
 - Ground: #ffffff. Text: #222420. Secondary: #62665f. Accent: #334f5b. Hover: #172d36.
 - Reading container: 1000px including 40px side padding; 25px padding under 760px and 22px under 600px.
-- Body: 16px, line height 1.75. Homepage name: 56px, 38px on phones. Section headings: 25px. Project headings: 21px, 18px on phones. Supporting metadata: 12–14px.
-- Profile: text plus 185×225 portrait, 36px gap. Stack below 600px and reduce portrait to 110×135.
+- Body: 16px, line height 1.75. Homepage name: 64px, 44px on phones. Section headings: 25px. Project headings: 21px, 18px on phones. Supporting metadata: 12–14px.
+- Homepage profile: text plus 248×292 portrait, 48px gap. Tablet portrait 185×225. Stack below 600px with 148×176 portrait. Keep the introduction to one concise paragraph. About retains its compact portrait.
 - Sections: around 42px apart; no full-screen promotional hero, recruitment CTA, numbered spec labels, or decorative motion on reading pages.
 
 ## Behavior
@@ -26,3 +26,5 @@ Approved study: outputs/research-site-directions.html (Al-folio, refined), creat
 The user supplied a James Holt reference for sans-serif typography, black/white contrast, fine rules, and deliberate alignment. Apply those details inside the academic structure. Keep the original portrait and imagery; no full-screen promotional typography, distortion effects, or invented achievements. Horizontal rules mark content sections rather than drawing a decorative grid across the page.
 
 No decorative gradient bands: removed at the user's request.
+
+Approved polish: use one graph-derived PSM illustration with halftone nodes. public/psm-connections.svg draws only method and work connections present in graphData; it represents this site index, not an exported PSM dataset. Keep all project dates in the same metadata position. Topic and reading controls share terminology. Standalone action links and mobile navigation have 44px minimum hit heights.

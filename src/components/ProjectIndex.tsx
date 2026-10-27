@@ -32,6 +32,7 @@ export default function ProjectIndex({
   featured?: boolean;
 }) {
   const [topic, setTopic] = useState("all");
+  const ProjectHeading = featured ? "h3" : "h2";
   const projects = graphData.nodes.filter(
     (node) => node.id.startsWith("p_") && node.details,
   );
@@ -65,7 +66,7 @@ export default function ProjectIndex({
         {visible.map((node) => (
           <article className="project-entry" key={node.id}>
             <div className="project-figure">
-              {node.details!.image ? (
+              {node.details!.image && (
                 <Image
                   src={node.details!.image}
                   alt={node.details!.title}
@@ -73,14 +74,12 @@ export default function ProjectIndex({
                   height={86}
                   sizes="112px"
                 />
-              ) : (
-                <span>{node.details!.subtitle?.split(" | ")[0]}</span>
               )}
             </div>
             <div>
-              <h3>
+              <ProjectHeading>
                 <Link href={node.details!.link!}>{node.details!.title}</Link>
-              </h3>
+              </ProjectHeading>
               <p>{node.details!.description}</p>
               <div className="project-links">
                 <Link href={node.details!.link!}>
@@ -98,8 +97,7 @@ export default function ProjectIndex({
                   </a>
                 )}
                 <span>
-                  {node.details!.image &&
-                    node.details!.subtitle?.split(" | ")[0]}
+                  {node.details!.subtitle?.split(" | ")[0]}
                 </span>
               </div>
             </div>

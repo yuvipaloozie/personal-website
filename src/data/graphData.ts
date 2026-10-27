@@ -58,6 +58,7 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
       type: "detail",
       details: {
         title: "PSM Process Safety Knowledge Graph",
+        image: "/psm-connections.svg",
         subtitle: "2026 | NLP & GraphRAG",
         description:
           "An end-to-end Process Safety Knowledge Graph ingesting unstructured HAZOPs & alarm databases using NLP & fuzzy matching with local Llama 3.2 GraphRAG.",

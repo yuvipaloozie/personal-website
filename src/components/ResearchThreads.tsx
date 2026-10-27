@@ -29,7 +29,7 @@ export default function ResearchThreads() {
     >
       <div className="threads-heading">
         <h2 id="threads-title">Follow a thread</h2>
-        <p>A small index of ideas that connect the work.</p>
+        <p>Projects and notes connected by shared methods.</p>
       </div>
       <ToggleGroup
         className="thread-choices"

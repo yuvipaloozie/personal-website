@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { NodeData } from "@/data/graphData";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
@@ -12,6 +13,7 @@ import { BackgroundSnippets } from "@/components/ui/background-snippets";
 // Dynamically import GraphCanvas to prevent SSR window issues
 const GraphCanvas = dynamic(() => import("@/components/GraphCanvas"), {
   ssr: false,
+  loading: () => <p className="graph-loading" role="status">Loading the knowledge graph…</p>,
 });
 
 export default function GraphPage() {
@@ -20,29 +22,11 @@ export default function GraphPage() {
   return (
     <div className="graph-page">
       <BackgroundSnippets />
-      {/* Faint Instructions Overlay */}
-      <div
-        style={{
-          position: "absolute",
-          top: "100px",
-          left: "2rem",
-          zIndex: 10,
-          opacity: 0.4,
-        }}
-      >
-        <p
-          style={{
-            color: "var(--text-muted)",
-            fontSize: "0.7rem",
-            fontWeight: 600,
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-          }}
-        >
-          scroll to zoom • drag to pan
-        </p>
+      <div className="graph-help">
+        <p>Select a node to explore; select a category to expand.</p>
+        <p>Scroll to zoom · drag to pan.</p>
+        <Link href="/projects">Browse the project list</Link>
       </div>
-
       {/* Physics Canvas */}
       <GraphCanvas onNodeSelect={setSelectedNode} />
 
