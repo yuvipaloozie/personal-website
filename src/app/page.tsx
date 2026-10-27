@@ -1,4 +1,4 @@
-import Image from "next/image";
+import FloatingPortrait from "@/components/FloatingPortrait";
 import Link from "next/link";
 import ProjectIndex from "@/components/ProjectIndex";
 import ResearchThreads from "@/components/ResearchThreads";
@@ -41,16 +41,7 @@ export default function Home() {
           </div>
         </div>
         <figure>
-          <div className="portrait-frame">
-          <Image
-            src="/profile.jpg"
-            alt="Yuvraj Tripathy"
-            width={248}
-            height={292}
-            sizes="(max-width: 600px) 148px, (max-width: 760px) 185px, 248px"
-            preload
-          />
-          </div>
+          <FloatingPortrait width={248} height={292} preload />
           <figcaption>{profile.location}</figcaption>
         </figure>
       </section>

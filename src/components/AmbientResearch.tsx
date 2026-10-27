@@ -47,7 +47,7 @@ export default function AmbientResearch() {
           className="ambient-control"
           onClick={() => setPaused((value) => !value)}
           aria-pressed={paused}
-          aria-label={paused ? "Resume background motion" : "Pause background motion"}
+          aria-label={paused ? "Resume animations" : "Pause animations"}
         >
           {paused ? <Play aria-hidden="true" /> : <Pause aria-hidden="true" />}
           <span>{paused ? "Resume motion" : "Pause motion"}</span>

@@ -1071,3 +1071,41 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
 .academic-profile figure img, .about-profile img { filter: none; }
 .portrait-frame::after { display: none; }
 ::selection { background: #dbe5f2; color: #142844; }
+
+/* The photo floats gently while a colour-preserving dither pass breathes over it. */
+.floating-portrait {
+  isolation: isolate;
+  animation: portrait-float 7s ease-in-out infinite;
+  will-change: transform;
+}
+.portrait-dither {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  image-rendering: pixelated;
+  opacity: 0;
+}
+.portrait-dither[data-ready="true"] { animation: portrait-pixels 11s ease-in-out infinite; }
+@keyframes portrait-float {
+  0%, 100% { transform: translateY(0) rotate(-.35deg); }
+  50% { transform: translateY(-8px) rotate(.35deg); }
+}
+@keyframes portrait-pixels {
+  0%, 15%, 100% { opacity: 0; }
+  40%, 55% { opacity: .82; }
+  80% { opacity: .12; }
+}
+.floating-portrait[data-active="false"],
+.floating-portrait[data-active="false"] .portrait-dither,
+body:has(.ambient-research[data-paused="true"]) .floating-portrait,
+body:has(.ambient-research[data-paused="true"]) .portrait-dither { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .floating-portrait { animation: none; transform: none; will-change: auto; }
+  .portrait-dither[data-ready="true"] { animation: none; opacity: 0; }
+}
+@media print {
+  .floating-portrait { animation: none; transform: none; }
+  .portrait-dither { display: none; }
+}

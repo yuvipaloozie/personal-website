@@ -1,4 +1,4 @@
-import Image from "next/image";
+import FloatingPortrait from "@/components/FloatingPortrait";
 import Link from "next/link";
 import { career, education, profile } from "@/lib/profile";
 export default function AboutContent() {
@@ -32,15 +32,7 @@ export default function AboutContent() {
           </p>
         </div>
         <figure>
-          <div className="portrait-frame">
-          <Image
-            src="/profile.jpg"
-            alt="Yuvraj Tripathy"
-            width={248}
-            height={310}
-            sizes="(max-width: 600px) 148px, (max-width: 760px) 185px, 248px"
-          />
-          </div>
+          <FloatingPortrait width={248} height={310} />
         </figure>
       </section>
     </div>
