@@ -7,7 +7,7 @@ import { Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const DitherShader = dynamic(
-  () => import("@/components/ui/dither-shader").then((module) => module.ShaderBackground),
+  () => import("@/components/ui/wave-1").then((module) => module.Component),
   { ssr: false },
 );
 
@@ -15,22 +15,29 @@ export default function AmbientResearch() {
   const pathname = usePathname();
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(true);
+  const [hidden, setHidden] = useState(false);
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => setReduced(preference.matches);
     update();
+    const updateVisibility = () => setHidden(document.hidden);
+    updateVisibility();
     preference.addEventListener("change", update);
-    return () => preference.removeEventListener("change", update);
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => {
+      preference.removeEventListener("change", update);
+      document.removeEventListener("visibilitychange", updateVisibility);
+    };
   }, []);
 
   if (pathname === "/graph") return null;
 
   return (
     <>
-      <div className="ambient-research" aria-hidden="true">
+      <div className="ambient-research" aria-hidden="true" data-paused={paused || reduced || hidden}>
         <div className="ambient-field">
-          <DitherShader paused={paused || reduced} />
+          <DitherShader paused={paused || reduced || hidden} />
         </div>
         <div className="ambient-graph" />
       </div>

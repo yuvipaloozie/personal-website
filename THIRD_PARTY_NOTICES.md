@@ -7,7 +7,7 @@
 - Component: https://21st.dev/@paper-design/components/dithering
 - Upstream shader: https://shaders.paper.design/dithering
 - License: Apache License 2.0; full text in `public/PaperShaders-Apache-2.0.txt`.
-- Local changes: slower time scale, lower grain, bounded pixel budget, pause/resume, elapsed-time preservation, and a reduced-motion path.
+- Local changes: an authored wave field, 8×8 ordered Bayer quantization, grayscale palette props, pixel-size and speed controls, a bounded pixel budget, pause/resume, elapsed-time preservation, and reduced-motion handling.
 
 The site uses shadcn/ui's existing Button and Base UI grouped controls. No external shader service or runtime asset requests are required.
 

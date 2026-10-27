@@ -18,14 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <AmbientResearch />
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
+        <AmbientResearch />
         <Navbar />
         <main id="main-content">{children}</main>
         <footer className="container site-footer">
-          <span>{profile.name} · {profile.location}</span>
+          <span><Link href="/" className="footer-signature">{profile.name}</Link><span className="footer-location">{profile.location}</span></span>
           <Link href="/graph">Knowledge graph</Link>
           <a href="mailto:yuvraj.tripathy@outlook.com">Email</a>
         </footer>

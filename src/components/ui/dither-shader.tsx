@@ -180,13 +180,23 @@ vec3 hueRotate(vec3 col, float a) {
   return toRGB * yiq;
 }
 
+// Ordered Bayer dithering: stable spatial rhythm rather than random speckle.
+float bayer2(vec2 p) {
+  vec2 cell = mod(floor(p), 2.0);
+  return mod(2.0 * cell.x + 3.0 * cell.y, 4.0);
+}
+float bayer8(vec2 p) {
+  float rank = 16.0 * bayer2(p) + 4.0 * bayer2(floor(p / 2.0)) + bayer2(floor(p / 4.0));
+  return (rank + 0.5) / 64.0;
+}
+
 vec3 shade(vec2 uv, vec2 p, float t) {
-  float cells = mix(180.0, 28.0, u_paramA);
-  vec2 pixel = floor(uv * cells);
-  float field = fbm(p * (1.7 + u_intensity * 4.0) + vec2(t * 0.08, -t * 0.05));
-  float threshold = fract(dot(pixel, vec2(0.75487766, 0.56984029)));
-  float steps = mix(2.0, 7.0, u_intensity);
-  float dithered = floor(field * steps + threshold) / steps;
+  vec2 pixel = floor(gl_FragCoord.xy / max(u_paramA, 1.0));
+  float axis = p.y * 0.95 + 0.32 * sin(p.x * 1.9 + t * 0.45)
+    + 0.12 * sin(p.x * 3.6 - t * 0.28);
+  float field = 0.5 + 0.5 * sin(axis * 5.2 - t * 0.22);
+  float threshold = bayer8(pixel);
+  float dithered = floor(clamp(field * 3.0 + threshold, 0.0, 3.0)) / 3.0;
   return palette(dithered);
 }
 
@@ -282,7 +292,7 @@ void main() {
 `
 
 const UNIFORMS = {
-  colors: [[0.043137254901960784,0.043137254901960784,0.047058823529411764],[0.20392156862745098,0.22745098039215686,0.25098039215686274],[0.6784313725490196,0.7098039215686275,0.7411764705882353],[0.9725490196078431,0.9764705882352941,0.9803921568627451],[0.9725490196078431,0.9764705882352941,0.9803921568627451],[0.9725490196078431,0.9764705882352941,0.9803921568627451],[0.9725490196078431,0.9764705882352941,0.9803921568627451],[0.9725490196078431,0.9764705882352941,0.9803921568627451]] as [number, number, number][],
+
   colorCount: 4,
   scale: 1.260,
   intensity: 0.350,
@@ -295,7 +305,7 @@ const UNIFORMS = {
   hue: 0.0000,
   vignette: 0.000,
   blur: 0.0000,
-  grain: 0.014,
+  grain: 0.000,
   seed: 1.0,
   rotate: 0.0000,
   offsetX: 0.000,
@@ -306,12 +316,25 @@ const UNIFORMS = {
   cursorStrength: 0.650,
   cursorRadius: 0.460,
   oklab: 0.0,
-  timeScale: 0.14,
 }
 
 const pendingContextReleases = new WeakMap<HTMLCanvasElement, number>()
 
-export function ShaderBackground({ className, paused = false }: { className?: string; paused?: boolean }) {
+export interface ShaderBackgroundProps {
+  className?: string;
+  paused?: boolean;
+  colorBack?: string;
+  colorFront?: string;
+  pxSize?: number;
+  speed?: number;
+}
+
+function rgb(hex: string, fallback: string) {
+  const value = /^#[0-9a-f]{6}$/i.test(hex) ? hex : fallback;
+  return [1, 3, 5].map(offset => parseInt(value.slice(offset, offset + 2), 16) / 255);
+}
+
+export function ShaderBackground({ className, paused = false, colorBack = "#ffffff", colorFront = "#333333", pxSize = 3, speed = 0.6 }: ShaderBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const clockRef = useRef(0)
 
@@ -371,12 +394,18 @@ export function ShaderBackground({ className, paused = false }: { className?: st
       space: gl.getUniformLocation(program, "u_space"),
       cursor: gl.getUniformLocation(program, "u_cursor"),
     }
-    gl.uniform3fv(uni.colors, new Float32Array(UNIFORMS.colors.flat()))
+    const back = rgb(colorBack, "#ffffff");
+    const front = rgb(colorFront, "#333333");
+    const ramp = Array.from({ length: 8 }, (_, index) => {
+      const mix = Math.min(index, 3) / 3;
+      return front.map((channel, axis) => channel + (back[axis] - channel) * mix);
+    });
+    gl.uniform3fv(uni.colors, new Float32Array(ramp.flat()))
     gl.uniform4f(
       uni.shape,
       UNIFORMS.scale,
       UNIFORMS.intensity,
-      UNIFORMS.paramA,
+      Math.max(1, pxSize),
       UNIFORMS.warp,
     )
     gl.uniform4f(
@@ -425,7 +454,7 @@ export function ShaderBackground({ className, paused = false }: { className?: st
     let disposed = false
     let elapsed = clockRef.current
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    const timeAnimated = !paused && !reducedMotion && Math.abs(UNIFORMS.timeScale) > 0.0001
+    const timeAnimated = !paused && !reducedMotion && Math.abs(speed) > 0.0001
 
     const resizeCanvas = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2)
@@ -529,7 +558,7 @@ export function ShaderBackground({ className, paused = false }: { className?: st
       if (disposed || !visible || !inView) return
       const dt = lastNow === null ? 0 : Math.min((now - lastNow) / 1000, 0.1)
       lastNow = now
-      if (timeAnimated) elapsed += dt * UNIFORMS.timeScale
+      if (timeAnimated) elapsed += dt * speed
       clockRef.current = elapsed
       const follow = 1 - Math.exp(-12 * dt)
       mouseX += (targetX - mouseX) * follow
@@ -596,7 +625,7 @@ export function ShaderBackground({ className, paused = false }: { className?: st
       }, 0)
       pendingContextReleases.set(canvas, releaseTimer)
     }
-  }, [paused])
+  }, [paused, colorBack, colorFront, pxSize, speed])
 
   return (
     <canvas ref={canvasRef} className={className} aria-hidden="true" style={{ display: "block", width: "100%", height: "100%" }} />
