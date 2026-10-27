@@ -13,64 +13,118 @@ export default function FloatingPortrait({ width, height, preload = false }: {
   const frame = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [ready, setReady] = useState(false);
-  const [active, setActive] = useState(false);
 
   useEffect(() => {
     const element = frame.current;
     const output = canvas.current;
     if (!element || !output) return;
-    const context = output.getContext("2d", { willReadFrequently: true });
-    if (!context) return;
+    const context = output.getContext("2d");
+    const still = document.createElement("canvas");
+    const photo = still.getContext("2d");
+    if (!context || !photo) return;
     const source = new window.Image();
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const ambient = document.querySelector(".ambient-research");
     let disposed = false;
+    let visible = false;
+    let request = 0;
+    let previous = 0;
+    let painted = 0;
+    let elapsed = 0;
 
     function draw() {
+      if (!still.width || !source.naturalWidth) return;
+      const w = output!.width;
+      const h = output!.height;
+      context!.clearRect(0, 0, w, h);
+      context!.drawImage(still, 0, 0);
+      // Only the perimeter dissolves. The original colour and facial detail stay intact.
+      const cell = 3;
+      const band = Math.min(34, w * .16);
+      for (let y = 0; y < h; y += cell) {
+        for (let x = 0; x < w; x += cell) {
+          const distance = Math.min(x, y, w - x - cell, h - y - cell);
+          if (distance > band + 5) continue;
+          const drift = Math.sin(elapsed * .65 + x * .025 + y * .018) * 5;
+          const coverage = Math.max(0, Math.min(1, distance / (band + drift)));
+          const threshold = (BAYER[((y / cell) % 4) * 4 + (x / cell) % 4] + .5) / 16;
+          if (coverage < threshold) context!.clearRect(x, y, cell, cell);
+        }
+      }
+    }
+
+    function running() {
+      return !disposed && visible && !document.hidden && !preference.matches
+        && ambient?.getAttribute("data-paused") !== "true";
+    }
+
+    function tick(now: number) {
+      request = 0;
+      if (!running()) return;
+      if (previous) elapsed += Math.min(now - previous, 100) / 1000;
+      previous = now;
+      // Bound image work to 12fps; the photographic centre never changes.
+      if (now - painted >= 1000 / 12) {
+        draw();
+        painted = now;
+      }
+      request = requestAnimationFrame(tick);
+    }
+
+    function sync() {
+      cancelAnimationFrame(request);
+      request = 0;
+      previous = 0;
+      if (running()) request = requestAnimationFrame(tick);
+    }
+
+    function resize() {
       if (disposed || !source.naturalWidth) return;
       const bounds = element!.getBoundingClientRect();
       if (!bounds.width || !bounds.height) return;
-      // Work on a small pixel grid; keep the underlying optimized photo visible.
-      output!.width = Math.max(1, Math.ceil(bounds.width / 2));
-      output!.height = Math.max(1, Math.ceil(bounds.height / 2));
-      const scale = Math.max(output!.width / source.naturalWidth, output!.height / source.naturalHeight);
-      const cropWidth = output!.width / scale;
-      const cropHeight = output!.height / scale;
-      context!.drawImage(source, (source.naturalWidth - cropWidth) / 2,
+      output!.width = still.width = Math.round(bounds.width);
+      output!.height = still.height = Math.round(bounds.height);
+      const scale = Math.max(still.width / source.naturalWidth, still.height / source.naturalHeight);
+      const cropWidth = still.width / scale;
+      const cropHeight = still.height / scale;
+      photo!.drawImage(source, (source.naturalWidth - cropWidth) / 2,
         (source.naturalHeight - cropHeight) / 2, cropWidth, cropHeight,
-        0, 0, output!.width, output!.height);
-      const pixels = context!.getImageData(0, 0, output!.width, output!.height);
-      for (let y = 0; y < output!.height; y++) {
-        for (let x = 0; x < output!.width; x++) {
-          const offset = (y * output!.width + x) * 4;
-          const threshold = (BAYER[(y % 4) * 4 + x % 4] + .5) / 16 - .5;
-          for (let channel = 0; channel < 3; channel++) {
-            const level = Math.round(pixels.data[offset + channel] / 255 * 5 + threshold);
-            pixels.data[offset + channel] = Math.max(0, Math.min(5, level)) / 5 * 255;
-          }
-        }
-      }
-      context!.putImageData(pixels, 0, 0);
+        0, 0, still.width, still.height);
+      draw();
       setReady(true);
+      sync();
     }
 
-    source.onload = draw;
+    source.onload = resize;
     source.src = "/profile.jpg";
-    const resize = new ResizeObserver(draw);
-    resize.observe(element);
-    const visibility = new IntersectionObserver(([entry]) => setActive(entry.isIntersecting));
+    const sizeObserver = new ResizeObserver(resize);
+    sizeObserver.observe(element);
+    const visibility = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      sync();
+    });
     visibility.observe(element);
+    const pauseObserver = new MutationObserver(sync);
+    if (ambient) pauseObserver.observe(ambient, { attributes: true, attributeFilter: ["data-paused"] });
+    preference.addEventListener("change", sync);
+    document.addEventListener("visibilitychange", sync);
     return () => {
       disposed = true;
-      resize.disconnect();
+      cancelAnimationFrame(request);
+      sizeObserver.disconnect();
       visibility.disconnect();
+      pauseObserver.disconnect();
+      preference.removeEventListener("change", sync);
+      document.removeEventListener("visibilitychange", sync);
       source.onload = null;
     };
   }, []);
 
   return (
-    <div ref={frame} className="portrait-frame floating-portrait" data-active={active}>
+    <div ref={frame} className="portrait-frame edge-portrait" data-ready={ready}>
       <Image src="/profile.jpg" alt="Yuvraj Tripathy" width={width} height={height}
         sizes="(max-width: 600px) 148px, (max-width: 760px) 185px, 248px" preload={preload} />
-      <canvas ref={canvas} className="portrait-dither" aria-hidden="true" data-ready={ready} />
+      <canvas ref={canvas} className="portrait-dither" aria-hidden="true" />
     </div>
   );
 }
