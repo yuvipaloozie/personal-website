@@ -1,233 +1,378 @@
-import Image from "next/image";
-import Link from "next/link";
+"use client";
 
-const projects = [
-  {
-    number: "01",
-    field: "Process safety · NLP",
-    title: "Making engineering knowledge searchable.",
-    description:
-      "A knowledge graph that connects HAZOP studies, alarm records, and equipment tags, helping engineers navigate the relationships buried in industrial documents.",
-    stack: "Python / Neo4j / GraphRAG",
-    href: "/projects/psm-knowledge-graph",
-    name: "Process Safety Knowledge Graph",
-  },
-  {
-    number: "02",
-    field: "Manufacturing · Applied ML",
-    title: "Finding the signals behind manufacturing failures.",
-    description:
-      "An anomaly detection and classification pipeline for semiconductor sensor data. SHAP explanations connect model predictions back to the process variables an engineer can investigate.",
-    stack: "XGBoost / Isolation Forest / SHAP",
-    href: "/projects/yield-optimization",
-    name: "Semiconductor Yield & Root Cause Analysis",
-  },
-  {
-    number: "03",
-    field: "Biomedical research · Computer vision",
-    title: "Turning microscopy images into usable measurements.",
-    description:
-      "A segmentation and counting workflow for multinucleated osteoclasts, pairing a U-Net++ model with an analysis interface for biomedical researchers.",
-    stack: "PyTorch / U-Net++ / OpenCV",
-    href: "/projects/chana-analyzer",
-    name: "Osteoclast Image Analysis",
-  },
-];
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Card from "@/components/Card";
+import AnimateIn from "@/components/AnimateIn";
+import { graphData } from "@/data/graphData";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
 export default function Home() {
+  // Highlight 4 representative projects across domains
+  const featuredIds = ["p_psm", "p_yield", "p_chana", "p_trading"];
+  const featuredProjects = graphData.nodes.filter(
+    n => n.type === 'detail' && featuredIds.includes(n.id)
+  );
+
   return (
-    <div className="container home">
-      <section className="intro" aria-labelledby="intro-title">
-        <div>
-          <p className="eyebrow">
-            Yuvraj Tripathy <span className="dot">/</span> Atlanta, GA
-          </p>
-          <h1 id="intro-title">
-            Engineering context.
-            <br />
-            <span>Data-driven thinking.</span>
-          </h1>
-          <p className="intro-lead">
-            I build machine learning and automation tools for the physical
-            world.
-          </p>
-          <p className="intro-copy">
-            I’m a process automation engineer with a background in Chemical and
-            Biomolecular Engineering, pursuing graduate study in Data Science at
-            Georgia Tech. My work connects industrial systems, messy data, and
-            software that helps people make better decisions.
-          </p>
-          <div className="intro-actions">
-            <a className="btn" href="#selected-work">
-              Explore my work <span aria-hidden="true">↓</span>
-            </a>
-            <Link className="text-link" href="/resume">
-              View résumé <span aria-hidden="true">↗</span>
+    <div style={{ paddingBottom: '8rem' }}>
+      {/* 1. Hero Section - Technical Blueprint */}
+      <section style={{ 
+        minHeight: '75vh', 
+        display: 'flex', 
+        alignItems: 'center', 
+        padding: '3rem 0 5rem 0'
+      }}>
+        <div className="container">
+          {/* Schematic Spec Header */}
+          <motion.div 
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '1rem', 
+              marginBottom: '2.5rem',
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: 'var(--accent-color)'
+            }}
+          >
+            <span style={{ display: 'inline-block', width: '8px', height: '8px', background: 'var(--accent-color)', borderRadius: '1px' }}></span>
+            <span>RESEARCH & ENGINEERING // GEORGIA TECH // ATLANTA, GA</span>
+          </motion.div>
+
+          <div style={{ 
+            display: 'grid', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', 
+            gap: '4rem', 
+            alignItems: 'center' 
+          }}>
+            {/* Left: Bio & Coordinates */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <h1 style={{ 
+                fontSize: 'clamp(2.5rem, 5.5vw, 4.2rem)', 
+                fontWeight: 800, 
+                letterSpacing: '-0.04em', 
+                marginBottom: '1.5rem', 
+                lineHeight: 1.1 
+              }}>
+                Yuvraj <span style={{ color: 'var(--accent-color)' }}>Tripathy</span>
+              </h1>
+              
+              <p style={{ 
+                fontSize: '1.1rem', 
+                color: 'var(--text-color)', 
+                maxWidth: '600px', 
+                lineHeight: 1.7, 
+                marginBottom: '1.5rem' 
+              }}>
+                I work at the intersection of process engineering and data science. I am a Process Automation Engineer at Wood and a graduate student in Data Science at Georgia Tech, with a background in Chemical and Biomolecular Engineering.
+              </p>
+
+              <p style={{ 
+                fontSize: '0.95rem', 
+                color: 'var(--text-muted)', 
+                maxWidth: '600px', 
+                lineHeight: 1.6, 
+                marginBottom: '2.5rem' 
+              }}>
+                My interests include knowledge representations for process safety, interpretable machine learning for manufacturing, and computer vision for biomedical imaging. This site collects my projects, research interests, and technical notes.
+              </p>
+
+              {/* Action Buttons & Contact Bridge */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+                <a href="#featured-projects" className="btn">
+                  selected projects ↓
+                </a>
+                <Link href="/graph" className="btn btn-outline">
+                  knowledge graph ↗
+                </Link>
+
+                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginLeft: '0.5rem' }}>
+                  <motion.a 
+                    href="https://github.com/yuvipaloozie" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.1, color: 'var(--accent-color)' }}
+                    style={{ color: 'var(--text-color)', fontSize: '1.35rem', transition: 'color 0.2s' }}
+                    aria-label="GitHub"
+                  >
+                    <FaGithub />
+                  </motion.a>
+                  <motion.a 
+                    href="https://www.linkedin.com/in/yuvrajtripathy" 
+                    target="_blank" 
+                    rel="noreferrer"
+                    whileHover={{ scale: 1.1, color: 'var(--accent-color)' }}
+                    style={{ color: 'var(--text-color)', fontSize: '1.35rem', transition: 'color 0.2s' }}
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedin />
+                  </motion.a>
+                  <motion.a 
+                    href="mailto:yuvraj.tripathy@outlook.com"
+                    whileHover={{ scale: 1.1, color: 'var(--accent-color)' }}
+                    style={{ color: 'var(--text-color)', fontSize: '1.35rem', transition: 'color 0.2s' }}
+                    aria-label="Email"
+                  >
+                    <MdEmail />
+                  </motion.a>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right: Technical Blueprint Framing */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              <div style={{ 
+                position: 'relative',
+                width: '100%',
+                maxWidth: '380px',
+                aspectRatio: '1',
+                padding: '0.75rem',
+                background: '#ffffff',
+                border: 'var(--card-border)',
+                boxShadow: 'var(--card-shadow)',
+                borderRadius: 'var(--radius)'
+              }}>
+                {/* Schematic Corner Marks */}
+                <div style={{ position: 'absolute', top: '-6px', left: '-6px', fontSize: '0.8rem', color: 'var(--accent-color)', fontWeight: 800 }}>+</div>
+                <div style={{ position: 'absolute', top: '-6px', right: '-6px', fontSize: '0.8rem', color: 'var(--accent-color)', fontWeight: 800 }}>+</div>
+                <div style={{ position: 'absolute', bottom: '-6px', left: '-6px', fontSize: '0.8rem', color: 'var(--accent-color)', fontWeight: 800 }}>+</div>
+                <div style={{ position: 'absolute', bottom: '-6px', right: '-6px', fontSize: '0.8rem', color: 'var(--accent-color)', fontWeight: 800 }}>+</div>
+
+                <div style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  overflow: 'hidden', 
+                  borderRadius: '2px',
+                  border: '1px solid var(--card-border)',
+                  position: 'relative'
+                }}>
+                  <img 
+                    src="/profile.jpg" 
+                    alt="Yuvraj Tripathy" 
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  />
+                  <div style={{ 
+                    position: 'absolute', 
+                    bottom: '0.75rem', 
+                    right: '0.75rem', 
+                    background: 'var(--text-color)', 
+                    color: '#ffffff',
+                    padding: '0.35rem 0.75rem',
+                    borderRadius: '2px',
+                    fontSize: '0.75rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.05em'
+                  }}>
+                    Georgia Tech // ChBE '24
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Featured Systems / Curated Engineering Grid */}
+      <section id="featured-projects" className="container" style={{ marginTop: '5rem', marginBottom: '8rem' }}>
+        <AnimateIn delay={0.1}>
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-end', 
+            marginBottom: '3rem', 
+            borderBottom: 'var(--card-border)', 
+            paddingBottom: '1.25rem',
+            flexWrap: 'wrap',
+            gap: '1rem'
+          }}>
+            <div>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent-color)' }}>
+                [01] // SELECTED WORK
+              </span>
+              <h2 style={{ fontSize: '2.4rem', margin: '0.25rem 0 0 0', fontWeight: 800, letterSpacing: '-0.03em' }}>
+                selected projects
+              </h2>
+            </div>
+            <Link 
+              href="/projects" 
+              style={{ 
+                fontSize: '0.85rem', 
+                fontWeight: 700, 
+                color: 'var(--accent-color)', 
+                textTransform: 'lowercase',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.4rem'
+              }}
+            >
+              all projects ↗
             </Link>
           </div>
+        </AnimateIn>
+
+        <div className="grid grid-2">
+          {featuredProjects.map((project, idx) => (
+            <AnimateIn delay={0.2 + (idx * 0.1)} key={project.id}>
+              <Card 
+                title={project.details!.title}
+                subtitle={project.details!.subtitle}
+                description={project.details!.description}
+                tags={project.details!.tags}
+                image={project.details!.image}
+                link={project.details!.link}
+                github={project.details!.github}
+              />
+            </AnimateIn>
+          ))}
         </div>
-        <figure className="portrait">
-          <Image
-            src="/profile.jpg"
-            alt="Yuvraj Tripathy"
-            width={420}
-            height={500}
-            sizes="(max-width: 700px) 110px, 250px"
-            preload
-          />
-          <figcaption>Engineer. Researcher. Curious by default.</figcaption>
-        </figure>
       </section>
-      <div className="context-strip">
-        <span>
-          Process automation at <strong>Wood</strong>
-        </span>
-        <span>
-          Data Science at <strong>Georgia Tech</strong>
-        </span>
-        <span>
-          Focus: <strong>Applied ML & industrial systems</strong>
-        </span>
-      </div>
-      <section
-        id="selected-work"
-        className="home-section"
-        aria-labelledby="work-title"
-      >
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Selected work</p>
-            <h2 id="work-title">Real problems. Thoughtful systems.</h2>
-          </div>
-          <Link className="text-link" href="/projects">
-            All projects ↗
-          </Link>
-        </div>
-        {projects.map((project) => (
-          <article className="work-row" key={project.number}>
-            <span className="work-number" aria-hidden="true">
-              {project.number}
+
+      {/* 3. Core Competency & Toolchain Matrix */}
+      <section className="container" style={{ marginBottom: '8rem' }}>
+        <AnimateIn delay={0.2}>
+          <div style={{ 
+            borderBottom: 'var(--card-border)', 
+            paddingBottom: '1.25rem', 
+            marginBottom: '3rem' 
+          }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--accent-color)' }}>
+              [02] // RESEARCH INTERESTS
             </span>
-            <div className="work-title">
-              <p className="eyebrow">{project.field}</p>
-              <h3>
-                <Link href={project.href}>{project.title}</Link>
-              </h3>
-              <p className="project-name">{project.name}</p>
+            <h2 style={{ fontSize: '2.4rem', margin: '0.25rem 0 0 0', fontWeight: 800, letterSpacing: '-0.03em' }}>
+              research interests &amp; methods
+            </h2>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2.5rem' }}>
+            {/* Block A */}
+            <div style={{ 
+              background: '#ffffff', 
+              border: 'var(--card-border)', 
+              boxShadow: 'var(--card-shadow)', 
+              borderRadius: 'var(--radius)', 
+              padding: '2.25rem' 
+            }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--accent-color)', letterSpacing: '0.1em' }}>[A] PROCESS &amp; SAFETY</span>
+              <h3 style={{ fontSize: '1.35rem', margin: '0.75rem 0 1rem 0', fontWeight: 800 }}>Industrial Systems</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+                HAZOP &amp; Alarm parsing, P&amp;ID Tag Cross-referencing, Process Safety Management (PSM), SCADA telemetry, ISA standards.
+              </p>
+              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                {["HAZOP", "Alarm Mgmt", "P&ID", "Industrial IoT", "Process Controls"].map(item => (
+                  <span key={item} style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', background: 'rgba(27, 98, 143, 0.08)', color: 'var(--accent-color)', borderRadius: '2px', fontWeight: 600 }}>
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="work-description">
-              <p>{project.description}</p>
-              <p className="stack">{project.stack}</p>
-              <Link className="text-link" href={project.href}>
-                Read project ↗<span className="sr-only">: {project.name}</span>
+
+            {/* Block B */}
+            <div style={{ 
+              background: '#ffffff', 
+              border: 'var(--card-border)', 
+              boxShadow: 'var(--card-shadow)', 
+              borderRadius: 'var(--radius)', 
+              padding: '2.25rem' 
+            }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--accent-color)', letterSpacing: '0.1em' }}>[B] APPLIED ML &amp; VISION</span>
+              <h3 style={{ fontSize: '1.35rem', margin: '0.75rem 0 1rem 0', fontWeight: 800 }}>Machine Learning</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+                U-Net++ Segmentation, GraphRAG with Local LLMs, XGBoost, Isolation Forests, SHAP Root Cause Analysis, Time-Series / Wavelets.
+              </p>
+              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                {["PyTorch", "GraphRAG", "U-Net++", "XGBoost", "SHAP", "Neo4j"].map(item => (
+                  <span key={item} style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', background: 'rgba(27, 98, 143, 0.08)', color: 'var(--accent-color)', borderRadius: '2px', fontWeight: 600 }}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Block C */}
+            <div style={{ 
+              background: '#ffffff', 
+              border: 'var(--card-border)', 
+              boxShadow: 'var(--card-shadow)', 
+              borderRadius: 'var(--radius)', 
+              padding: '2.25rem' 
+            }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--accent-color)', letterSpacing: '0.1em' }}>[C] SOFTWARE &amp; INFRA</span>
+              <h3 style={{ fontSize: '1.35rem', margin: '0.75rem 0 1rem 0', fontWeight: 800 }}>Engineering Stack</h3>
+              <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '1.5rem' }}>
+                Python data pipelines, FastAPI backends, Dockerized inference containers, Next.js &amp; React diagnostic dashboards.
+              </p>
+              <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
+                {["Python", "FastAPI", "Docker", "Next.js", "TypeScript", "OpenCV"].map(item => (
+                  <span key={item} style={{ fontSize: '0.75rem', padding: '0.2rem 0.5rem', background: 'rgba(27, 98, 143, 0.08)', color: 'var(--accent-color)', borderRadius: '2px', fontWeight: 600 }}>
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </AnimateIn>
+      </section>
+
+      {/* 4. Standalone Knowledge Graph Schematic Banner */}
+      <section className="container">
+        <AnimateIn delay={0.3}>
+          <div style={{ 
+            background: '#ffffff', 
+            border: 'var(--card-border)', 
+            boxShadow: 'var(--card-shadow)', 
+            borderRadius: 'var(--radius)', 
+            padding: '4rem 3rem',
+            position: 'relative',
+            overflow: 'hidden'
+          }}>
+            <div style={{ maxWidth: '650px', position: 'relative', zIndex: 1 }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--accent-color)', letterSpacing: '0.15em', textTransform: 'uppercase' }}>
+                [03] // CONNECTIONS
+              </span>
+              <h2 style={{ fontSize: '2.2rem', margin: '0.5rem 0 1rem 0', fontWeight: 800, letterSpacing: '-0.03em' }}>
+                interactive knowledge graph
+              </h2>
+              <p style={{ fontSize: '1rem', color: 'var(--text-muted)', lineHeight: 1.7, marginBottom: '2.5rem' }}>
+                An alternative index of the site: explore the relationships between research topics, projects, technical methods, and experience.
+              </p>
+              <Link href="/graph" className="btn">
+                launch full-screen explorer ↗
               </Link>
             </div>
-          </article>
-        ))}
-      </section>
-      <section
-        className="home-section approach"
-        aria-labelledby="approach-title"
-      >
-        <div>
-          <p className="eyebrow">How I work</p>
-          <h2 id="approach-title">
-            Start with the process.
-            <br />
-            Build toward understanding.
-          </h2>
-          <Link className="text-link" href="/about">
-            More about me ↗
-          </Link>
-        </div>
-        <div className="approach-copy">
-          <p>
-            My engineering background shapes how I approach data science:
-            understand the system, ask what the data actually represents, and
-            make the result useful to the person working with it.
-          </p>
-          <p>
-            I’m especially interested in work where domain knowledge
-            matters—whether that means tracing equipment relationships in a
-            safety study, interpreting sensor behavior, or measuring cells in a
-            microscopy image.
-          </p>
-          <dl className="capabilities">
-            <div>
-              <dt>Model & interpret</dt>
-              <dd>Python, PyTorch, XGBoost, SHAP</dd>
-            </div>
-            <div>
-              <dt>Connect & structure</dt>
-              <dd>NLP, knowledge graphs, Neo4j</dd>
-            </div>
-            <div>
-              <dt>Build & deliver</dt>
-              <dd>FastAPI, Docker, React, TypeScript</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-      <section className="home-section" aria-labelledby="experience-title">
-        <div className="section-heading">
-          <div>
-            <p className="eyebrow">Experience</p>
-            <h2 id="experience-title">Across industry and research.</h2>
+
+            {/* Decorative Blueprint Corner Accent */}
+            <div style={{ 
+              position: 'absolute', 
+              top: '-20px', 
+              right: '-20px', 
+              width: '180px', 
+              height: '180px', 
+              border: '1px dashed var(--accent-color)',
+              opacity: 0.15,
+              borderRadius: '50%',
+              pointerEvents: 'none'
+            }} />
           </div>
-          <Link className="text-link" href="/resume">
-            Full résumé ↗
-          </Link>
-        </div>
-        <Link className="experience-row" href="/experience/wood-plc">
-          <span>Wood</span>
-          <div>
-            <h3>Process Automation Engineer</h3>
-            <p>
-              Industrial controls, engineering workflows, and process safety
-              tooling.
-            </p>
-          </div>
-          <span>2024–present ↗</span>
-        </Link>
-        <Link className="experience-row" href="/experience/pcom-research">
-          <span>PCOM</span>
-          <div>
-            <h3>Machine Learning Researcher</h3>
-            <p>Computer vision and deep learning for biomedical microscopy.</p>
-          </div>
-          <span>2023–2024 ↗</span>
-        </Link>
-        <Link className="experience-row" href="/resume">
-          <span>Alcon</span>
-          <div>
-            <h3>Equipment Engineering Co-op</h3>
-            <p>Time-series modeling and predictive maintenance.</p>
-          </div>
-          <span>2023 ↗</span>
-        </Link>
-      </section>
-      <aside className="graph-note">
-        <div>
-          <h2>A different way to explore.</h2>
-          <p>
-            See how my projects, experience, and skills connect in an
-            interactive knowledge graph.
-          </p>
-        </div>
-        <Link className="text-link" href="/graph">
-          Explore the connections ↗
-        </Link>
-      </aside>
-      <section className="contact-section" aria-labelledby="contact-title">
-        <p className="eyebrow">Get in touch</p>
-        <h2 id="contact-title">Have a role where this thinking fits?</h2>
-        <p>
-          I’d be glad to talk about applied machine learning, process
-          automation, and engineering software.
-        </p>
-        <a className="text-link" href="mailto:yuvraj.tripathy@outlook.com">
-          yuvraj.tripathy@outlook.com ↗
-        </a>
+        </AnimateIn>
       </section>
     </div>
   );
 }
+
+

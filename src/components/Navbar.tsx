@@ -1,39 +1,35 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-const links = [
-  ["/projects", "Work"],
-  ["/about", "About"],
-  ["/resume", "Résumé"],
-  ["/blog", "Writing"],
-];
+import Link from 'next/link';
+
 export default function Navbar() {
-  const pathname = usePathname();
   return (
-    <header className="site-header">
-      <div className="container header-inner">
-        <Link className="wordmark" href="/" aria-label="Yuvraj Tripathy home">
-          Yuvraj Tripathy<span>.</span>
-        </Link>
-        <nav aria-label="Main navigation">
-          {links.map(([href, label]) => (
-            <Link
-              key={href}
-              href={href}
-              aria-current={
-                pathname === href || pathname.startsWith(href + "/")
-                  ? "page"
-                  : undefined
-              }
-            >
-              {label}
-            </Link>
-          ))}
+    <header style={{
+      width: '100%',
+      backgroundColor: '#ffffff',
+      borderBottom: 'var(--card-border)',
+      position: 'fixed',
+      top: 0,
+      zIndex: 1000,
+    }}>
+      <div className="container" style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: '80px'
+      }}>
+        <div style={{ fontWeight: 800, fontSize: '1.5rem', letterSpacing: '-0.05em' }}>
+          <Link href="/" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>
+            yuvraj<span style={{ color: 'var(--accent-color)' }}>.</span>tripathy
+          </Link>
+        </div>
+        <nav style={{ display: 'flex', gap: '2.5rem', fontWeight: 600, fontSize: '0.85rem', textTransform: 'lowercase' }}>
+          <Link href="/about" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>about</Link>
+          <Link href="/projects" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>projects</Link>
+          <Link href="/graph" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>knowledge graph</Link>
+          <Link href="/resume" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>cv</Link>
+          <Link href="/blog" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>notes</Link>
         </nav>
-        <a className="header-contact" href="mailto:yuvraj.tripathy@outlook.com">
-          Let’s talk ↗
-        </a>
       </div>
     </header>
   );
 }
+

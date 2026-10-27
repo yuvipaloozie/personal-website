@@ -1,9 +1,13 @@
-import type { ReactNode, CSSProperties } from "react";
-// Keep existing page wrappers without delaying content or shipping an animation runtime.
+"use client";
+
+import { motion } from "framer-motion";
+import { ReactNode, CSSProperties } from "react";
+
 export default function AnimateIn({
   children,
+  delay = 0,
   className = "",
-  style,
+  style
 }: {
   children: ReactNode;
   delay?: number;
@@ -11,8 +15,15 @@ export default function AnimateIn({
   style?: CSSProperties;
 }) {
   return (
-    <div className={className} style={style}>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.7, delay: delay, ease: [0.25, 0.4, 0.25, 1] }}
+      className={className}
+      style={style}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
