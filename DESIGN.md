@@ -24,3 +24,6 @@ Reading connections appear on both project and note pages, with existing summari
 Approved study: outputs/research-site-directions.html (Al-folio, refined), created in this chat's projectless workspace. Structural reference: https://alshedivat.github.io/al-folio/.
 
 The user supplied a James Holt reference for sans-serif typography, black/white contrast, fine rules, and deliberate alignment. Apply those details inside the academic structure. Keep the original portrait and imagery; no full-screen promotional typography, distortion effects, or invented achievements. Horizontal rules mark content sections rather than drawing a decorative grid across the page.
+
+About includes the explicitly requested 21st.dev black-and-white Silk Blend as a full-bleed band. Preserve stops Slate 10%, Paper 57%, Ash 70%, Ink 96%, base angle 187deg, and the supplied RAF sway formula. Grain uses the user's CSS/SVG approximation; this is not an exact bitmap export. Pause/resume, reduced motion, offscreen and hidden-tab suspension are required. Source: https://21st.dev/community/gradients.
+

@@ -3,9 +3,12 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import SilkGradient from "@/components/SilkGradient";
 import { FaBook, FaFilm, FaMusic } from "react-icons/fa";
 export default function About() {
   return (
+    <>
+    <SilkGradient />
     <div className="container section">
       <section className="about-profile">
         <div className="prose">
@@ -69,6 +72,7 @@ export default function About() {
         </div>
       </section>
     </div>
+    </>
   );
 }
 function MediaStack({

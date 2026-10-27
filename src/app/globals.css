@@ -5,6 +5,44 @@
   font-style: normal;
   font-display: swap;
 }
+.silk-band {
+  position: relative;
+  height: clamp(150px, 20vw, 250px);
+  overflow: hidden;
+  isolation: isolate;
+  background: #111111;
+}
+.silk-gradient {
+  --silk-angle: 187deg;
+  position: absolute;
+  inset: 0;
+  background-color: #555555;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.500'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.288) 100%),
+    linear-gradient(var(--silk-angle), #555555 10%, #F2F2F2 57%, #AAAAAA 70%, #111111 96%);
+  background-size: 120px 120px, auto, auto;
+  background-blend-mode: overlay, normal, normal;
+}
+.silk-motion-toggle {
+  position: absolute;
+  right: max(22px, calc((100% - 920px) / 2));
+  bottom: 14px;
+  background: #f2f2f2;
+  color: #222420;
+  border: 0;
+  border-radius: 2px;
+  font-size: 12px;
+  min-height: 44px;
+  padding: 8px 14px;
+}
+.silk-motion-toggle:hover { background: white; }
+@media (prefers-reduced-motion: reduce) {
+  .silk-motion-toggle { display: none; }
+}
+@media print {
+  .silk-band { display: none; }
+}
 :root {
   --bg-color: #fff;
   --text-color: #222420;
