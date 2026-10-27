@@ -6,7 +6,7 @@ Use a calm white reading surface, compact biography, modest right-hand portrait,
 
 ## Tokens
 
-- Body and headings: locally hosted Lato, 400 and 700, with Arial/Helvetica fallback. Font license: public/fonts/Lato-OFL.txt.
+- Typography: locally hosted Source Serif 4 for headings and long-form reading; Source Sans 3 for navigation, indexes, labels, and the graph. Latin variable WOFF2 fonts with Georgia and Arial fallbacks. Licenses: public/fonts/SourceSerif4-OFL.txt and SourceSans3-OFL.txt. Selected in the user-requested typography refinement.
 - Ground: #ffffff. Text: #283039. Secondary: #596570. Accent: #24618b. Hover: #164563.
 - Reading container: 920px including 40px side padding; 25px padding under 760px and 22px under 600px.
 - Body: 16px, line height 1.75. Homepage name: 37px, 31px on phones. Section headings: 22–24px. Project headings: 18px. Supporting metadata: 12–14px.
@@ -16,6 +16,8 @@ Use a calm white reading surface, compact biography, modest right-hand portrait,
 ## Behavior
 
 Navigation uses About, Projects, Notes, CV. Topic controls use Base UI ToggleGroup/Toggle for keyboard navigation. Keep all projects reachable through /projects; the homepage starts with three selected entries. Follow-a-thread links come from the knowledge graph data. Reduced-motion preferences suppress nonessential motion. The graph keeps its own canvas interactions and original background treatment.
+
+Reading connections appear on both project and note pages, with existing summaries and method links that select the matching homepage research thread. Keep discovery informative and immediate.
 
 ## Reference
 

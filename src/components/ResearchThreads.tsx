@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { Toggle } from "@base-ui/react/toggle";
 import Link from "next/link";
@@ -8,6 +8,17 @@ import { entriesForThread, researchThreads } from "@/lib/researchConnections";
 
 export default function ResearchThreads() {
   const [selected, setSelected] = useState(researchThreads[0]);
+  useEffect(() => {
+    function followAnchor() {
+      const thread = researchThreads.find(
+        (item) => window.location.hash === `#thread-${item.id}`,
+      );
+      if (thread) setSelected(thread);
+    }
+    followAnchor();
+    window.addEventListener("hashchange", followAnchor);
+    return () => window.removeEventListener("hashchange", followAnchor);
+  }, []);
   const entries = entriesForThread(selected.id);
 
   return (
@@ -32,6 +43,7 @@ export default function ResearchThreads() {
         {researchThreads.map((thread) => (
           <Toggle
             key={thread.id}
+            id={`thread-${thread.id}`}
             value={thread.id}
             aria-controls="thread-entries"
           >

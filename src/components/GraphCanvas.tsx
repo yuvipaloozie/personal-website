@@ -165,7 +165,7 @@ export default function GraphCanvas({
           ctx.shadowBlur = 0; // Reset shadow
 
           // Label styling
-          ctx.font = `700 ${fontSize}px 'Lato', sans-serif`;
+          ctx.font = `700 ${fontSize}px 'Source Sans 3', sans-serif`;
           ctx.textAlign = "center";
           ctx.textBaseline = "middle";
 

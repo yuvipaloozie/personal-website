@@ -42,5 +42,6 @@ export function relatedReading(nodeId: string) {
     .map(({ node, shared }) => ({
       node,
       method: graphData.nodes.find(candidate => candidate.id === shared[0])!.label,
+      threadId: researchThreads.find(thread => thread.id === shared[0])?.id,
     }));
 }
