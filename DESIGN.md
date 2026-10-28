@@ -81,3 +81,13 @@ The explorer keeps its nodes, category expansion, pan, zoom, details and origina
 ### Dither sweep interactions
 
 Adapt the user-supplied Dither Sweep Navbar's deterministic `pixelOrder`/`Pixels` engine to the existing header and controls. Preserve the complete supplied component in `src/components/ui/dither-sweep-navbar.tsx`; its optional standalone header is not mounted. A small `DitherSweep` adapter reuses the exact 24×6 hashed left-to-right arrival pattern in our navigation, graph entry, topic/thread selectors, print action and motion controls. Use a 440ms interaction with 180ms cell fades, pale navy on white and a contrasting blue on dark selected controls. Keep one sharp label above the effect. Keep the existing layout, brand, routes, active indicators and component semantics. No continuous animation, new package, canvas or additional animation clock is needed. Reduced motion and the site's pause controls remove transition timing; coarse pointers do not get sticky hover effects; focus-visible gets the same treatment. Forced-colour and print modes omit the decoration.
+
+## October 28 minimal editorial refinement (supersedes square-control rules)
+
+The user requests less text and sleeker rounded components. Keep the Sean-inspired dither atmosphere and al-folio routes. Borrow concise project/writing lists from https://paco.me/ and https://brianlovin.com/; https://rauno.me/ informs interaction restraint, not a new layout or typography. Primary sources read October 28, 2026.
+
+- Homepage: short factual role/education introduction, three concise research interests, three image-led project previews with a single-sentence summary, title/date-only blog links. Remove homepage filters and repeated graph explanation; keep full filtering on Projects and the graph in the header.
+- Preserve the full technical descriptions and factual records on project pages and Resume. Short index copy is centralized in src/lib/project-previews.ts. About has two factual paragraphs. Blog index shows titles/dates, with full writing one click away.
+- Put optional topic exploration in a native details disclosure. Deep links to a research thread open it automatically.
+- Use rounded navigation, filters and utility controls; 18px image/disclosure corners. Remove the old ragged selected-control edge: the supplied pixel sweep remains the texture for interaction. Preserve visible focus, readable labels, touch targets, reduced motion, original portrait and project assets.
+- Tighten the hero and project spacing so work appears sooner. Keep the large pixel name, but cap it at 84px. Use a quieter footer signature.

@@ -15,7 +15,11 @@ export default function ResearchThreads() {
       const thread = researchThreads.find(
         (item) => window.location.hash === `#thread-${item.id}`,
       );
-      if (thread) setSelected(thread);
+      if (thread) {
+        setSelected(thread);
+        const disclosure = document.getElementById("research-threads")?.closest("details");
+        if (disclosure) disclosure.open = true;
+      }
     }
     followAnchor();
     window.addEventListener("hashchange", followAnchor);

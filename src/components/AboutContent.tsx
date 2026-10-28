@@ -13,19 +13,9 @@ export default function AboutContent() {
             student in {education.graduate.subject} at {education.shortInstitution}.
           </p>
           <p>
-            My foundation is in Chemical and Biomolecular Engineering. That
-            background shapes how I approach machine learning: understand the
-            physical system, the assumptions behind a measurement, and the
-            decisions a model will inform.
-          </p>
-          <p>
-            My projects span process safety knowledge graphs, semiconductor
-            sensor analysis, and biomedical computer vision. As a {career.pcom.title} at PCOM, I work
-            on deep learning methods for microscopy image analysis.
-          </p>
-          <p>
-            This site brings together those projects and the technical ideas
-            that connect them.
+            With a background in Chemical and Biomolecular Engineering, I work
+            on applied machine learning and process safety. As a {career.pcom.title} at PCOM,
+            I study deep learning methods for microscopy image analysis.
           </p>
           <p className="profile-actions">
             <Link href="/resume"><PixelIcon name="document" />Resume</Link>

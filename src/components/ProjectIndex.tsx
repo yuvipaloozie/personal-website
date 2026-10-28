@@ -7,6 +7,7 @@ import { DitherSweep } from "@/components/ui/dither-sweep";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { Toggle } from "@base-ui/react/toggle";
 import { graphData } from "@/data/graphData";
+import { projectPreviews } from "@/lib/project-previews";
 
 const topics = [
   { id: "all", label: "All work" },
@@ -46,7 +47,7 @@ export default function ProjectIndex({
       : projects.filter((node) => memberships[topic]?.includes(node.id));
   return (
     <div className={featured ? "project-index featured-index" : "project-index"}>
-      <ToggleGroup
+      {!featured && <ToggleGroup
         className="topic-filter"
         aria-label="Filter projects by topic"
         value={[topic]}
@@ -59,11 +60,11 @@ export default function ProjectIndex({
             <DitherSweep /><span className="sweep-label">{item.label}</span>
           </Toggle>
         ))}
-      </ToggleGroup>
-      <p className="result-count" role="status">
+      </ToggleGroup>}
+      {!featured && <p className="result-count" role="status">
         {visible.length} {visible.length === 1 ? "project" : "projects"}
         {featured && topic === "all" ? " selected" : ""}
-      </p>
+      </p>}
       <div id="project-results">
         {visible.map((node) => (
           <article className={node.details!.image ? "project-entry" : "project-entry project-text-only"} key={node.id}>
@@ -80,12 +81,12 @@ export default function ProjectIndex({
             </div>
             <div>
               <ProjectHeading>
-                <Link href={node.details!.link!}>{node.details!.title}</Link>
+                <Link href={node.details!.link!}>{featured ? projectPreviews[node.id]?.title ?? node.details!.title : node.details!.title}</Link>
               </ProjectHeading>
-              <p>{node.details!.description}</p>
+              <p>{projectPreviews[node.id]?.summary ?? node.details!.description}</p>
               <div className="project-links">
                 <Link href={node.details!.link!}>
-                  Read project
+                  Details
                   <PixelIcon name="arrow" />
                   <span className="sr-only">: {node.details!.title}</span>
                 </Link>
@@ -95,7 +96,7 @@ export default function ProjectIndex({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Source code
+                    Code
                     <PixelIcon name="code" />
                     <span className="sr-only">: {node.details!.title}</span>
                   </a>

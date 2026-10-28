@@ -19,9 +19,8 @@ export default function Home() {
             Process engineering · Applied machine learning
           </p>
           <p>
-            I’m a {career.arclin.title} at {career.arclin.employer} and a graduate student in
-            {" "}{education.graduate.subject} at {education.shortInstitution}. My work connects process engineering
-            with applied machine learning.
+            {career.arclin.title} at {career.arclin.employer}.
+            {" "}{education.graduate.subject} graduate student at {education.shortInstitution}.
           </p>
           <div className="social-links">
             <a
@@ -49,9 +48,9 @@ export default function Home() {
       <section className="research-interests">
         <h2>Research interests</h2>
         <ul>
-          <li>Process safety & knowledge graphs</li>
-          <li>Interpretable machine learning</li>
-          <li>Biomedical computer vision</li>
+          <li>Process safety</li>
+          <li>Interpretable ML</li>
+          <li>Biomedical imaging</li>
         </ul>
       </section>
       <section className="selected-projects" aria-labelledby="selected-heading">
@@ -70,19 +69,15 @@ export default function Home() {
           {notes.map((node) => (
             <li key={node.id}>
               <Link href={node.details!.link!}>{node.details!.title}</Link>
-              <p>{node.details!.description}</p>
+              <span className="entry-date">{node.details!.subtitle}</span>
             </li>
           ))}
         </ul>
       </section>
-      <ResearchThreads />
-      <aside className="graph-reference">
-        <Link href="/graph"><PixelIcon name="graph" />Explore the knowledge graph<PixelIcon name="arrow" /></Link>
-        <p>
-          An alternative way to follow connections between projects, methods,
-          and experience.
-        </p>
-      </aside>
+      <details className="thread-disclosure">
+        <summary>Explore by research topic<PixelIcon name="arrow" /></summary>
+        <ResearchThreads />
+      </details>
     </div>
   );
 }

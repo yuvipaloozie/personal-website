@@ -10,8 +10,7 @@ export default function Projects() {
     <div className="container section">
       <h1 className="page-title">Projects</h1>
       <p className="page-intro">
-        A collection of engineering projects and research. Browse by topic, or
-        open a project for the context, methods, and source code.
+        Applied research across engineering and machine learning.
       </p>
       <ProjectIndex />
     </div>
