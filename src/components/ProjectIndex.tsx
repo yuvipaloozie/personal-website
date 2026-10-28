@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PixelIcon } from "@/components/ui/pixel-icon";
+import { DitherSweep } from "@/components/ui/dither-sweep";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { Toggle } from "@base-ui/react/toggle";
 import { graphData } from "@/data/graphData";
@@ -54,8 +55,8 @@ export default function ProjectIndex({
         }}
       >
         {topics.map((item) => (
-          <Toggle key={item.id} value={item.id} aria-controls="project-results">
-            {item.label}
+          <Toggle className="sweep-target" key={item.id} value={item.id} aria-controls="project-results">
+            <DitherSweep /><span className="sweep-label">{item.label}</span>
           </Toggle>
         ))}
       </ToggleGroup>

@@ -1,5 +1,6 @@
 "use client";
 import { PixelIcon } from "@/components/ui/pixel-icon";
+import { DitherSweep } from "@/components/ui/dither-sweep";
 
 import { useEffect, useState } from "react";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
@@ -46,9 +47,10 @@ export default function ResearchThreads() {
             key={thread.id}
             id={`thread-${thread.id}`}
             value={thread.id}
+            className="sweep-target"
             aria-controls="thread-entries"
           >
-            {thread.label}
+            <DitherSweep /><span className="sweep-label">{thread.label}</span>
           </Toggle>
         ))}
       </ToggleGroup>

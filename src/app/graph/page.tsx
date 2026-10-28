@@ -10,6 +10,7 @@ import { MdEmail } from "react-icons/md";
 import Card from "@/components/Card";
 import { BackgroundSnippets } from "@/components/ui/background-snippets";
 import { PixelIcon } from "@/components/ui/pixel-icon";
+import { DitherSweep } from "@/components/ui/dither-sweep";
 
 // Dynamically import GraphCanvas to prevent SSR window issues
 const GraphCanvas = dynamic(() => import("@/components/GraphCanvas"), {
@@ -29,9 +30,9 @@ export default function GraphPage() {
         <p>Select a node to explore; select a category to expand.</p>
         <p>Scroll to zoom · drag to pan.</p>
         <Link href="/projects">Browse the project list</Link>
-        <button className="graph-motion-control" onClick={() => setPaused(value => !value)} aria-pressed={paused}
+        <button className="graph-motion-control sweep-target" onClick={() => setPaused(value => !value)} aria-pressed={paused}
           aria-label={paused ? "Resume graph animation" : "Pause graph animation"}>
-          <PixelIcon name={paused ? "play" : "pause"} />{paused ? "Resume motion" : "Pause motion"}
+          <DitherSweep /><span className="sweep-label"><PixelIcon name={paused ? "play" : "pause"} />{paused ? "Resume motion" : "Pause motion"}</span>
         </button>
       </div>
       {/* Physics Canvas */}

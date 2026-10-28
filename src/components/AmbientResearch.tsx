@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
 import { PixelIcon } from "@/components/ui/pixel-icon";
+import { DitherSweep } from "@/components/ui/dither-sweep";
 import { Button } from "@/components/ui/button";
 
 const DitherShader = dynamic(
@@ -44,13 +45,13 @@ export default function AmbientResearch() {
         <Button
           variant="ghost"
           size="sm"
-          className="ambient-control"
+          className="ambient-control sweep-target"
           onClick={() => setPaused((value) => !value)}
           aria-pressed={paused}
           aria-label={paused ? "Resume animations" : "Pause animations"}
         >
-          <PixelIcon name={paused ? "play" : "pause"} />
-          <span>{paused ? "Resume motion" : "Pause motion"}</span>
+          <DitherSweep /><span className="sweep-label"><PixelIcon name={paused ? "play" : "pause"} />
+          <span>{paused ? "Resume motion" : "Pause motion"}</span></span>
         </Button>
       )}
     </>

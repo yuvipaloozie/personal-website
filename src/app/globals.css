@@ -1224,3 +1224,52 @@ body:has(.graph-page) > .site-footer { display: none; }
   .graph-mark-halo { animation: none; opacity: .55; }
   .graph-motion-control { display: none; }
 }
+
+/* User-supplied dither sweep: deterministic 24×6 cells, CSS transitions only. */
+.sweep-target { position: relative; isolation: isolate; --sweep-fill: #e1e8f1; }
+.ambient-control.sweep-target { position: fixed; }
+.sweep-label { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.dither-sweep { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; border-radius: inherit; }
+.dither-sweep .dsn-px {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  aspect-ratio: 24 / 6;
+  min-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+}
+.dither-sweep .dsn-px i {
+  display: block;
+  background: var(--sweep-fill);
+  opacity: 0;
+  transition: opacity var(--sweep-cell, 180ms) linear var(--dsn-d, 0ms);
+}
+.sweep-target:focus-visible .dsn-px i { opacity: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .sweep-target:hover .dsn-px i { opacity: 1; }
+}
+.sweep-target[aria-pressed="true"], .sweep-target[data-pressed], .sweep-on-dark { --sweep-fill: #3b5373; }
+.site-header nav { gap: 6px; }
+.site-header nav a.nav-sweep { padding-inline: 8px; }
+.graph-nav-link.nav-sweep { padding-inline: 6px; }
+.graph-nav-link .sweep-label { gap: 8px; }
+@media (max-width: 650px) {
+  .site-header nav { gap: 8px; }
+  .site-header nav a.nav-sweep { padding-inline: 8px; }
+  .graph-nav-link.nav-sweep { padding-inline: 2px; }
+  .graph-nav-link .sweep-label { gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dither-sweep .dsn-px i { transition: none; }
+}
+body:has(.ambient-research[data-paused="true"]) .dither-sweep .dsn-px i,
+body:has(.graph-page[data-paused="true"]) .dither-sweep .dsn-px i { transition: none; }
+@media (forced-colors: active) {
+  .dither-sweep { display: none; }
+}
+@media print {
+  .dither-sweep { display: none; }
+}
