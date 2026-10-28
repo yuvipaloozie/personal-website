@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { GraphMark } from "@/components/ui/graph-mark";
 import { DitherSweep } from "@/components/ui/dither-sweep";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 const links = [
   ["/about", "About"],
   ["/projects", "Projects"],
@@ -28,7 +29,7 @@ export default function Navbar() {
     <header ref={header} className="site-header" data-visible={visible}>
       <div className="container header-inner">
         <Link href="/" className="site-name">
-          Yuvraj Tripathy
+          <PixelIcon name="document" />Yuvraj Tripathy
         </Link>
         <nav aria-label="Main navigation">
           {links.map(([href, label]) => (

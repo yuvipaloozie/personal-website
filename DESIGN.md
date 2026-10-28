@@ -91,3 +91,9 @@ The user requests less text and sleeker rounded components. Keep the Sean-inspir
 - Put optional topic exploration in a native details disclosure. Deep links to a research thread open it automatically.
 - Use rounded navigation, filters and utility controls; 18px image/disclosure corners. Remove the old ragged selected-control edge: the supplied pixel sweep remains the texture for interaction. Preserve visible focus, readable labels, touch targets, reduced motion, original portrait and project assets.
 - Tighten the hero and project spacing so work appears sooner. Keep the large pixel name, but cap it at 84px. Use a quieter footer signature.
+
+## Notion-inspired document treatment
+
+The user requested Notion inspiration while retaining the typefaces and dithering. Preserve the concise content, academic routes, Geist Pixel/Geist Mono/Instrument Sans roles, original portrait and project assets, synchronized dither wave, graph and sweep feedback. Use warm off-white #fbfaf8, charcoal reading text, subtle neutral dividers, 7–12px corners, quiet rounded-rectangle navigation, a concise callout for role/education, property-style research tags and document-icon writing rows. Keep navy for identity/actions. Match the shader ground to the page colour so the artwork blends with the document surface. Preserve real information and avoid mock editor controls, unnecessary sidebars or additional text.
+
+Reference: https://www.notion.com/help/create-your-first-page (primary source for pages and block structure) and the local Awesome DESIGN.md Notion analysis for neutral surfaces, charcoal, hairlines and small component radii. That analysis describes Notion's marketing site, so its colourful campaign/CTA styling is not adopted.

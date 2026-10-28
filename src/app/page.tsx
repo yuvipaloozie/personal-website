@@ -18,10 +18,10 @@ export default function Home() {
           <p className="affiliation">
             Process engineering · Applied machine learning
           </p>
-          <p>
+          <div className="profile-callout"><PixelIcon name="code" /><p>
             {career.arclin.title} at {career.arclin.employer}.
             {" "}{education.graduate.subject} graduate student at {education.shortInstitution}.
-          </p>
+          </p></div>
           <div className="social-links">
             <a
               href={profile.github}
@@ -55,20 +55,20 @@ export default function Home() {
       </section>
       <section className="selected-projects" aria-labelledby="selected-heading">
         <div className="heading-row">
-          <h2 id="selected-heading">Selected projects</h2>
+          <h2 id="selected-heading"><PixelIcon name="graph" />Selected projects</h2>
           <Link href="/projects">All projects</Link>
         </div>
         <ProjectIndex featured />
       </section>
       <section className="notes-index">
         <div className="heading-row">
-          <h2>Blog</h2>
+          <h2><PixelIcon name="document" />Blog</h2>
           <Link href="/blog">All posts</Link>
         </div>
         <ul>
           {notes.map((node) => (
             <li key={node.id}>
-              <Link href={node.details!.link!}>{node.details!.title}</Link>
+              <Link href={node.details!.link!}><PixelIcon name="document" />{node.details!.title}</Link>
               <span className="entry-date">{node.details!.subtitle}</span>
             </li>
           ))}

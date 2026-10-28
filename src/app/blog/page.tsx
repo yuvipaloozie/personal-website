@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 import { graphData } from "@/data/graphData";
 export const metadata: Metadata = {
   title: "Blog",
@@ -18,7 +19,7 @@ export default function Blog() {
         <ul>
           {notes.map((n) => (
             <li key={n.id}>
-              <Link href={n.details!.link!}>{n.details!.title}</Link>
+              <Link href={n.details!.link!}><PixelIcon name="document" />{n.details!.title}</Link>
               <span className="entry-date">{n.details!.subtitle}</span>
             </li>
           ))}
