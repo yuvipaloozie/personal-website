@@ -69,3 +69,11 @@ References inspected on 27 October 2026. These are inspirations, not copied asse
 ### Primary aesthetic anchor
 
 The user selected Sean Galvin as the closest overall aesthetic on 27 October 2026. Treat its open composition, fine animated ground and quiet controls as the atmosphere reference. Keep our al-folio reading hierarchy and routes, original content, navy accent and sans-serif preference. Retain the existing pixel display lettering as a restrained signature. Use 2px background cells with matching portrait sampling, 27% desktop field opacity and 20% on phones; lighten inactive control outlines. Keep text and project organization calm. Do not import Sean's serif face, freelance/booking pitch, or one-page panel structure.
+
+### Header and graph typography
+
+Navigation now uses Blog and Resume. The knowledge graph has a top-right entry with a miniature pixel network and stepped dither halos. Mobile keeps the name and graph entry on the first row, with the four reading routes beneath. Measure header height for the full-screen graph inset.
+
+Use locally hosted Geist Mono for navigation and graph labels (Next.js bundled Latin WOFF2, SIL OFL license in public/fonts/Geist-LICENSE.txt). Geist Pixel remains the name/display signature; Instrument Sans remains the reading face. Research: Vercel's https://vercel.com/blog/introducing-geist-pixel explicitly places Mono and Pixel in one related family; https://vercel.com/font describes Mono's readability-first origins. Roboto Mono and Space Mono were considered, but the shared Geist foundation gives this site's UI and display a more consistent voice. No remote font request is needed.
+
+The explorer keeps its nodes, category expansion, pan, zoom, details and original technical background. Render nodes with the shared Bayer/wave material, remove soft glow and rounded label plates, use dashed connections and moving connection particles, and add pause/reduced-motion/hidden-tab controls. The header mark carries this behavior at miniature scale.

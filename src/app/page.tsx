@@ -63,8 +63,8 @@ export default function Home() {
       </section>
       <section className="notes-index">
         <div className="heading-row">
-          <h2>Technical notes</h2>
-          <Link href="/blog">All notes</Link>
+          <h2>Blog</h2>
+          <Link href="/blog">All posts</Link>
         </div>
         <ul>
           {notes.map((node) => (

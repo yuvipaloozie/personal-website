@@ -28,7 +28,7 @@ export default function AboutContent() {
             that connect them.
           </p>
           <p className="profile-actions">
-            <Link href="/resume"><PixelIcon name="document" />Curriculum vitae</Link>
+            <Link href="/resume"><PixelIcon name="document" />Resume</Link>
             <a href={`mailto:${profile.email}`}><PixelIcon name="mail" />Get in touch</a>
           </p>
         </div>

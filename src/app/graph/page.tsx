@@ -9,6 +9,7 @@ import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import Card from "@/components/Card";
 import { BackgroundSnippets } from "@/components/ui/background-snippets";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 
 // Dynamically import GraphCanvas to prevent SSR window issues
 const GraphCanvas = dynamic(() => import("@/components/GraphCanvas"), {
@@ -18,17 +19,23 @@ const GraphCanvas = dynamic(() => import("@/components/GraphCanvas"), {
 
 export default function GraphPage() {
   const [selectedNode, setSelectedNode] = useState<NodeData | null>(null);
+  const [paused, setPaused] = useState(false);
 
   return (
-    <div className="graph-page">
+    <div className="graph-page" data-paused={paused}>
       <BackgroundSnippets />
       <div className="graph-help">
+        <h1>Knowledge graph</h1>
         <p>Select a node to explore; select a category to expand.</p>
         <p>Scroll to zoom · drag to pan.</p>
         <Link href="/projects">Browse the project list</Link>
+        <button className="graph-motion-control" onClick={() => setPaused(value => !value)} aria-pressed={paused}
+          aria-label={paused ? "Resume graph animation" : "Pause graph animation"}>
+          <PixelIcon name={paused ? "play" : "pause"} />{paused ? "Resume motion" : "Pause motion"}
+        </button>
       </div>
       {/* Physics Canvas */}
-      <GraphCanvas onNodeSelect={setSelectedNode} />
+      <GraphCanvas onNodeSelect={setSelectedNode} paused={paused} />
 
       {/* Footer Overlay */}
       <div
@@ -91,8 +98,7 @@ export default function GraphPage() {
               maxWidth: "400px",
               height: "100%",
               background: "var(--card-bg)",
-              borderLeft: "1px solid var(--card-border)",
-              boxShadow: "-10px 0 40px rgba(0,0,0,0.05)",
+              borderLeft: "var(--card-border)",
               zIndex: 100,
               overflowY: "auto",
               padding: "4rem 1.5rem",

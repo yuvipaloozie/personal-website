@@ -1171,3 +1171,56 @@ h1, h2, h3, h4 { font-weight: 500; letter-spacing: -0.035em; text-wrap: balance;
 .thread-choices button:not([aria-pressed="true"]) { background: rgba(255, 255, 255, .88); }
 .topic-filter button:hover, .thread-choices button:hover { border-color: #8a9ab1; }
 @media (max-width: 600px) { .ambient-field { opacity: .2; } }
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url('/fonts/geist-mono-latin.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Display pixels, technical navigation, and a quiet reading face each have one role. */
+.site-header .header-inner { gap: 22px; }
+.site-name { font-family: "Geist Pixel", "Instrument Sans", sans-serif; font-size: 22px; font-weight: 400; letter-spacing: -.025em; white-space: nowrap; margin-right: auto; }
+.site-header nav { gap: 20px; }
+.site-header nav a, .graph-nav-link {
+  font-family: "Geist Mono", monospace;
+  font-size: 12px;
+  font-weight: 450;
+  letter-spacing: -.015em;
+}
+.graph-nav-link { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; white-space: nowrap; color: var(--control-ink); }
+.graph-nav-link[aria-current] { text-decoration: underline; text-underline-offset: 7px; }
+.graph-mark { display: block; width: 32px; height: 24px; flex-shrink: 0; }
+.graph-mark-halo { animation: graph-dither 4.8s steps(5, end) infinite; }
+.graph-mark-phase-1 { animation-delay: -1.6s; }
+.graph-mark-phase-2 { animation-delay: -3.2s; }
+@keyframes graph-dither { 0%, 100% { opacity: .15; } 50% { opacity: .9; } }
+.site-header[data-visible="false"] .graph-mark-halo,
+body:has(.ambient-research[data-paused="true"]) .graph-mark-halo,
+body:has(.graph-page[data-paused="true"]) .graph-mark-halo { animation-play-state: paused; }
+.graph-page { inset: var(--header-height, 88px) 0 0; }
+body:has(.graph-page) > .site-footer { display: none; }
+.graph-help h1 { font-family: "Geist Pixel", "Instrument Sans", sans-serif; font-size: 24px; margin-bottom: 8px; color: var(--control-ink); }
+.graph-help { font-family: "Geist Mono", monospace; font-size: 11px; }
+.graph-motion-control { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 6px 10px; margin-left: 14px; background: white; border: 1px solid var(--control-border); color: var(--control-ink); font-size: 11px; }
+.graph-motion-control:hover { border-color: var(--control-ink); }
+@media (max-width: 850px) {
+  .site-header .header-inner { gap: 14px; }
+  .site-header nav { gap: 15px; }
+  .site-name { font-size: 20px; }
+  .graph-nav-link { gap: 5px; }
+}
+@media (max-width: 650px) {
+  .site-header .header-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0 10px; padding-block: 8px; }
+  .site-name { grid-column: 1; grid-row: 1; font-size: 19px; }
+  .graph-nav-link { grid-column: 2; grid-row: 1; font-size: 10px; }
+  .graph-mark { width: 28px; }
+  .site-header nav { grid-column: 1 / -1; grid-row: 2; width: 100%; gap: 24px; flex-wrap: wrap; }
+  .site-header nav a { font-size: 12px; }
+  .graph-help { top: 10px; left: 12px; max-width: calc(100% - 24px); padding: 8px 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .graph-mark-halo { animation: none; opacity: .55; }
+  .graph-motion-control { display: none; }
+}

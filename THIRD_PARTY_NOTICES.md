@@ -14,3 +14,7 @@ The site uses shadcn/ui's existing Button and Base UI grouped controls. No exter
 ## Display typography
 
 Geist Pixel Square is locally hosted from https://github.com/vercel/geist-font and used only for the homepage display name. License texts: public/fonts/Geist-OFL.txt and public/fonts/Geist-LICENSE.txt.
+
+## Geist Mono
+
+The locally hosted `public/fonts/geist-mono-latin.woff2` is distributed with Next.js and originates from Vercel's Geist font family. Used for navigation and graph labels under the SIL Open Font License 1.1. See `public/fonts/Geist-LICENSE.txt` and https://github.com/vercel/geist-font.

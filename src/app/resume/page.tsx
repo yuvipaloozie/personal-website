@@ -4,7 +4,7 @@ import PrintResume from "@/components/PrintResume";
 import { graphData } from "@/data/graphData";
 import { education, profile, technicalSkills } from "@/lib/profile";
 export const metadata: Metadata = {
-  title: "Curriculum vitae",
+  title: "Resume",
   description:
     "Education, experience, and technical background of Yuvraj Tripathy.",
 };
@@ -14,7 +14,7 @@ export default function Resume() {
   );
   return (
     <div className="container section">
-      <h1 className="page-title">Curriculum vitae</h1>
+      <h1 className="page-title">Resume</h1>
       <p className="page-intro">
         {profile.name} · {profile.location}
         <br />
