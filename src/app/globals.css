@@ -1451,3 +1451,16 @@ body:has(.ambient-research[data-paused="true"]) .thread-entries a > .pixel-icon 
 /* Clear inactive plates too, so the shared surface remains visible while travelling. */
 .topic-filter:has(> .selection-indicator[data-ready="true"]) > button,
 .thread-choices:has(> .selection-indicator[data-ready="true"]) > button { background: transparent !important; }
+
+/* Keep the supplied pixel sweep distinct from the moving selection surface. */
+.dither-sweep .dsn-px { width: 100%; height: 100%; min-width: 0; aspect-ratio: auto; grid-template-columns: repeat(var(--sweep-cols, 12), 1fr); }
+.sweep-target { --sweep-fill: #c9d8eb; }
+.topic-filter button[aria-pressed="true"], .topic-filter button[data-pressed],
+.thread-choices button[aria-pressed="true"] { --sweep-fill: #bacde5; }
+.sweep-on-dark, .ambient-control[aria-pressed="true"] { --sweep-fill: #3b5373; }
+
+/* Footer is now a quiet set of social links; no repeated identity or location. */
+.site-footer { justify-content: flex-start; gap: 8px; padding-block: 20px 24px; }
+.footer-social { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 8px; color: #625f58; }
+.footer-social:hover { color: #203858; text-decoration: none; }
+.footer-social svg { width: 18px; height: 18px; }

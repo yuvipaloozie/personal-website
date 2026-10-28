@@ -103,3 +103,11 @@ Reference: https://www.notion.com/help/create-your-first-page (primary source fo
 Motion thesis: retain the synchronized dither artwork as the focal moment. Add continuity to selection with one moving surface across navigation, project topics and research threads. Animate the native research disclosure's size only in supporting browsers. Give action arrows a 3px directional response for feedback. No global reveal/stagger sequence or additional looping decoration.
 
 Use a 240ms Web Animations FLIP transform for the bounded selection surface, measuring the current rendered position when interrupted. Keep link/button focus and labels separate from the decorative surface. Reposition on resize and reveal; leave static selected styling as a no-JS fallback. Use 140ms arrow feedback and 240ms native disclosure transitions with an instant fallback. Reduced motion and global pause settle selection instantly and remove spatial transitions. Hidden tabs cancel finite selection motion. No new packages, frame loops or page-copy changes.
+
+### Preserve visible button dithering
+
+The dither sweep remains separate from the gliding selection surface. Fit its full staggered grid to each control (6 rows, aspect-derived columns) rather than clipping a fixed oversized 24-column grid. Use a clearer pale-blue fill with navy labels and a 520ms total sweep. Retain the supplied deterministic pixel ordering, hover/focus triggers, dark-button contrast, and reduced-motion/pause behavior. Observe sizing only; add no animation loop.
+
+### Footer and floating-control cleanup
+
+At the user's request, remove the floating ambient Pause motion button. Keep system reduced-motion preferences and hidden/offscreen suspension. Retain the explorer's separate graph control. Replace repeated footer identity/location, knowledge-graph link and visible Email text with three icon-only GitHub, LinkedIn and Email links, using verified profile URLs, accessible names/tooltips and 44px targets. Keep the top-right knowledge graph navigation. Footer icons also use the restored dither sweep.
