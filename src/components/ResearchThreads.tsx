@@ -1,6 +1,7 @@
 "use client";
 import { PixelIcon } from "@/components/ui/pixel-icon";
 import { DitherSweep } from "@/components/ui/dither-sweep";
+import { SelectionIndicator } from "@/components/ui/selection-indicator";
 
 import { useEffect, useState } from "react";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
@@ -46,6 +47,7 @@ export default function ResearchThreads() {
           if (next) setSelected(next);
         }}
       >
+        <SelectionIndicator value={selected.id} />
         {researchThreads.map((thread) => (
           <Toggle
             key={thread.id}

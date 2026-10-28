@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { GraphMark } from "@/components/ui/graph-mark";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 import { PixelIcon } from "@/components/ui/pixel-icon";
+import { SelectionIndicator } from "@/components/ui/selection-indicator";
 const links = [
   ["/about", "About"],
   ["/projects", "Projects"],
@@ -32,6 +33,7 @@ export default function Navbar() {
           <PixelIcon name="document" />Yuvraj Tripathy
         </Link>
         <nav aria-label="Main navigation">
+          <SelectionIndicator value={pathname} selector='[aria-current="page"]' />
           {links.map(([href, label]) => (
             <Link
               key={href}

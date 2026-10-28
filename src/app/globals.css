@@ -1412,3 +1412,42 @@ body:has(.graph-page[data-paused="true"]) .dither-sweep .dsn-px i { transition: 
   .featured-index .project-entry { padding: 22px 0; }
   .notes-index li { padding-inline: 6px; }
 }
+
+/* Continuity: one selected surface travels between related controls. */
+.site-header nav, .topic-filter, .thread-choices { position: relative; isolation: isolate; }
+.selection-indicator { position: absolute; top: 0; left: 0; z-index: 0; pointer-events: none; transform-origin: top left; border-radius: 7px; background: #e3e9ef; opacity: 0; }
+.site-header nav .selection-indicator { background: #eeece7; }
+.selection-indicator[data-ready="true"] { opacity: 1; }
+.site-header nav > a, .topic-filter > button, .thread-choices > button { position: relative; z-index: 1; }
+.site-header nav:has(> .selection-indicator[data-ready="true"]) a[aria-current],
+.topic-filter:has(> .selection-indicator[data-ready="true"]) button[aria-pressed="true"],
+.topic-filter:has(> .selection-indicator[data-ready="true"]) button[data-pressed],
+.thread-choices:has(> .selection-indicator[data-ready="true"]) button[aria-pressed="true"] { background: transparent !important; }
+.project-links a .pixel-icon, .profile-actions a .pixel-icon, .thread-entries a > .pixel-icon { transition: transform 140ms cubic-bezier(.16, 1, .3, 1); }
+@media (hover: hover) and (pointer: fine) {
+  .project-links a:hover .pixel-icon, .thread-entries a:hover > .pixel-icon { transform: translateX(3px); }
+}
+.project-links a:focus-visible .pixel-icon, .thread-entries a:focus-visible > .pixel-icon { transform: translateX(3px); }
+/* Native disclosure remains instant in browsers without discrete-size transitions. */
+@supports (interpolate-size: allow-keywords) {
+  .thread-disclosure { interpolate-size: allow-keywords; }
+  .thread-disclosure::details-content { block-size: 0; overflow: clip; transition: block-size 240ms cubic-bezier(.16, 1, .3, 1), content-visibility 240ms allow-discrete; }
+  .thread-disclosure[open]::details-content { block-size: auto; }
+}
+.thread-disclosure > summary .pixel-icon { transition: transform 180ms cubic-bezier(.16, 1, .3, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .project-links a .pixel-icon, .profile-actions a .pixel-icon, .thread-entries a > .pixel-icon,
+  .thread-disclosure > summary .pixel-icon, .thread-disclosure::details-content { transition: none; }
+  .project-links a .pixel-icon, .thread-entries a > .pixel-icon { transform: none !important; }
+}
+body:has(.ambient-research[data-paused="true"]) .thread-disclosure::details-content,
+body:has(.ambient-research[data-paused="true"]) .thread-disclosure > summary .pixel-icon,
+body:has(.ambient-research[data-paused="true"]) .project-links a .pixel-icon,
+body:has(.ambient-research[data-paused="true"]) .thread-entries a > .pixel-icon { transition: none; }
+@media (forced-colors: active) {
+  .selection-indicator { display: none; }
+  .topic-filter button[aria-pressed="true"], .thread-choices button[aria-pressed="true"], .site-header nav a[aria-current] { background: Highlight !important; color: HighlightText !important; }
+}
+/* Clear inactive plates too, so the shared surface remains visible while travelling. */
+.topic-filter:has(> .selection-indicator[data-ready="true"]) > button,
+.thread-choices:has(> .selection-indicator[data-ready="true"]) > button { background: transparent !important; }

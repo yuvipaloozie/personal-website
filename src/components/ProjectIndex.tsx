@@ -8,6 +8,7 @@ import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { Toggle } from "@base-ui/react/toggle";
 import { graphData } from "@/data/graphData";
 import { projectPreviews } from "@/lib/project-previews";
+import { SelectionIndicator } from "@/components/ui/selection-indicator";
 
 const topics = [
   { id: "all", label: "All work" },
@@ -55,6 +56,7 @@ export default function ProjectIndex({
           if (value[0]) setTopic(value[0]);
         }}
       >
+        <SelectionIndicator value={topic} />
         {topics.map((item) => (
           <Toggle className="sweep-target" key={item.id} value={item.id} aria-controls="project-results">
             <DitherSweep /><span className="sweep-label">{item.label}</span>
