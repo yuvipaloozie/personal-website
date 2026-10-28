@@ -28,7 +28,7 @@ export default function AmbientResearch() {
     };
   }, []);
 
-  if (pathname === "/graph") return null;
+  if (pathname === "/graph" || pathname === "/plant") return null;
 
   return (
     <>

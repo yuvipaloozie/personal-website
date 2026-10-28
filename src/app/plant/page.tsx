@@ -1,0 +1,85 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import FloatingPortrait from "@/components/FloatingPortrait";
+import PlantDiagram from "@/components/PlantDiagram";
+import { DitherSweep } from "@/components/ui/dither-sweep";
+import { PixelIcon } from "@/components/ui/pixel-icon";
+import { career, education, profile } from "@/lib/profile";
+import { projectPreviews } from "@/lib/project-previews";
+import { graphData } from "@/data/graphData";
+import "./plant.css";
+
+export const metadata: Metadata = {
+  title: "Process / An experimental view",
+  description: "An experimental process-flow view of Yuvraj Tripathy’s engineering, research and projects.",
+};
+
+export default function PlantPage() {
+  const projects = ["p_psm", "p_yield", "p_chana"].map(id => graphData.nodes.find(n => n.id === id)!);
+  const writing = graphData.nodes.filter(n => n.id.startsWith("b_")).slice(0, 3);
+  return (
+    <div className="plant-page">
+      <PlantDiagram />
+      <div className="plant-content">
+        <section className="plant-hero" id="feed" aria-labelledby="plant-name">
+          <div className="plant-copy">
+            <h1 id="plant-name">Yuvraj<br />Tripathy</h1>
+            <p className="plant-intro">Process engineering.<br />Applied machine learning.</p>
+            <div className="plant-person">
+              <FloatingPortrait width={112} height={136} preload />
+              <p>{career.arclin.title} at {career.arclin.employer}.<br />{education.graduate.subject} graduate student at {education.shortInstitution}.</p>
+            </div>
+            <div className="plant-actions">
+              <a href="#conditioning" className="sweep-target"><DitherSweep /><span className="sweep-label">Follow the process <PixelIcon name="arrow" /></span></a>
+              <Link href="/">Classic view</Link>
+            </div>
+          </div>
+          <p className="plant-caption">An abstract plant, from feed to feedback.<br />Scroll to follow the flow.</p>
+        </section>
+
+        <section className="plant-background" id="conditioning" aria-labelledby="plant-background-title">
+          <div className="plant-copy">
+            <h2 id="plant-background-title">Engineering<br />the conditions.</h2>
+            <p>My background is in Chemical and Biomolecular Engineering. My work connects physical processes, automation, and data.</p>
+            <dl className="plant-career">
+              <div><dt>{career.arclin.employer}</dt><dd>{career.arclin.title}</dd></div>
+              <div><dt>Georgia Tech</dt><dd>{education.graduate.degree} · {education.graduate.completion}</dd></div>
+              <div><dt>PCOM</dt><dd>Machine learning research · Biomedical imaging</dd></div>
+            </dl>
+            <Link className="plant-text-link" href="/resume">Resume <PixelIcon name="arrow" /></Link>
+          </div>
+        </section>
+
+        <section className="plant-projects" id="reaction" aria-labelledby="plant-projects-title">
+          <div className="plant-copy">
+            <h2 id="plant-projects-title">Applied<br />projects.</h2>
+            <div className="plant-project-list">
+              {projects.map(node => <article key={node.id}>
+                <Link href={node.details!.link!} className="plant-project-link sweep-target">
+                  <DitherSweep /><span className="sweep-label">{projectPreviews[node.id].title}<PixelIcon name="arrow" /></span>
+                </Link>
+                <p>{projectPreviews[node.id].summary}</p>
+              </article>)}
+            </div>
+            <Link className="plant-text-link" href="/projects">All projects <PixelIcon name="arrow" /></Link>
+          </div>
+        </section>
+
+        <section className="plant-writing" id="separation" aria-labelledby="plant-writing-title">
+          <div className="plant-copy">
+            <h2 id="plant-writing-title">Distilling<br />what I learn.</h2>
+            <p>Notes on engineering, models, and the details that connect them.</p>
+            <ul>{writing.map(node => <li key={node.id}><Link href={node.details!.link!}>{node.details!.title}<PixelIcon name="arrow" /></Link></li>)}</ul>
+            <Link className="plant-text-link" href="/blog">All writing <PixelIcon name="arrow" /></Link>
+          </div>
+        </section>
+
+        <section className="plant-close" id="feedback" aria-labelledby="plant-close-title">
+          <h2 id="plant-close-title">Keep the loop open.</h2>
+          <div className="plant-actions"><a className="sweep-target" href={`mailto:${profile.email}`}><DitherSweep /><span className="sweep-label">Get in touch <PixelIcon name="mail" /></span></a><Link href="/graph">Explore the knowledge graph</Link></div>
+          <p className="plant-disclaimer">An abstract process diagram, drawn for this site.</p>
+        </section>
+      </div>
+    </div>
+  );
+}

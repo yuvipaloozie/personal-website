@@ -1,0 +1,60 @@
+.plant-page { position: relative; isolation: isolate; color: #203858; background: #fbfaf8; }
+.plant-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+.plant-content { max-width: 1200px; margin-inline: auto; padding-inline: 48px; }
+.plant-content section { position: relative; box-sizing: border-box; scroll-margin-top: 110px; }
+.plant-copy { max-width: 470px; }
+.plant-content h1, .plant-content h2 { font-family: "Geist Pixel", "Instrument Sans", sans-serif; font-weight: 400; color: #203858; }
+.plant-copy p { color: #454944; font-size: 17px; line-height: 1.7; }
+.plant-hero { min-height: 740px; padding-top: 78px; }
+.plant-hero h1 { font-size: clamp(68px, 8vw, 100px); line-height: .98; letter-spacing: -.035em; margin: 0 0 28px; }
+.plant-hero .plant-intro { font-size: 24px; line-height: 1.4; color: #203858; }
+.plant-person { display: flex; align-items: center; gap: 16px; margin-block: 26px; }
+.plant-person .portrait-frame { flex-shrink: 0; }
+.plant-person p { max-width: 27ch; font-size: 15px; line-height: 1.6; }
+.plant-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 24px; font-size: 14px; }
+.plant-actions > .sweep-target { padding: 12px 16px; background: #e8edf2; border-radius: 8px; }
+.plant-actions svg { width: 16px; height: 16px; }
+.plant-caption { position: absolute; bottom: 65px; left: 0; font-size: 13px; line-height: 1.6; color: #576774; }
+.plant-background { min-height: 770px; padding-top: 130px; }
+.plant-content h2 { font-size: clamp(38px, 4.5vw, 56px); line-height: 1.08; letter-spacing: -.025em; margin: 0 0 26px; }
+.plant-career { margin-block: 32px; }
+.plant-career > div { margin-bottom: 24px; }
+.plant-career dt { font-size: 17px; font-weight: 600; }
+.plant-career dd { font-size: 14px; color: #555d60; margin: 4px 0 0; line-height: 1.6; }
+.plant-text-link { display: inline-flex; gap: 12px; align-items: center; font-size: 14px; }
+.plant-text-link svg { width: 16px; }
+.plant-projects { min-height: 900px; padding-top: 90px; padding-left: 54%; }
+.plant-project-list { margin-block: 36px; }
+.plant-project-list article { margin-block: 28px; }
+.plant-project-link { display: block; padding: 12px; margin-left: -12px; border-radius: 8px; font-size: 20px; line-height: 1.35; }
+.plant-project-link .sweep-label { width: 100%; justify-content: space-between; gap: 20px; }
+.plant-project-link svg { flex-shrink: 0; width: 18px; }
+.plant-project-list p { font-size: 15px; margin: 2px 0; }
+.plant-writing { min-height: 720px; padding-top: 80px; }
+.plant-writing ul { list-style: none; margin: 32px 0; padding: 0; }
+.plant-writing li { margin-bottom: 20px; }
+.plant-writing li a { display: flex; justify-content: space-between; gap: 20px; font-size: 17px; line-height: 1.5; }
+.plant-writing li svg { flex-shrink: 0; width: 16px; }
+.plant-close { min-height: 380px; padding-top: 70px; }
+.plant-close h2 { font-size: clamp(32px, 4vw, 48px); }
+.plant-disclaimer { font-size: 13px; color: #626a70; margin-top: 42px; }
+body:has(.plant-page) .site-footer { border: 0; margin-top: 0; }
+@media (min-width: 1400px) { .plant-content { padding-inline: 20px; } }
+@media (max-width: 900px) {
+  .plant-content { padding-inline: 24px; }
+  .plant-copy { max-width: min(520px, calc(100% - 52px)); }
+  .plant-hero { min-height: 720px; padding-top: 56px; }
+  .plant-hero h1 { font-size: clamp(58px, 12vw, 80px); }
+  .plant-hero .plant-intro { font-size: 21px; }
+  .plant-person { align-items: flex-start; gap: 8px; margin-left: -10px; }
+  .plant-person p { font-size: 14px; }
+  .plant-actions { gap: 16px; }
+  .plant-caption { left: 0; right: auto; bottom: 32px; }
+  .plant-background { min-height: 780px; padding-top: 80px; }
+  .plant-projects { min-height: 900px; padding-left: 0; padding-top: 60px; }
+  .plant-writing { min-height: 720px; padding-top: 60px; }
+  .plant-close { min-height: 390px; padding-top: 40px; padding-right: 42px; }
+  .plant-copy p { font-size: 16px; }
+  .plant-content h2 { font-size: 38px; }
+}
+@media print { .plant-canvas { display: none; } .plant-content section { min-height: 0; padding: 30px 0; break-inside: avoid; } }
