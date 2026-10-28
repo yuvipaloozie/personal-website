@@ -12,6 +12,9 @@ colors:
   diagram-label: "#536a7d"
   stipple-dark: "#71899d"
   stipple-light: "#a1b1bd"
+  paper-grid: "#a9bac8"
+  equipment-perimeter: "#cad4dc"
+  output-inactive: "#8a9faf"
 typography:
   display:
     fontFamily: '"Geist Pixel", "Instrument Sans", sans-serif'
@@ -53,7 +56,7 @@ The inherited navy and warm paper carry identity and ground. Route-local blue-gr
 
 ## Typography
 
-Use the existing local font files: Geist Pixel Square for display headings, Instrument Sans for reading copy and diagram labels, and Geist Mono for shared navigation. Diagram labels are 14px Instrument Sans; the instrument marker is 12px. The introduction is 24px with 1.4 line height. Project links are 20px; supporting summaries are 15px. These route sizes do not redefine classic-page typography.
+Use the existing local font files: Geist Pixel Square for display headings, Instrument Sans for reading copy and diagram labels, and Geist Mono for shared navigation. Diagram labels are 14px Instrument Sans; the ML marker is 12px. The introduction is 24px with 1.4 line height. Project links are 20px; supporting summaries are 15px. These route sizes do not redefine classic-page typography.
 
 ## Layout
 
@@ -61,17 +64,17 @@ The content container is 1200px wide with 48px side padding, changing to 20px at
 
 | Section anchor | Reading purpose | Process geometry |
 | --- | --- | --- |
-| `feed` | Name, introduction and portrait | Feed vessel V-101 and valve |
-| `conditioning` | Engineering background and Resume | Exchanger E-201 with utility connections |
-| `reaction` | Three applied projects | Stirred vessel R-301 and dashed TIC signal |
-| `separation` | Writing links | Tray column C-401 and return connection |
-| `feedback` | Contact and graph entry | Outlet valve, arrow and recycle closure |
+| `feed` | Name, introduction and portrait | Vessel: Chemical engineering / Physical systems |
+| `conditioning` | Engineering background and Resume | Exchanger: Automation / measurement; Process signals |
+| `reaction` | Three applied projects | Stirred vessel: Applied machine learning; ML signal and project outputs |
+| `separation` | Writing links | Tray column: Writing / shared methods |
+| `feedback` | Contact and graph entry | Outlet valve, arrow and Learning / feedback return |
 
-At widths of 900px or less, replace the desktop route across the page with a narrow right-hand spine at viewport width minus 27px. Equipment becomes compact; labels, utility detail and recycle loop disappear. Content uses 24px side padding and reserves 52px within the copy width for clearance. Project copy returns left. Headline sizes become 38px and the name uses `clamp(58px, 12vw, 80px)`.
+At 720–900px, use intermediate equipment on a right-hand spine at viewport width minus 110px, retaining exchanger, stirrer and tray internals. Below 720px, use small equipment on a thin spine at width minus 27px. Both omit diagram labels, utility detail and the return loop. Content uses 24px side padding; copy reserves 220px on tablets and 52px on phones. Project copy returns left. Headlines become 38px and the name uses `clamp(58px, 12vw, 80px)`. Narrow layouts shorten the conditioning, project and writing stages. At 480px or less, portrait and biography stack and the hero expands to 800px.
 
 ## Elevation & Depth
 
-Keep the route flat. An isolated page layer holds a fixed, pointer-transparent canvas behind normal document content. Paper-filled equipment, restrained outlines and ordered stipple provide depth without shadows or decorative cards. Print hides the canvas and removes section minimum heights.
+Keep the route flat. An isolated page layer holds a fixed, pointer-transparent canvas behind normal document content. Cached engineering paper uses a broken-pixel grid at 64-unit intervals with sparse seeded stipple. Measured reading masks remove texture beneath copy, captions and closing content, fading it back across 28 units of clearance. Paper-filled equipment, restrained outlines and desktop perimeter stipple provide depth without shadows or cards. Print hides the canvas and removes section minimum heights.
 
 ## Shapes
 
@@ -79,11 +82,13 @@ Equipment uses capsule vessels, an elliptical exchanger, tray lines, bow-tie val
 
 ## Components
 
-The canvas is decorative and hidden from assistive technology; section headings and ordinary links carry the narrative. The inherited portrait, DitherSweep interactions, header and footer remain shared components. “Classic view” returns to `/`; project and writing entries use their existing detail links. Resume, Projects, Blog and Graph links lead to canonical routes.
+The canvas is decorative and hidden from assistive technology; section headings and ordinary links carry the narrative. The inherited portrait, DitherSweep interactions, header and footer remain shared components. “Classic view” returns to `/`; project and writing entries use their existing detail links. Resume, Projects, Blog and Graph links lead to canonical routes. Actions, text links and writing links have at least 44px height.
 
-Scroll continuously reveals a navy path over the pale complete piping. Section offsets are measured on resize and through a ResizeObserver. A viewport marker at 62% height maps between equipment anchors, then interpolates cumulative polyline distance so horizontal turns reveal continuously. Scrolling backward reverses the reveal.
+Three measured `data-process-output` links connect the real projects to node, signal and microscopy glyphs: `p_psm`, `p_yield` and `p_chana`. Desktop branches run from the reactor to each link; narrow layouts place glyphs on the spine at the link's measured height. Pointer hover or keyboard focus highlights the corresponding output. Its bounded moving marker shares the existing diagram clock.
 
-Idle motion remains visible without scrolling: existing 8×8 Bayer thresholds stipple equipment with a slow sine field, while small packets travel only along revealed piping. Paints are bounded to approximately 25fps, device pixel ratio to 1.5, and offscreen equipment skips stipple work. Hidden tabs cancel frames and reset the clock reference. Reduced motion freezes stipple time, omits packets and paints only on invalidation; scroll-driven reveal remains available.
+Scroll continuously reveals a navy path over the pale complete piping. Section offsets, output anchors and reading masks are measured on resize, ResizeObserver updates and font readiness; the cached grid rebuilds with that layout work. A viewport marker at 62% height maps between equipment anchors, then interpolates cumulative polyline distance so horizontal turns reveal continuously. Scrolling backward reverses the reveal.
+
+Idle motion remains visible without scrolling: existing 8×8 Bayer thresholds stipple equipment with a slow sine field, while packets travel only along revealed piping. Paints are bounded to approximately 25fps, device pixel ratio to 1.5, and offscreen equipment skips stipple work. Hidden tabs cancel frames and reset the clock reference. Reduced motion freezes stipple time, omits packet and output-marker motion, and paints only on invalidation; scroll reveal and output highlights remain available. Disposal guards cancel pending work after navigation. No additional animation loop or raster asset is introduced; engineering paper is generated locally in memory. The inherited portrait's static wave-time fallback on this route remains unchanged.
 
 ## Do's and Don'ts
 

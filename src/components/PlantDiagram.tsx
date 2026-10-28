@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { bayer8 } from "@/lib/wave-field";
+import { bayer8, seededNoise } from "@/lib/wave-field";
 
 type Point = [number, number];
 
@@ -23,6 +23,9 @@ export default function PlantDiagram() {
     let stages: number[] = [];
     let dirty = true;
     let disposed = false;
+    let activeOutput = "";
+    let outputs: { id: string; x: number; y: number }[] = [];
+    const drawingStock = document.createElement("canvas");
 
     function measure() {
       if (disposed || !page!.isConnected) return;
@@ -35,6 +38,39 @@ export default function PlantDiagram() {
       surface!.height = height * ratio;
       ctx!.setTransform(ratio, 0, 0, ratio, 0, 0);
       stages = sections.map(section => section!.getBoundingClientRect().top - page!.getBoundingClientRect().top);
+      const scale = width <= 900 ? 1 : Math.min(width / 1200, 1);
+      const left = width <= 900 ? 0 : (width - 1200 * scale) / 2;
+      const origin = page!.getBoundingClientRect();
+      outputs = Array.from(page!.querySelectorAll<HTMLElement>("[data-process-output]")).map(link => {
+        const rect = link.getBoundingClientRect();
+        return { id: link.dataset.processOutput!, x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top + rect.height / 2) / scale };
+      });
+      // Cache the engineering paper once per layout, not on the animation clock.
+      drawingStock.width = width <= 900 ? width : 1200;
+      drawingStock.height = Math.ceil(page!.scrollHeight / scale);
+      const stock = drawingStock.getContext("2d")!;
+      const reading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-caption, .plant-close")).map(element => {
+        const rect = element.getBoundingClientRect();
+        return { x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top) / scale, w: rect.width / scale, h: rect.height / scale };
+      });
+      stock.fillStyle = "#a9bac8";
+      for (let y = 0; y < drawingStock.height; y += 4) {
+        for (let x = 0; x < drawingStock.width; x += 4) {
+          const axis = x % 64 === 0 || y % 64 === 0;
+          const noise = seededNoise(x, y, 19);
+          if (axis ? noise > .76 : noise < .997) continue;
+          let clearance = 1;
+          for (const rect of reading) {
+            const dx = Math.max(rect.x - x, 0, x - rect.x - rect.w);
+            const dy = Math.max(rect.y - y, 0, y - rect.y - rect.h);
+            clearance = Math.min(clearance, Math.min(1, Math.hypot(dx, dy) / 28));
+          }
+          if (clearance < .03) continue;
+          stock.globalAlpha = (axis ? .34 : .17) * clearance;
+          const dot = x % 64 === 0 && y % 64 === 0 ? 2.6 : 1.35;
+          stock.fillRect(x, y, dot, dot);
+        }
+      }
       dirty = true;
     }
 
@@ -54,18 +90,20 @@ export default function PlantDiagram() {
       context.clearRect(0, 0, width, height);
       const top = page!.getBoundingClientRect().top;
       const mobile = width <= 900;
+      const tablet = mobile && width >= 720;
       const scale = mobile ? 1 : Math.min(width / 1200, 1);
       const left = mobile ? 0 : (width - 1200 * scale) / 2;
       context.save();
       context.translate(left, top);
       context.scale(scale, scale);
+      context.drawImage(drawingStock, 0, 0);
       const stage = stages.map(y => y / scale);
       const feed = 310;
       const heat = stage[1] + 310;
       const reaction = stage[2] + 340;
       const separation = stage[3] + 300;
       const outlet = stage[4] + 230;
-      const spine = mobile ? width - 27 : 885;
+      const spine = tablet ? width - 110 : mobile ? width - 27 : 885;
       const reactorX = mobile ? spine : 300;
       const firstTurn = stage[2] - 35;
       const secondTurn = stage[3] - 35;
@@ -102,13 +140,22 @@ export default function PlantDiagram() {
         line([[spine, outlet], [1165, outlet], [1165, 125], [spine, 125]], "#b0bcc5", 1.2, [5, 6]);
         context.fillStyle = "#667987";
         context.font = '14px "Instrument Sans", sans-serif';
-        context.save(); context.translate(1188, heat); context.rotate(-Math.PI / 2); context.fillText("Feedback / recycle", 0, 0); context.restore();
+        context.save(); context.translate(1188, heat); context.rotate(-Math.PI / 2); context.fillText("Learning / feedback", 0, 0); context.restore();
       }
 
       function equipment(path: Path2D, bounds: number[], seed: number) {
         const [x, y, w, h] = bounds;
         // Skip equipment outside the viewport; no offscreen stipple work.
         if ((y + h) * scale + top < -30 || y * scale + top > height + 30) return;
+        if (!mobile) {
+          context.fillStyle = "#cad4dc";
+          for (let py = y - 50; py < y + h + 50; py += 4) {
+            for (let px = x - 50; px < x + w + 50; px += 4) {
+              const distance = Math.hypot((px - x - w / 2) / (w * .68), (py - y - h / 2) / (h * .65));
+              if (distance > .85 && distance < 1.4 && bayer8(px / 4, py / 4) < (1.4 - distance) * .14) context.fillRect(px, py, 1.5, 1.5);
+            }
+          }
+        }
         context.save();
         context.fillStyle = "#fbfaf8";
         context.fill(path);
@@ -147,51 +194,87 @@ export default function PlantDiagram() {
         line([[x - 9, y - 9], [x + 9, y + 9], [x + 9, y - 9], [x - 9, y + 9], [x - 9, y - 9]], "#587084");
       }
 
-      const w = mobile ? 32 : 178;
-      const h = mobile ? 95 : 245;
+      const w = tablet ? 92 : mobile ? 32 : 178;
+      const h = tablet ? 170 : mobile ? 95 : 245;
       vessel(spine, feed, w, h, 1);
       if (!mobile) {
         line([[spine - 62, feed + h / 2 - 5], [spine - 62, feed + 146]], "#8b9eac");
         line([[spine + 62, feed + h / 2 - 5], [spine + 62, feed + 146]], "#8b9eac");
         line([[spine - 76, feed + 146], [spine - 48, feed + 146]], "#8b9eac");
         line([[spine + 48, feed + 146], [spine + 76, feed + 146]], "#8b9eac");
-        label("Feed vessel", spine - 90, feed - 154);
-        label("V-101", spine + 112, feed + 4);
+        label("Chemical engineering", spine - 150, feed - 154);
+        label("Physical systems", spine + 112, feed + 4);
       }
       valve(spine, feed + h / 2 + 52);
 
       const exchanger = new Path2D();
-      exchanger.ellipse(spine, heat, mobile ? 19 : 102, mobile ? 52 : 102, 0, 0, Math.PI * 2);
-      equipment(exchanger, [spine - (mobile ? 19 : 102), heat - (mobile ? 52 : 102), mobile ? 38 : 204, mobile ? 104 : 204], 3);
+      const hx = tablet ? 48 : mobile ? 19 : 102;
+      const hy = tablet ? 65 : mobile ? 52 : 102;
+      exchanger.ellipse(spine, heat, hx, hy, 0, 0, Math.PI * 2);
+      equipment(exchanger, [spine - hx, heat - hy, hx * 2, hy * 2], 3);
+      if (tablet) line([[spine - 30, heat - 35], [spine + 30, heat - 35], [spine - 30, heat], [spine + 30, heat + 35], [spine - 30, heat + 35]], "#7890a3", 1.2);
       if (!mobile) {
         line([[spine - 70, heat - 65], [spine + 50, heat - 65], [spine - 50, heat - 20], [spine + 50, heat + 20], [spine - 50, heat + 65], [spine + 70, heat + 65]], "#7890a3", 1.4);
         line([[spine - 170, heat - 25], [spine - 100, heat - 25]], "#a2b0bb");
         line([[spine + 100, heat + 25], [spine + 170, heat + 25]], "#a2b0bb");
-        label("Conditioning", spine - 102, heat - 135);
-        label("E-201", spine + 124, heat - 62);
+        label("Automation / measurement", spine + 24, heat - 135);
+        label("Process signals", spine + 124, heat - 62);
       }
 
-      vessel(reactorX, reaction, mobile ? 38 : 210, mobile ? 120 : 280, 5);
+      vessel(reactorX, reaction, tablet ? 108 : mobile ? 38 : 210, tablet ? 195 : mobile ? 120 : 280, 5);
+      if (tablet) {
+        line([[reactorX, reaction - 120], [reactorX, reaction + 40]], "#587084", 1.3);
+        line([[reactorX - 24, reaction + 20], [reactorX + 24, reaction + 35], [reactorX + 24, reaction + 20], [reactorX - 24, reaction + 35]], "#587084", 1.2);
+      }
       if (!mobile) {
         line([[reactorX, reaction - 175], [reactorX, reaction + 62]], "#587084", 1.8);
         line([[reactorX - 50, reaction + 36], [reactorX + 50, reaction + 60], [reactorX + 50, reaction + 36], [reactorX - 50, reaction + 60]], "#587084");
         line([[reactorX - 120, reaction - 60], [reactorX - 120, reaction + 100], [reactorX - 70, reaction + 152]], "#a6b5c0", 1.3);
         line([[reactorX + 120, reaction - 60], [reactorX + 120, reaction + 100], [reactorX + 70, reaction + 152]], "#a6b5c0", 1.3);
-        label("Reaction / applied work", reactorX - 190, reaction - 205);
-        label("R-301", reactorX + 143, reaction - 30);
+        label("Applied machine learning", reactorX - 205, reaction - 205);
         // A measured signal returns to the process, rather than ornamental wiring.
         line([[reactorX + 105, reaction - 75], [reactorX + 175, reaction - 75], [reactorX + 175, reaction - 255], [reactorX, reaction - 255], [reactorX, reaction - 175]], "#8ea1b0", 1, [4, 5]);
         const instrument = new Path2D(); instrument.arc(reactorX + 175, reaction - 175, 21, 0, Math.PI * 2);
         context.fillStyle = "#fbfaf8"; context.fill(instrument); context.strokeStyle = "#8ea1b0"; context.stroke(instrument);
-        context.fillStyle = "#536a7d"; context.font = '12px "Instrument Sans", sans-serif'; context.fillText("TIC", reactorX + 164, reaction - 171);
+        context.fillStyle = "#536a7d"; context.font = '12px "Instrument Sans", sans-serif'; context.fillText("ML", reactorX + 166, reaction - 171);
       }
 
-      vessel(spine, separation, mobile ? 34 : 138, mobile ? 130 : 310, 7);
+      // The actual projects are outputs, with matching symbols and ordinary links.
+      function outputMark(id: string, x: number, y: number, ink: string) {
+        context.fillStyle = "#fbfaf8"; context.fillRect(x - 13, y - 13, 26, 26);
+        context.fillStyle = ink;
+        if (id === "p_psm") {
+          line([[x - 7, y - 5], [x + 7, y - 5], [x, y + 7], [x - 7, y - 5]], ink, 1);
+          [[-7, -5], [7, -5], [0, 7]].forEach(([dx, dy]) => context.fillRect(x + dx - 2, y + dy - 2, 4, 4));
+        } else if (id === "p_yield") {
+          line([[x - 9, y + 3], [x - 4, y + 3], [x, y - 7], [x + 4, y + 5], [x + 9, y - 1]], ink, 1.5);
+        } else {
+          [[-6, -6], [-2, -6], [2, -2], [-6, -2], [-2, 2], [6, 6], [6, 2]].forEach(([dx, dy]) => context.fillRect(x + dx, y + dy, 3, 3));
+        }
+      }
+      outputs.forEach((output, index) => {
+        const selected = activeOutput === output.id;
+        const ink = selected ? "#203858" : "#8a9faf";
+        if (!mobile) {
+          const sourceY = reaction + (index - 1) * 50;
+          const elbow = reactorX + 180 + index * 24;
+          const branch: Point[] = [[reactorX + 105, sourceY], [elbow, sourceY], [elbow, output.y], [output.x - 16, output.y]];
+          line(branch, ink, selected ? 2 : 1.2, selected ? [] : [2, 4]);
+          outputMark(output.id, output.x - 45, output.y, ink);
+          if (selected && !preference.matches) {
+            const phase = .5 + .5 * Math.sin(time * 2.4);
+            context.fillStyle = ink;
+            context.fillRect(reactorX + 108 + phase * 40, sourceY - 2, 4, 4);
+          }
+        } else outputMark(output.id, spine, output.y, ink);
+      });
+
+      vessel(spine, separation, tablet ? 80 : mobile ? 34 : 138, tablet ? 215 : mobile ? 130 : 310, 7);
+      if (tablet) for (let i = -3; i <= 3; i++) line([[spine - 33, separation + i * 23], [spine + 33, separation + i * 23]], "#9bafbe", 1);
       if (!mobile) {
         for (let i = -3; i <= 3; i++) line([[spine - 60, separation + i * 30], [spine + 60, separation + i * 30]], "#9bafbe", 1);
         line([[spine + 69, separation - 75], [spine + 155, separation - 75], [spine + 155, separation + 160], [spine, separation + 160]], "#a3b1bc");
-        label("Separation / notes", spine + 100, separation - 190);
-        label("C-401", spine + 95, separation - 110);
+        label("Writing / shared methods", spine + 20, separation - 190);
       }
       valve(spine, outlet - 50);
       line([[spine - 8, outlet - 12], [spine, outlet], [spine + 8, outlet - 12]], "#203858", 2);
@@ -222,13 +305,20 @@ export default function PlantDiagram() {
     function requestDraw() { if (disposed) return; dirty = true; if (!frame && !document.hidden) frame = requestAnimationFrame(tick); }
     function resize() { measure(); requestDraw(); }
     function visibility() { if (document.hidden) { cancelAnimationFrame(frame); frame = 0; previous = 0; } else requestDraw(); }
+    function selectOutput(event: Event) {
+      const target = event.type === "pointerout" || event.type === "focusout" ? (event as FocusEvent).relatedTarget : event.target;
+      activeOutput = target instanceof Element ? target.closest<HTMLElement>("[data-process-output]")?.dataset.processOutput ?? "" : "";
+      requestDraw();
+    }
     measure(); requestDraw();
     const observer = new ResizeObserver(resize); observer.observe(page);
+    document.fonts.ready.then(() => { if (!disposed) resize(); });
     addEventListener("resize", resize);
     addEventListener("scroll", requestDraw, { passive: true });
     document.addEventListener("visibilitychange", visibility);
     preference.addEventListener("change", requestDraw);
-    return () => { disposed = true; cancelAnimationFrame(frame); observer.disconnect(); removeEventListener("resize", resize); removeEventListener("scroll", requestDraw); document.removeEventListener("visibilitychange", visibility); preference.removeEventListener("change", requestDraw); };
+    ["pointerover", "pointerout", "focusin", "focusout"].forEach(type => page.addEventListener(type, selectOutput));
+    return () => { disposed = true; cancelAnimationFrame(frame); observer.disconnect(); removeEventListener("resize", resize); removeEventListener("scroll", requestDraw); document.removeEventListener("visibilitychange", visibility); preference.removeEventListener("change", requestDraw); ["pointerover", "pointerout", "focusin", "focusout"].forEach(type => page.removeEventListener(type, selectOutput)); };
   }, []);
   return <canvas ref={canvas} className="plant-canvas" aria-hidden="true" />;
 }
