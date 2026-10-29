@@ -35,8 +35,7 @@ export default function ResearchThreads() {
       aria-labelledby="threads-title"
     >
       <div className="threads-heading">
-        <h2 id="threads-title">Follow a thread</h2>
-        <p>Projects and notes connected by shared methods.</p>
+        <h2 id="threads-title">Topics</h2>
       </div>
       <ToggleGroup
         className="thread-choices"

@@ -1,0 +1,136 @@
+/* One borderless control language; the supplied pixel sweep owns hover motion. */
+body :is(
+  .sweep-target,
+  .site-header nav a.nav-sweep,
+  .topic-filter button,
+  .thread-choices button,
+  .print-action,
+  .graph-motion-control,
+  .footer-social,
+  .thread-disclosure > summary,
+  .graph-page button
+) {
+  border: 0;
+  border-radius: 8px;
+  box-shadow: none; /* taste-skill-ignore: removes inherited shadows. */
+  min-height: 44px;
+  background: transparent;
+  color: var(--process-ink, #203858);
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+body .sweep-target { --sweep-fill: #c9d8eb; }
+
+/* Keep navigation's compact responsive padding, including its 320px rule. */
+body .site-header nav {
+  border: 0;
+  box-shadow: none; /* taste-skill-ignore: removes inherited shadows. */
+  background: transparent;
+}
+
+body .print-action,
+body .graph-motion-control {
+  padding: 10px 12px;
+  height: auto;
+  background: #edf1f5;
+}
+
+body .thread-disclosure > summary {
+  background: #edf1f5;
+}
+
+body .footer-social {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+
+body .graph-page button[aria-label="Close project details"] {
+  width: 44px;
+  padding: 0;
+}
+
+/* Legacy filter plates use !important; preserve the travelling indicator above them. */
+body .topic-filter button,
+body .thread-choices button {
+  padding: 8px 12px;
+  background: transparent !important;
+}
+
+body .topic-filter button:is([aria-pressed="true"], [data-pressed]),
+body .thread-choices button[aria-pressed="true"],
+body .site-header nav a[aria-current],
+body .graph-nav-link[aria-current] {
+  background: #e3e9ef !important;
+  color: var(--process-ink, #203858);
+  --sweep-fill: #bacde5;
+}
+
+/* Do not duplicate the selected plate when its shared indicator is ready. */
+body .site-header nav:has(> .selection-indicator[data-ready="true"]) a[aria-current],
+body .topic-filter:has(> .selection-indicator[data-ready="true"]) > button,
+body .thread-choices:has(> .selection-indicator[data-ready="true"]) > button {
+  background: transparent !important;
+}
+
+body :is(.site-header nav, .topic-filter, .thread-choices) > .selection-indicator {
+  border: 0;
+  border-radius: 8px;
+  box-shadow: none; /* taste-skill-ignore: removes inherited shadows. */
+  background: #e3e9ef;
+}
+
+/* A deliberate keyboard cue stays visible outside the borderless surface. */
+body :is(
+  .sweep-target,
+  .site-header nav a.nav-sweep,
+  .topic-filter button,
+  .thread-choices button,
+  .print-action,
+  .graph-motion-control,
+  .footer-social,
+  .thread-disclosure > summary,
+  .graph-page button
+):focus-visible {
+  outline: 2px dotted var(--process-ink, #203858);
+  outline-offset: 3px;
+  box-shadow: none; /* taste-skill-ignore: removes inherited shadows. */
+}
+
+/* No translating labels or icons: pixels provide the common action feedback. */
+body .process-about-path a:is(:hover, :focus-visible) .pixel-icon,
+body .project-links a:is(:hover, :focus-visible) .pixel-icon,
+body .thread-entries a:is(:hover, :focus-visible) > .pixel-icon {
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body .thread-disclosure > summary:hover,
+  body .graph-page button:not(.sweep-target):hover {
+    background: #e3e9ef;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body :is(.sweep-target, .topic-filter button, .thread-choices button,
+    .print-action, .graph-motion-control, .footer-social,
+    .thread-disclosure > summary, .graph-page button) {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  body :is(.sweep-target, .thread-disclosure > summary, .graph-page button):focus-visible {
+    outline-color: Highlight;
+  }
+  body .topic-filter button:is([aria-pressed="true"], [data-pressed]),
+  body .thread-choices button[aria-pressed="true"],
+  body .site-header nav a[aria-current],
+  body .graph-nav-link[aria-current],
+  body .site-header nav:has(> .selection-indicator[data-ready="true"]) a[aria-current],
+  body .topic-filter:has(> .selection-indicator[data-ready="true"]) > button:is([aria-pressed="true"], [data-pressed]),
+  body .thread-choices:has(> .selection-indicator[data-ready="true"]) > button[aria-pressed="true"] {
+    background: Highlight !important;
+    color: HighlightText;
+  }
+}

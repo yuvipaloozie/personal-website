@@ -23,18 +23,16 @@ export default function PlantPage() {
               <p>{career.arclin.title} at {career.arclin.employer}.<br />{education.graduate.subject} graduate student at {education.shortInstitution}.</p>
             </div>
             <div className="plant-actions">
-              <a href="#conditioning" className="sweep-target"><DitherSweep /><span className="sweep-label">Follow the process <PixelIcon name="arrow" /></span></a>
+              <a href="#conditioning" className="sweep-target"><DitherSweep /><span className="sweep-label">Background <PixelIcon name="arrow" /></span></a>
               <Link href="/about">About me</Link>
             </div>
           </div>
-          <p className="plant-caption">Physical systems, signals, models.<br />Follow the process through my work.</p>
         </section>
 
         <section className="plant-background" id="conditioning" aria-labelledby="plant-background-title">
           <div className="plant-copy">
-            <h2 id="plant-background-title">From process<br />to signal.</h2>
+            <h2 id="plant-background-title">Background</h2>
             <p>My background is in Chemical and Biomolecular Engineering. My work connects physical processes, automation, and data.</p>
-            <p className="plant-stage-note">Chemical engineering is the foundation; automation is the link to data.</p>
             <dl className="plant-career">
               <div><dt>{career.arclin.employer}</dt><dd>{career.arclin.title}</dd></div>
               <div><dt>Georgia Tech</dt><dd>{education.graduate.degree} · {education.graduate.completion}</dd></div>
@@ -46,7 +44,7 @@ export default function PlantPage() {
 
         <section className="plant-projects" id="reaction" aria-labelledby="plant-projects-title">
           <div className="plant-copy">
-            <h2 id="plant-projects-title">Applied<br />projects.</h2>
+            <h2 id="plant-projects-title">Selected projects</h2>
             <div className="plant-project-list">
               {projects.map(node => <article key={node.id}>
                 <Link href={node.details!.link!} data-process-output={node.id} className="plant-project-link sweep-target">
@@ -61,15 +59,14 @@ export default function PlantPage() {
 
         <section className="plant-writing" id="separation" aria-labelledby="plant-writing-title">
           <div className="plant-copy">
-            <h2 id="plant-writing-title">Distilling<br />what I learn.</h2>
-            <p>Notes on engineering and machine learning. What I learn here feeds into the next question.</p>
+            <h2 id="plant-writing-title">Blog</h2>
             <ul>{writing.map(node => <li key={node.id}><Link href={node.details!.link!}>{node.details!.title}<PixelIcon name="arrow" /></Link></li>)}</ul>
-            <Link className="plant-text-link" href="/blog">All writing <PixelIcon name="arrow" /></Link>
+            <Link className="plant-text-link" href="/blog">All posts <PixelIcon name="arrow" /></Link>
           </div>
         </section>
 
         <section className="plant-close" id="feedback" aria-labelledby="plant-close-title">
-          <h2 id="plant-close-title">Keep the loop open.</h2>
+          <h2 id="plant-close-title">Contact</h2>
           <div className="plant-actions"><a className="sweep-target" href={`mailto:${profile.email}`}><DitherSweep /><span className="sweep-label">Get in touch <PixelIcon name="mail" /></span></a><Link href="/graph">Explore the knowledge graph</Link></div>
         </section>
       </div>

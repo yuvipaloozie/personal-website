@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { paintProcessGrid } from "@/lib/process-grid";
 import { bayer8, publishWaveFrame } from "@/lib/wave-field";
+import { createProcessDepth, drawProcessDepth } from "@/lib/process-depth";
+import type { ReadingArea } from "@/lib/process-grid";
 
 export type ProcessKind = "about" | "projects" | "blog" | "resume" | "detail" | "experience";
 
@@ -15,6 +17,8 @@ export default function ProcessBackdrop({ kind }: { kind: ProcessKind }) {
     const context = surface?.getContext("2d");
     if (!surface || !page || !context) return;
     const stock = document.createElement("canvas");
+    let depth: ReturnType<typeof createProcessDepth>;
+    let depthReading: ReadingArea[] = [];
     const reduced = matchMedia("(prefers-reduced-motion: reduce)");
     let width = innerWidth, height = innerHeight, pageHeight = 0;
     let items: { y: number; right: number; element: HTMLElement }[] = [];
@@ -36,6 +40,8 @@ export default function ProcessBackdrop({ kind }: { kind: ProcessKind }) {
         return { x: r.left - bounds.left, y: r.top - bounds.top, w: r.width, h: r.height };
       });
       paintProcessGrid(stock, width, pageHeight, areas);
+      depth = createProcessDepth(width);
+      depthReading = areas;
       items = Array.from(content.querySelectorAll<HTMLElement>("[data-process-item]")).map(element => {
         const r = element.getBoundingClientRect();
         return { y: r.top - bounds.top + Math.min(r.height / 2, 58), right: r.right - bounds.left, element };
@@ -47,6 +53,7 @@ export default function ProcessBackdrop({ kind }: { kind: ProcessKind }) {
       publishWaveFrame({ time: elapsed, left: 0, top: 0, width, height, pixelsWide: width / 3, pixelsHigh: height / 3, scale: 78, cellSize: 1 });
       ctx.clearRect(0, 0, width, height);
       const top = page!.getBoundingClientRect().top;
+      if (depth) drawProcessDepth(ctx, depth, width, height, top, elapsed, reduced.matches, depthReading);
       ctx.save(); ctx.translate(0, top);
       ctx.globalAlpha = quiet ? .65 : 1; ctx.drawImage(stock, 0, 0); ctx.globalAlpha = 1;
       const narrow = width < 720;

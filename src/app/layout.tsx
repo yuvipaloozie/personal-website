@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import "./plant/plant.css";
 import "@/styles/process.css";
+import "@/styles/process-controls.css";
 import { profile } from "@/lib/profile";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { PixelIcon } from "@/components/ui/pixel-icon";

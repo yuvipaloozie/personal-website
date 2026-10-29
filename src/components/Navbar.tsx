@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { GraphMark } from "@/components/ui/graph-mark";
 import { DitherSweep } from "@/components/ui/dither-sweep";
-import { PixelIcon } from "@/components/ui/pixel-icon";
 import { SelectionIndicator } from "@/components/ui/selection-indicator";
 const links = [
   ["/", "Home"],
@@ -31,7 +30,7 @@ export default function Navbar() {
     <header ref={header} className="site-header" data-visible={visible}>
       <div className="container header-inner">
         <Link href="/" className="site-name">
-          <PixelIcon name="document" />Yuvraj Tripathy
+          Yuvraj Tripathy
         </Link>
         <nav aria-label="Main navigation">
           <SelectionIndicator value={pathname} selector='[aria-current="page"]' />

@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { bayer8, publishWaveFrame } from "@/lib/wave-field";
 import { paintProcessGrid } from "@/lib/process-grid";
+import { createProcessDepth, drawProcessDepth } from "@/lib/process-depth";
+import type { ReadingArea } from "@/lib/process-grid";
 
 type Point = [number, number];
 
@@ -27,6 +29,8 @@ export default function PlantDiagram() {
     let activeOutput = "";
     let outputs: { id: string; x: number; y: number }[] = [];
     const drawingStock = document.createElement("canvas");
+    let depth: ReturnType<typeof createProcessDepth>;
+    let depthReading: ReadingArea[] = [];
 
     function measure() {
       if (disposed || !page!.isConnected) return;
@@ -42,6 +46,11 @@ export default function PlantDiagram() {
       const scale = width <= 900 ? 1 : Math.min(width / 1200, 1);
       const left = width <= 900 ? 0 : (width - 1200 * scale) / 2;
       const origin = page!.getBoundingClientRect();
+      depth = createProcessDepth(width);
+      depthReading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-close")).map(element => {
+        const r = element.getBoundingClientRect();
+        return { x: r.left - origin.left, y: r.top - origin.top, w: r.width, h: r.height };
+      });
       outputs = Array.from(page!.querySelectorAll<HTMLElement>("[data-process-output]")).map(link => {
         const rect = link.getBoundingClientRect();
         return { id: link.dataset.processOutput!, x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top + rect.height / 2) / scale };
@@ -71,6 +80,7 @@ export default function PlantDiagram() {
       publishWaveFrame({ time, left: 0, top: 0, width, height, pixelsWide: width / 3, pixelsHigh: height / 3, scale: 78, cellSize: 1 });
       context.clearRect(0, 0, width, height);
       const top = page!.getBoundingClientRect().top;
+      if (depth) drawProcessDepth(context, depth, width, height, top, time, preference.matches, depthReading);
       const mobile = width <= 900;
       const tablet = mobile && width >= 720;
       const scale = mobile ? 1 : Math.min(width / 1200, 1);

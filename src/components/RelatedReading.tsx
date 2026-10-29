@@ -6,8 +6,7 @@ export default function RelatedReading({ nodeId }: { nodeId: string }) {
   if (!entries.length) return null;
   return (
     <aside className="related-reading" aria-labelledby="related-title">
-      <h2 id="related-title">In the margins</h2>
-      <p>Related projects and notes, connected by method.</p>
+      <h2 id="related-title">Related</h2>
       <ul>
         {entries.map(({ node, method, threadId }) => (
           <li key={node.id}>

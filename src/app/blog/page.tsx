@@ -14,9 +14,6 @@ export default function Blog() {
   return (
     <ProcessSurface kind="blog">
       <h1 className="page-title">Blog</h1>
-      <p className="page-intro">
-        Notes on engineering and applied machine learning.
-      </p>
       <div className="process-reading process-writing-list">
         <ul>
           {notes.map((n) => (

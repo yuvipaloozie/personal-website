@@ -6,7 +6,6 @@ colors:
   action-navy: "#243d63"
   paper: "#fbfaf8"
   reading-ink: "#454944"
-  action-surface: "#e8edf2"
   pipe-inactive: "#bbc6ce"
   equipment-outline: "#587084"
   diagram-label: "#536a7d"
@@ -36,7 +35,7 @@ rounded:
   action: "8px"
 components:
   process-action:
-    backgroundColor: "{colors.action-surface}"
+    backgroundColor: "transparent"
     textColor: "{colors.navy}"
     rounded: "{rounded.action}"
     padding: "12px 16px"
@@ -49,6 +48,8 @@ components:
 This document details the process homepage now mounted at `/` through `src/components/ProcessHome.tsx`. The former experimental `/plant` route permanently redirects to `/`; the classic homepage is retired. Root `DESIGN.md` is normative for the shared process system across About, Projects, Blog, Resume and detail pages. This file retains homepage-specific geometry and responsive details; the graph keeps its established explorer.
 
 The diagram is original abstract geometry drawn in Canvas 2D, inspired by process diagrams and P&ID symbols. It is not an operating plant drawing. No source artwork, new font download or package is introduced for this route. Product facts continue to come from the shared profile, project previews and graph data.
+
+Visible section labels are Background, Selected projects, Blog and Contact. The hero action is Background. Explanatory captions and repeated stage/writing intros are removed; retain the factual introduction, career entries, project summaries and ordinary destinations.
 
 ## Colors
 
@@ -74,7 +75,7 @@ At 720–900px, use intermediate equipment on a right-hand spine at viewport wid
 
 ## Elevation & Depth
 
-Keep the route flat. An isolated page layer holds a fixed, pointer-transparent canvas behind normal document content. Cached engineering paper uses a broken-pixel grid at 64-unit intervals with sparse seeded stipple. Measured reading masks remove texture beneath copy, captions and closing content, fading it back across 28 units of clearance. Paper-filled equipment, restrained outlines and desktop perimeter stipple provide depth without shadows or cards. Print hides the canvas and removes section minimum heights.
+An isolated page layer holds a fixed, pointer-transparent canvas behind normal document content. Cached engineering paper uses a broken-pixel grid at 64-unit intervals with sparse seeded stipple. Measured reading masks remove texture beneath copy and closing content, fading it back across 28 units of clearance. Paper-filled equipment, restrained outlines and desktop perimeter stipple provide depth without shadows or cards. An original cached utility circuit adds faint connected paths behind this foreground, moving at 0.32 times page scroll; reduced motion restores normal page-relative scrolling and removes its traveling packet. It uses the same canvas and frame loop, with independent reading masks. Root `DESIGN.md` specifies the shared depth material. Print hides the canvas and removes section minimum heights.
 
 ## Shapes
 
@@ -83,6 +84,8 @@ Equipment uses capsule vessels, an elliptical exchanger, tray lines, bow-tie val
 ## Components
 
 The canvas is decorative and hidden from assistive technology; section headings and ordinary links carry the narrative. The inherited portrait, DitherSweep interactions, header and footer remain shared components. “About me” leads to `/about`; project and writing entries use their existing detail links. Resume, Projects, Blog and Graph links lead to canonical routes. Actions, text links and writing links have at least 44px height.
+
+Homepage actions inherit the shared borderless 8px ghost treatment and dotted keyboard focus from `process-controls.css`; their former filled action surface is superseded. Keep labels and icons stationary, with pixel sweeps supplying action feedback.
 
 Three measured `data-process-output` links connect the real projects to node, signal and microscopy glyphs: `p_psm`, `p_yield` and `p_chana`. Desktop branches run from the reactor to each link; narrow layouts place glyphs on the spine at the link's measured height. Pointer hover or keyboard focus highlights the corresponding output. Its bounded moving marker shares the existing diagram clock.
 
