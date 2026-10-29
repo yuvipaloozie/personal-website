@@ -105,7 +105,7 @@ All fonts are locally hosted: Instrument Sans Latin variable WOFF2 for copy; Gei
 
 Home display sizing is in frontmatter. Home section headings use `clamp(38px, 4.5vw, 56px)` with 1.08 line height. Subpage headings use the headline role; detail titles reduce to `clamp(34px, 4.5vw, 54px)`. Subpage section headings are 34px/1.2. Project-index titles stay Instrument Sans 500 at 23px/1.3; Blog links are 20px/1.4. Long prose is 17px/1.8 at 70ch maximum. Dates and diagram labels stay smaller and sharp. At 600px and below, prose becomes 16px and index headings 48px; detail and experience titles use `clamp(1.75rem, 8.8vw, 2.125rem)`, approximately 28px at 320px and 34px at 390px with the default root size.
 
-Reading sizes use the actual `--process-reading-size`, `--process-reading-compact` and `--process-action-size` properties. At the default root size these are 17px, 16px and 14px respectively. Article prose explicitly uses compact 16px/1.75 (28px line height) at 600px and below; desktop remains 17px/1.8. Project Details/Code actions and result counts use the action role; action links retain 44px targets and result counts use tabular numerals. Process subpage headings balance wrapping; process paragraphs and homepage copy use pretty wrapping. Keep the existing font families and layout.
+Reading sizes use the actual `--process-reading-size`, `--process-reading-compact` and `--process-action-size` properties. At the default root size these are 17px, 16px and 14px respectively. Article prose explicitly uses compact 16px/1.75 (28px line height) at 600px and below; desktop remains 17px/1.8. Project GitHub actions and result counts use the action role; action links retain 44px targets and result counts use tabular numerals. Process subpage headings balance wrapping; process paragraphs and homepage copy use pretty wrapping. Keep the existing font families and layout.
 
 ## Layout
 
@@ -113,7 +113,7 @@ Use a 1200px process container. Standard subpage padding is 66px 100px 92px 48px
 
 Homepage copy alternates around a large connected process drawing. Its measured stages are feed/identity, conditioning/background, reaction/projects, separation/writing and feedback/contact. See `src/app/plant/DESIGN.md` for its detailed geometry. At 720–900px, equipment occupies an intermediate right rail; below 720px it becomes a thin spine. At 480px and below, portrait and biography stack.
 
-About uses biography plus a 248×310 portrait, becoming 185×231 below 900px and stacking with a 148×185 portrait below 600px. Its three real career/foundation links form a dotted horizontal path, becoming vertical on phones. Project entries pair 168×128 images with text, reduce to 128×105 at 900px, and stack with 175px-high images below 600px. Blog rows pair titles and dates, stacking below 720px. Reading articles cap at 760px; original detail images retain their proportions and full color. Resume uses factual grouped entries and a dedicated print layout.
+About uses biography plus a 248×310 portrait, becoming 185×231 below 900px and stacking with a 148×185 portrait below 600px. Its three real career/foundation links form a dotted horizontal path, becoming vertical on phones. Project entries pair 168×128 images with text, reduce to 128×105 at 900px, and stack with 175px-high images below 600px. Blog rows pair titles and dates, stacking below 720px. Reading articles cap at 760px; article images retain their proportions and full color. Project miniatures use `object-fit: contain` and `filter: none` so complete schematic diagrams remain visible. Resume uses factual grouped entries and a dedicated print layout.
 
 ## Elevation & Depth
 
@@ -122,6 +122,8 @@ Keep surfaces flat. Fixed pointer-transparent canvases sit behind isolated conte
 An original cached process train in `src/lib/process-depth.ts` adds a faint second plane: feed tank → pump → four-port exchanger → stirred reactor → tray separator → product trunk, with a recycle return, shared dashed utility circuit and instrument taps. Continuous process pipes meet equipment at boundary nozzles; Bayer stipple stays inside vessels and the product/feed trunk joins successive tiles. Its 1100px-high tile scrolls at 0.32 times the page offset, at 27% opacity on wider screens and 20% below 600px. Flow routes cache segment lengths for packets on process and recycle paths. Reading masks clear this moving layer with 14px horizontal and 10px vertical clearance. Reduced motion restores normal page-relative scrolling and omits packets. It reuses the active canvas and existing frame loop; quiet reading surfaces still have no idle loop. Do not simulate depth with blur or add another animation clock.
 
 ## Shapes
+
+Project miniatures are original navy and Bayer-style schematic SVGs in `public/projects/{psm,oclast,trading,arrhythmia,yield}.svg`, derived from the verified repository workflows. They illustrate methods and connections, not empirical performance, clinical results, exported data or facility drawings. Preserve descriptive alt text and complete diagram bounds.
 
 Use capsule vessels, elliptical conditioning equipment, tray lines, small pixel marks, orthogonal process piping and dashed signals. These are original abstract drawings. Shared controls and project images use 8px corners; preserve sharp labels and the authored 8×8 icon vocabulary rendered at 16px. Do not add invented equipment IDs or facility data.
 
@@ -132,6 +134,8 @@ Home, About, Projects, Blog and Resume appear in the shared navigation with the 
 `src/styles/process-controls.css` owns a shared borderless ghost treatment across navigation, filters, utility controls, footer links, disclosures and graph buttons: transparent at rest, no shadow, 8px corners and at least 44px height. Print and graph-motion controls use the pale utility surface with 10px 12px padding; disclosure summaries share that surface. Selected controls use the pale-blue plate, or the existing traveling indicator without a duplicate plate. Keyboard focus uses a 2px dotted navy outline offset 3px; forced colors use Highlight. PrintResume uses `Button variant="ghost"` with the existing DitherSweep. Keep the compact responsive navigation padding.
 
 At 360px and below, the header brand uses 18px text with a 6px gap. Navigation uses zero gap and links at least 44px wide with 6px inline padding, keeping its five items on one row. The graph entry hides only its visible text, retaining the existing GraphMark within a target at least 44×44px. Its explicit accessible name and title remain “Knowledge graph”.
+
+Project copy, canonical repository URLs, slugs and images come from `src/lib/project-previews.ts`, verified against GitHub listings and READMEs on October 29, 2026. The public set is PSM Knowledge Graph, OCLAST, Regime-Aware Sector Rotation, ECG Arrhythmia Classification, and Semiconductor Yield Optimization & RCA. Public project nodes and their connections, project listings and topic links use only that set. Index titles and the GitHub icon action link directly to repositories, with existing DitherSweep feedback; no separate Details action remains. The homepage retains three selected direct-repository links (PSM, yield and OCLAST) with GitHub icons. The five legacy `/projects/[slug]` URLs permanently redirect to their repositories; there are no internal project case-study pages. Shared cards suppress a duplicate Read more action when it would equal GitHub.
 
 Homepage `PlantDiagram` measures section offsets and the three real project links, continuously revealing piping through a viewport marker at 62% height. The node, signal and microscopy project glyphs respond to pointer/focus; marker motion shares the diagram clock. Idle equipment stipple and revealed-path packets paint at approximately 25fps. The homepage About me action leads to `/about`; no Classic view link remains.
 
@@ -147,7 +151,7 @@ Keep DitherSweep separate from selection motion: deterministic hashed pixel arri
 
 About foundation links reuse DitherSweep with an inner grid label for title, subtitle and arrow. The associated path node changes from gray-blue to navy on keyboard focus or fine-pointer hover over 140ms. Icons and labels remain stationary: the shared control rules suppress translation on foundation, project-action and thread-entry arrows. Reduced motion preserves static highlight and sweep states. Link semantics and real destinations remain unchanged.
 
-Projects retains full topic filters and the native research-topic disclosure. Research thread links target `/projects#thread-{threadId}`; deep links open the disclosure. Detail pages retain related reading and real method connections. Avoid decorative reveals that delay access to content.
+Projects retains topic filters and the native research-topic disclosure for the five curated projects. Research thread links target `/projects#thread-{threadId}`; deep links open the disclosure. Article and experience pages retain related reading and real method connections. Avoid decorative reveals that delay access to content.
 
 ## Do's and Don'ts
 
@@ -157,5 +161,3 @@ Projects retains full topic filters and the native research-topic disclosure. Re
 - Don't restore the retired classic homepage, ambient wave, removed About hobby/book sections or old floating motion control without a new request.
 - Don't turn the abstract process story into claims about a real plant, new publications or invented accomplishments.
 - Don't add remote fonts, gratuitous looping effects or decorative card grids.
-
-

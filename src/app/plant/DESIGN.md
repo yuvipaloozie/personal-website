@@ -85,11 +85,11 @@ Equipment uses capsule vessels, an elliptical exchanger, tray lines, bow-tie val
 
 ## Components
 
-The canvas is decorative and hidden from assistive technology; section headings and ordinary links carry the narrative. The inherited portrait, DitherSweep interactions, header and footer remain shared components. “About me” leads to `/about`; project and writing entries use their existing detail links. Resume, Projects, Blog and Graph links lead to canonical routes. Actions, text links and writing links have at least 44px height.
+The canvas is decorative and hidden from assistive technology; section headings and ordinary links carry the narrative. The inherited portrait, DitherSweep interactions, header and footer remain shared components. “About me” leads to `/about`; project entries link directly to their GitHub repositories with GitHub icons, while writing entries retain their article links. Resume, Projects, Blog and Graph links lead to canonical routes. Actions, text links and writing links have at least 44px height.
 
 Homepage actions inherit the shared borderless 8px ghost treatment and dotted keyboard focus from `process-controls.css`; their former filled action surface is superseded. Keep labels and icons stationary, with pixel sweeps supplying action feedback.
 
-Three measured `data-process-output` links connect the real projects to node, signal and microscopy glyphs: `p_psm`, `p_yield` and `p_chana`. Desktop branches run from the reactor to each link; narrow layouts place glyphs on the spine at the link's measured height. Pointer hover or keyboard focus highlights the corresponding output. Its bounded moving marker shares the existing diagram clock.
+The homepage selects PSM Knowledge Graph, Semiconductor Yield Optimization & RCA and OCLAST from the five curated projects in `src/lib/project-previews.ts`; legacy selected-project detail URLs redirect to repositories. Three measured `data-process-output` links connect the real projects to node, signal and microscopy glyphs: `p_psm`, `p_yield` and `p_chana`. Desktop branches run from the reactor to each link; narrow layouts place glyphs on the spine at the link's measured height. Pointer hover or keyboard focus highlights the corresponding output. Its bounded moving marker shares the existing diagram clock.
 
 Scroll continuously reveals a navy path over the pale complete piping. Section offsets, output anchors and reading masks are measured on resize, ResizeObserver updates and font readiness; the cached grid rebuilds with that layout work. A viewport marker at 62% height maps between equipment anchors, then interpolates cumulative polyline distance so horizontal turns reveal continuously. Scrolling backward reverses the reveal.
 
@@ -102,5 +102,3 @@ Idle motion remains visible without scrolling: existing 8×8 Bayer thresholds st
 - Don't apply these homepage-specific proportions to every reading page; follow root `DESIGN.md` for subpage rules.
 - Don't imply the diagram documents a real facility or add invented process data.
 - Don't restore the retired Classic view action or alter original portrait and factual project records when maintaining this composition.
-
-

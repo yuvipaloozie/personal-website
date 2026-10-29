@@ -1,13 +1,12 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { PixelIcon } from "@/components/ui/pixel-icon";
+import { FaGithub } from "react-icons/fa";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { Toggle } from "@base-ui/react/toggle";
 import { graphData } from "@/data/graphData";
-import { projectPreviews } from "@/lib/project-previews";
+import { projectPreviews, selectedProjectIds } from "@/lib/project-previews";
 import { SelectionIndicator } from "@/components/ui/selection-indicator";
 
 const topics = [
@@ -19,15 +18,12 @@ const topics = [
 ];
 const memberships: Record<string, string[]> = {
   industrial: ["p_psm", "p_yield"],
-  graphs: ["p_psm", "p_gnn"],
-  biomedical: ["p_chana", "p_arrhythmia", "p_breastcancer"],
+  graphs: ["p_psm"],
+  biomedical: ["p_chana", "p_arrhythmia"],
   modeling: [
     "p_yield",
-    "p_gnn",
     "p_trading",
     "p_arrhythmia",
-    "p_powerlifting",
-    "p_breastcancer",
   ],
 };
 export default function ProjectIndex({
@@ -37,9 +33,7 @@ export default function ProjectIndex({
 }) {
   const [topic, setTopic] = useState("all");
   const ProjectHeading = featured ? "h3" : "h2";
-  const projects = graphData.nodes.filter(
-    (node) => node.id.startsWith("p_") && node.details,
-  );
+  const projects = selectedProjectIds.map(id => graphData.nodes.find(node => node.id === id)!);
   const visible =
     topic === "all"
       ? featured
@@ -70,37 +64,31 @@ export default function ProjectIndex({
       <div id="project-results">
         {visible.map((node) => (
           <article data-process-item className={node.details!.image ? "project-entry" : "project-entry project-text-only"} key={node.id}>
-            <div className="project-figure">
+            <a className="project-figure" href={node.details!.github!} target="_blank" rel="noreferrer" aria-label={`${node.details!.title} on GitHub`}>
               {node.details!.image && (
                 <Image
                   src={node.details!.image}
-                  alt={node.details!.title}
+                  alt={projectPreviews[node.id].imageAlt}
                   width={featured ? 480 : 336}
                   height={featured ? 336 : 256}
                   sizes={featured ? "(max-width: 600px) 90vw, 460px" : "(max-width: 600px) 80vw, 168px"}
                 />
               )}
-            </div>
+            </a>
             <div>
               <ProjectHeading>
-                <Link href={node.details!.link!}>{projectPreviews[node.id]?.title ?? node.details!.title}</Link>
+                <a href={node.details!.github!} target="_blank" rel="noreferrer">{projectPreviews[node.id].title}</a>
               </ProjectHeading>
               <p>{projectPreviews[node.id]?.summary ?? node.details!.description}</p>
               <div className="project-links">
-                <Link href={node.details!.link!}>
-                  Details
-                  <PixelIcon name="arrow" />
-                  <span className="sr-only">: {node.details!.title}</span>
-                </Link>
                 {node.details!.github && (
                   <a
+                    className="sweep-target"
                     href={node.details!.github}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    Code
-                    <PixelIcon name="code" />
-                    <span className="sr-only">: {node.details!.title}</span>
+                    <DitherSweep /><span className="sweep-label"><FaGithub aria-hidden="true" /> GitHub<span className="sr-only">: {node.details!.title}</span></span>
                   </a>
                 )}
                 <span>

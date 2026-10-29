@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FaGithub } from "react-icons/fa";
 import FloatingPortrait from "@/components/FloatingPortrait";
 import PlantDiagram from "@/components/PlantDiagram";
 import AffiliationLogos from "@/components/AffiliationLogos";
@@ -49,9 +50,9 @@ export default function PlantPage() {
             <h2 id="plant-projects-title">Selected projects</h2>
             <div className="plant-project-list">
               {projects.map(node => <article key={node.id}>
-                <Link href={node.details!.link!} data-process-output={node.id} className="plant-project-link sweep-target">
-                  <DitherSweep /><span className="sweep-label">{projectPreviews[node.id].title}<PixelIcon name="arrow" /></span>
-                </Link>
+                <a href={node.details!.github!} target="_blank" rel="noreferrer" data-process-output={node.id} className="plant-project-link sweep-target">
+                  <DitherSweep /><span className="sweep-label">{projectPreviews[node.id].title}<FaGithub aria-hidden="true" /></span>
+                </a>
                 <p>{projectPreviews[node.id].summary}</p>
               </article>)}
             </div>

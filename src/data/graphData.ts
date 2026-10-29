@@ -1,3 +1,4 @@
+import { projectPreviews } from "@/lib/project-previews";
 import { career, education, profile } from "@/lib/profile";
 
 export type NodeData = {
@@ -22,7 +23,7 @@ export type LinkData = {
   target: string;
 };
 
-export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
+const originalGraphData: { nodes: NodeData[]; links: LinkData[] } = {
   nodes: [
     // ROOT
     {
@@ -52,238 +53,16 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
     { id: "skills", label: "Core Skills", group: 3, type: "category" },
     { id: "blog", label: "Writing", group: 4, type: "category" },
 
-    // PROJECTS
-    {
-      id: "p_psm",
-      label: "PSM Knowledge Graph",
-      group: 1,
-      type: "detail",
+    // Project truth is shared with the curated cards and GitHub redirects.
+    ...Object.entries(projectPreviews).map(([id, project]): NodeData => ({
+      id, label: project.title, group: 1, type: "detail",
       details: {
-        title: "PSM Process Safety Knowledge Graph",
-        image: "/psm-connections.svg",
-        subtitle: "2026 | NLP & GraphRAG",
-        description:
-          "An end-to-end Process Safety Knowledge Graph ingesting unstructured HAZOPs & alarm databases using NLP & fuzzy matching with local Llama 3.2 GraphRAG.",
-        fullDescription: [
-          "Engineered an automated ingestion pipeline that parses complex, multi-thousand-page HAZOP (Hazard and Operability Study) tables and industrial alarm telemetry into structured graph representations.",
-          "Implemented NLP entity extraction, fuzzy string matching, and semantic clustering to cross-reference equipment tag numbers against P&ID instrumentation hierarchies.",
-          "Constructed a 3D interactive NetworkX and Neo4j graph database integrated with a local Llama 3.2 GraphRAG engine, enabling engineers to query process safety risks, safeguards, and cascading failure pathways in natural language.",
-        ],
-        tags: [
-          "Python",
-          "Llama 3.2",
-          "GraphRAG",
-          "Neo4j",
-          "NetworkX",
-          "NLP",
-          "Process Safety",
-        ],
-        link: "/projects/psm-knowledge-graph",
-        github: "https://github.com/yuvipaloozie/PSM-Knowledge-Graph",
+        title: project.title, subtitle: String(project.year),
+        description: project.summary, fullDescription: [project.summary],
+        image: project.image, tags: project.tags,
+        link: project.github, github: project.github,
       },
-    },
-
-    {
-      id: "p_yield",
-      label: "Yield Optimization",
-      group: 1,
-      type: "detail",
-      details: {
-        title: "Semiconductor Yield Optimization & RCA",
-        subtitle: "2025 | Machine Learning & Root Cause Analysis",
-        description:
-          "Engineered XGBoost/Isolation Forest pipeline on real-world semiconductor manufacturing data to predict batch yield anomalies and extract root-cause sensor limits.",
-        fullDescription: [
-          "Analyzed 590+ continuous sensor readings per wafer from the real-world UCI SECOM semiconductor manufacturing process.",
-          "Implemented SMOTETomek resampling and cost-sensitive loss functions to overcome severe class imbalance (1:14 failure ratio) without sacrificing anomaly recall.",
-          "Extracted high-order interaction effects using SHAP (SHapley Additive exPlanations) tree explainers, converting black-box ML outputs into actionable physical operating limits for equipment calibration.",
-        ],
-        tags: [
-          "Python",
-          "XGBoost",
-          "Isolation Forest",
-          "SHAP",
-          "SMOTETomek",
-          "SECOM",
-          "Data Analysis",
-        ],
-        image: "/semiconductor.png",
-        link: "/projects/yield-optimization",
-        github:
-          "https://github.com/yuvipaloozie/Semiconductor-Yield-Optimization-and-RCA",
-      },
-    },
-
-    {
-      id: "p_chana",
-      label: "Project CHANA",
-      group: 1,
-      type: "detail",
-      details: {
-        title: "Project CHANA (Biomedical Analyzer)",
-        subtitle: "2025 | Deep Learning & Biomedical CV",
-        description:
-          "Automated counting & segmentation of multinucleated osteoclasts using U-Net++ CNN architecture, data augmentation, and semi-supervised learning with a FastAPI/OpenCV dashboard.",
-        fullDescription: [
-          "Architected an end-to-end deep learning computer vision pipeline utilizing U-Net++ with nested dense skip connections for multi-scale cellular morphology segmentation.",
-          "Achieved a sub-8.8% error rate across 19,600+ analyzed cellular instances, significantly outperforming traditional thresholding and manual microscopic counts.",
-          "Engineered a companion local executable dashboard repository (CHANA-dashboard) utilizing FastAPI, Docker, and OpenCV for interactive high-throughput researcher analysis.",
-        ],
-        tags: [
-          "PyTorch",
-          "U-Net++",
-          "Computer Vision",
-          "FastAPI",
-          "Docker",
-          "OpenCV",
-          "Biomedical",
-        ],
-        image: "/biomedical.png",
-        link: "/projects/chana-analyzer",
-        github: "https://github.com/yuvipaloozie/OCLAST",
-      },
-    },
-
-    {
-      id: "p_gnn",
-      label: "Chemistry with GNNs",
-      group: 1,
-      type: "detail",
-      details: {
-        title: "Predicting Chemistry with Graph Neural Networks",
-        subtitle: "2025 | Geometric Deep Learning",
-        description:
-          "Utilized SchNet, DimeNet, and custom Graph Neural Networks (GNNs) on 138,000+ simulated molecules to predict HOMO-LUMO energy gaps and 3D molecular coordinates.",
-        fullDescription: [
-          "Formulated molecular structures as spatial graph networks where nodes represent atoms with atomic number features and edges encode continuous interatomic Euclidean distances.",
-          "Implemented continuous-filter convolutional layers (SchNet) and directional message-passing (DimeNet) to capture 3D spatial rotational and translational equivariance.",
-          "Achieved state-of-the-art predictive accuracy on quantum chemical target properties (HOMO-LUMO energy gap) across 138,000+ QM9 molecular structures, reducing simulation times by orders of magnitude.",
-        ],
-        tags: [
-          "Python",
-          "PyTorch Geometric",
-          "GNNs",
-          "Quantum Chemistry",
-          "SchNet",
-          "Deep Learning",
-        ],
-        link: "/projects/chemistry-gnns",
-        github:
-          "https://github.com/yuvipaloozie/Predicting-Chemistry-with-GNNs",
-      },
-    },
-
-    {
-      id: "p_trading",
-      label: "Regime-Aware Trading",
-      group: 1,
-      type: "detail",
-      details: {
-        title: "Regime-Aware Sector Rotation Strategy",
-        subtitle: "2025 | Quantitative Finance & HMMs",
-        description:
-          "Constructed a dynamic sector ETF rotation portfolio using Gaussian Hidden Markov Models (HMMs) for market regime detection and XGBRanker for alpha generation.",
-        fullDescription: [
-          "Modeled latent macroeconomic transitions across bull, bear, and high-volatility regimes using multivariate Gaussian Hidden Markov Models (HMMs) on multi-asset market indicators.",
-          "Trained an XGBRanker model to dynamically rank and rebalance sector ETF weights based on momentum, valuation, and volatility features conditioned on the active market regime.",
-          "Demonstrated superior risk-adjusted returns (Sharpe ratio improvement >35%) and reduced maximum drawdowns compared to static benchmark sector strategies.",
-        ],
-        tags: [
-          "Python",
-          "HMMs",
-          "XGBRanker",
-          "Quantitative Finance",
-          "Portfolio Optimization",
-          "Scikit-Learn",
-        ],
-        link: "/projects/regime-aware-trading",
-        github: "https://github.com/yuvipaloozie/Regime-Aware-Sector-Trading",
-      },
-    },
-
-    {
-      id: "p_arrhythmia",
-      label: "ECG Arrhythmia Classification",
-      group: 1,
-      type: "detail",
-      details: {
-        title: "ECG Arrhythmia Classification",
-        subtitle: "2025 | Biomedical Signal Processing & ML",
-        description:
-          "Classified complex cardiac arrhythmias using physics-based feature extraction, wavelet transforms, and ensemble ML models on clinical multi-lead ECG signals.",
-        fullDescription: [
-          "Preprocessed multi-lead ECG time-series data with Pan-Tompkins QRS detection and discrete wavelet transform (DWT) baseline wander denoising.",
-          "Engineered domain-specific morphological features including RR interval variance, ST-segment elevation, and spectral power density distributions.",
-          "Trained and evaluated ensemble classifiers achieving high diagnostic sensitivity across ventricular, supraventricular, and normal beat classifications.",
-        ],
-        tags: [
-          "Python",
-          "Signal Processing",
-          "Wavelets",
-          "Scikit-Learn",
-          "Biomedical ML",
-          "ECG",
-        ],
-        link: "/projects/arrhythmia-classification",
-        github:
-          "https://github.com/yuvipaloozie/Arrythmia-Classification-with-ML",
-      },
-    },
-
-    {
-      id: "p_powerlifting",
-      label: "Powerlifting Quantiles",
-      group: 1,
-      type: "detail",
-      details: {
-        title: "Rescoring Powerlifting with Quantiles",
-        subtitle: "2025 | Statistical Modeling & Sports Analytics",
-        description:
-          "Developed a fair, non-parametric strength coefficient metric using non-linear quantile regression on 500k+ historical lifter entries across weight classes and eras.",
-        fullDescription: [
-          "Analyzed over 500,000 competitive powerlifting entries from the OpenPowerlifting database to evaluate systemic bias in classical allometric scaling formulas (Wilks, DOTS, GLP).",
-          "Constructed continuous non-linear quantile regression curves across bodyweight and age spectrums to normalize athletic performance relative to empirical percentile distributions.",
-          "Built an interpretable coefficient calculator that provides athlete-centric percentile ranking independent of historical equipment era shifts.",
-        ],
-        tags: [
-          "Python",
-          "Quantile Regression",
-          "Statistical Modeling",
-          "Sports Analytics",
-          "Data Visualization",
-        ],
-        link: "/projects/powerlifting-quantiles",
-        github:
-          "https://github.com/yuvipaloozie/Rescoring-Powerlifting-with-Quantiles",
-      },
-    },
-
-    {
-      id: "p_breastcancer",
-      label: "Tumor ML Classifier",
-      group: 1,
-      type: "detail",
-      details: {
-        title: "Breast Cancer Diagnostic Classifier",
-        subtitle: "2025 | Clinical Diagnostics & Supervised ML",
-        description:
-          "Supervised machine learning classifiers trained on digitized fine needle aspirate (FNA) biopsy data for early malignant tumor diagnosis.",
-        fullDescription: [
-          "Trained multiple supervised classification models on digitized cell nuclei characteristics from fine needle aspirate (FNA) biopsies.",
-          "Conducted extensive cross-validation, recursive feature elimination, and ROC-AUC curve optimization with a focus on eliminating false negative diagnoses.",
-          "Delivered a clean, reproducible analysis pipeline documenting calibration curves and model explainability.",
-        ],
-        tags: [
-          "Python",
-          "Scikit-Learn",
-          "Classification",
-          "Biomedical ML",
-          "Diagnostics",
-        ],
-        link: "/projects/breast-cancer-ml",
-        github: "https://github.com/yuvipaloozie/BreastCancer",
-      },
-    },
+    })),
 
     // EXPERIENCE
     {
@@ -515,4 +294,12 @@ export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
     { source: "s_auto", target: "b_iot" },
     { source: "s_auto", target: "b_dash" },
   ],
+};
+
+// Share one curated set across cards, reading connections and the graph explorer.
+const nodes = originalGraphData.nodes;
+const nodeIds = new Set(nodes.map(node => node.id));
+export const graphData: { nodes: NodeData[]; links: LinkData[] } = {
+  nodes,
+  links: originalGraphData.links.filter(link => nodeIds.has(link.source) && nodeIds.has(link.target)),
 };

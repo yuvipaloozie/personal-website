@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FaGithub } from "react-icons/fa";
 export default function Card({
   title,
   subtitle,
@@ -34,14 +35,14 @@ export default function Card({
       {tags && <p className="entry-tags">{tags.join(" · ")}</p>}
       {(link || github) && (
         <div className="project-links">
-          {link && (
+          {link && link !== github && (
             <Link href={link}>
               Read more<span className="sr-only">: {title}</span>
             </Link>
           )}
           {github && (
             <a href={github} target="_blank" rel="noreferrer">
-              Source code<span className="sr-only">: {title}</span>
+              <FaGithub aria-hidden="true" /> GitHub<span className="sr-only">: {title}</span>
             </a>
           )}
         </div>

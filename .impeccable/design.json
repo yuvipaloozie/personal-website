@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-29T02:38:18.0476869Z",
+  "generatedAt": "2026-10-29T23:54:47.9882593Z",
   "title": "Design System: Research and Engineering — Process",
   "extensions": {
     "colorMeta": {
@@ -63,7 +63,7 @@
       },
       "action": {
         "displayName": "Project actions",
-        "purpose": "--process-action-size (.875rem) for Details/Code and tabular result counts; action links retain 44px minimum height."
+        "purpose": "--process-action-size (.875rem) for project GitHub actions and tabular result counts; action links retain 44px minimum height."
       }
     },
     "shadows": [],
@@ -182,13 +182,19 @@
         "name": "Connected depth train",
         "body": "The original 1100px cached tile connects feed tank, pump, four-port exchanger, stirred reactor, tray separator and product trunk at boundary nozzles; recycle, shared utilities and instruments belong to the same train. Process pipes stay continuous and Bayer stipple stays inside equipment. Cache process/recycle flow routes and reuse the existing canvas loop.",
         "section": "elevation"
+      },
+      {
+        "name": "Curated repository projects",
+        "body": "Only PSM Knowledge Graph, OCLAST, Regime-Aware Sector Rotation, ECG Arrhythmia Classification and Semiconductor Yield Optimization & RCA appear in public listings/topics/graph. Copy, repository URLs, slugs and image mappings come from src/lib/project-previews.ts, verified October 29, 2026. Titles and GitHub actions link directly to repositories; the five legacy project URLs permanently redirect, and duplicate Read more/GitHub links are suppressed. Original navy/Bayer-style workflow SVG miniatures use contain and no filters, with descriptive alt text and no empirical-result claims.",
+        "section": "components"
       }
     ],
     "dos": [
       "Keep canonical reading routes and the original graph.",
       "Preserve full-color portrait and project assets.",
       "Keep labels sharp and interactive targets at least 44px.",
-      "Publish portrait wave frames from the active process canvas."
+      "Publish portrait wave frames from the active process canvas.",
+      "Use the five curated project records and original workflow schematics; GitHub is the canonical detail destination."
     ],
     "donts": [
       "Do not restore the retired classic homepage or ambient wave without a request.",
@@ -198,4 +204,3 @@
     ]
   }
 }
-
