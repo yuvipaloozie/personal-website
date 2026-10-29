@@ -1,5 +1,17 @@
 # Third-party interface assets
 
+## Organization marks
+
+The locally hosted SVG files in `public/logos/` identify Yuvraj's work and education. Original vector geometry is preserved and displayed through a single navy CSS alpha mask. The marks remain the property of their respective organizations; their inclusion does not imply endorsement.
+
+- Arclin: official header SVG from https://www.arclin.com/ (200 × 40 lockup).
+- Wood: official logo from https://www.woodgroup.com/__data/assets/file/0024/368601/Logo-Wood-Sidara.svg. Credit: Wood PLC.
+- Bayer: Bayer AG's mark via https://commons.wikimedia.org/wiki/File:Logo_Bayer.svg; original SVG at https://upload.wikimedia.org/wikipedia/commons/f/f7/Logo_Bayer.svg. Commons identifies it as a public-domain text logo, with trademark rights retained.
+- Alcon: https://www.alcon.com/sites/g/files/rbvwei4411/files/alcon_assets/alcon-logo.svg.
+- Georgia Tech: https://www.gatech.edu/modules/contrib/gt_tools/images/gt-logo.svg.
+
+Retrieved October 28, 2026. No remote logo requests are made by the website.
+
 ## Dithering shader
 
 `src/components/ui/dither-shader.tsx` is adapted from the **Dithering** component by Paper Design, retrieved through the 21st.dev component registry (demo 17827).

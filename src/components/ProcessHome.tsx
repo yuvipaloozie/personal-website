@@ -1,6 +1,7 @@
 import Link from "next/link";
 import FloatingPortrait from "@/components/FloatingPortrait";
 import PlantDiagram from "@/components/PlantDiagram";
+import AffiliationLogos from "@/components/AffiliationLogos";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 import { PixelIcon } from "@/components/ui/pixel-icon";
 import { career, education, profile } from "@/lib/profile";
@@ -27,6 +28,7 @@ export default function PlantPage() {
               <Link href="/about">About me</Link>
             </div>
           </div>
+          <AffiliationLogos />
         </section>
 
         <section className="plant-background" id="conditioning" aria-labelledby="plant-background-title">

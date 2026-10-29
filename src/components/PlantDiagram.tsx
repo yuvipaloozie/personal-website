@@ -47,7 +47,7 @@ export default function PlantDiagram() {
       const left = width <= 900 ? 0 : (width - 1200 * scale) / 2;
       const origin = page!.getBoundingClientRect();
       depth = createProcessDepth(width);
-      depthReading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-close")).map(element => {
+      depthReading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-close, .affiliation-logos")).map(element => {
         const r = element.getBoundingClientRect();
         return { x: r.left - origin.left, y: r.top - origin.top, w: r.width, h: r.height };
       });
@@ -56,7 +56,7 @@ export default function PlantDiagram() {
         return { id: link.dataset.processOutput!, x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top + rect.height / 2) / scale };
       });
       // Cache the engineering paper once per layout, not on the animation clock.
-      const reading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-caption, .plant-close")).map(element => {
+      const reading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-close, .affiliation-logos")).map(element => {
         const rect = element.getBoundingClientRect();
         return { x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top) / scale, w: rect.width / scale, h: rect.height / scale };
       });

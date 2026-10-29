@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-29T02:14:23.3218565Z",
+  "generatedAt": "2026-10-29T02:27:00.3480997Z",
   "title": "Design System: Research and Engineering — Process",
   "extensions": {
     "colorMeta": {
@@ -26,8 +26,18 @@
       },
       "utility-circuit": {
         "role": "neutral",
-        "displayName": "Faint utility circuit",
+        "displayName": "Depth equipment stipple",
         "canonical": "#8da3b5"
+      },
+      "depth-process-line": {
+        "role": "neutral",
+        "displayName": "Continuous depth process pipe",
+        "canonical": "#7892a6"
+      },
+      "depth-utility-line": {
+        "role": "neutral",
+        "displayName": "Dashed depth utility pipe",
+        "canonical": "#9aabba"
       }
     },
     "typographyMeta": {
@@ -91,7 +101,7 @@
       {
         "name": "utility-depth-scroll",
         "value": "0.32",
-        "purpose": "Cached original utility circuit moves at 0.32 times page offset; reduced motion uses normal page-relative scroll. Reuses the existing canvas clock."
+        "purpose": "Original cached 1100px process-train tile scrolls at 0.32 times page offset, at .27 opacity or .20 below 600px. Cached process/recycle routes share the existing canvas clock. Reduced motion uses normal page-relative scroll with no packets; reading masks remain active."
       }
     ],
     "breakpoints": [
@@ -139,7 +149,8 @@
       "Shared locally generated drawing stock",
       "Quieter circuits on reading and Resume pages",
       "Original factual content and assets",
-      "Original cached utility circuit with slower scroll and independent reading masks"
+      "Original connected feed/pump/exchanger/reactor/separator depth train with slower scroll and independent reading masks",
+      "Five static local affiliation SVG marks with existing ghost-link and pixel-sweep behavior"
     ],
     "rules": [
       {
@@ -156,6 +167,16 @@
         "name": "Shared ghost controls",
         "body": "Use borderless 8px controls with 44px minimum height, visible pixel sweeps and 2px dotted keyboard focus. Keep labels and icons stationary.",
         "section": "components"
+      },
+      {
+        "name": "Affiliation marks",
+        "body": "Use actual local Arclin, Wood, Bayer, Alcon and Georgia Tech SVGs as static navy alpha masks beneath the homepage introduction. Existing ghost links retain real destinations and accessible names. Desktop accommodates five; the <=600px three-column grid forms 3+2 with Georgia Tech spanning two columns. Clear both background materials under the strip.",
+        "section": "components"
+      },
+      {
+        "name": "Connected depth train",
+        "body": "The original 1100px cached tile connects feed tank, pump, four-port exchanger, stirred reactor, tray separator and product trunk at boundary nozzles; recycle, shared utilities and instruments belong to the same train. Process pipes stay continuous and Bayer stipple stays inside equipment. Cache process/recycle flow routes and reuse the existing canvas loop.",
+        "section": "elevation"
       }
     ],
     "dos": [

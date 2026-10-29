@@ -7,6 +7,20 @@
 .plant-copy p { color: #454944; font-size: 17px; line-height: 1.7; }
 .plant-copy .plant-stage-note { font-size: 14px; max-width: 37ch; margin-top: 18px; color: #536a7d; }
 .plant-hero { min-height: 740px; padding-top: 78px; }
+.affiliation-logos { list-style: none; display: flex; align-items: center; flex-wrap: wrap; gap: 16px 24px; margin: 46px 0 0; padding: 0 0 36px; max-width: 740px; }
+.affiliation-logo { display: flex; align-items: center; justify-content: center; min-width: 88px; padding: 12px; }
+.affiliation-mark { position: relative; z-index: 1; display: block; width: 104px; height: 26px; background: #203858; mask-repeat: no-repeat; mask-position: center; mask-size: contain; }
+.affiliation-mark-wood { width: 90px; height: 45px; }
+.affiliation-mark-bayer { width: 45px; height: 45px; }
+.affiliation-mark-alcon { width: 88px; height: 26px; }
+.affiliation-mark-gatech { width: 142px; height: 30px; }
+@media (max-width: 600px) {
+  .affiliation-logos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: calc(100% - 34px); gap: 12px 4px; margin-top: 28px; }
+  .affiliation-logo { min-width: 0; padding: 10px 6px; height: 62px; }
+  .affiliation-mark { max-width: 100%; }
+  .affiliation-mark-gatech { height: 24px; }
+  .affiliation-logos li:last-child { grid-column: span 2; }
+}
 .plant-hero h1 { font-size: clamp(68px, 8vw, 100px); line-height: .98; letter-spacing: -.035em; margin: 0 0 28px; }
 .plant-hero .plant-intro { font-size: 24px; line-height: 1.4; color: #203858; }
 .plant-person { display: flex; align-items: center; gap: 16px; margin-block: 26px; }

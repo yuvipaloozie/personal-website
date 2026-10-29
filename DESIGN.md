@@ -15,6 +15,8 @@ colors:
   stipple-light: "#a1b1bd"
   control-surface: "#edf1f5"
   utility-circuit: "#8da3b5"
+  depth-process-line: "#7892a6"
+  depth-utility-line: "#9aabba"
   selected-surface: "#e3e9ef"
   control-border: "#e4e1db"
   sweep: "#c9d8eb"
@@ -112,7 +114,7 @@ About uses biography plus a 248×310 portrait, becoming 185×231 below 900px and
 
 Keep surfaces flat. Fixed pointer-transparent canvases sit behind isolated content. A shared cached drawing stock uses broken 64-unit grid axes, 4-unit sampling and sparse seeded stipple. Measured reading masks clear the texture under content and fade it back over 28 units. Equipment uses paper fills, thin outlines, Bayer shading and sparse perimeter texture. Reading and Resume grids use 65% stock opacity. Avoid shadows, decorative cards and extra shader layers. Print removes canvases and switches to plain readable document styling.
 
-An original cached utility circuit in `src/lib/process-depth.ts` adds a faint second plane of connected orthogonal paths, vessels, instrument taps and an exchanger. Its 760px-high tile scrolls at 0.32 times the page offset, at 22% opacity on wider screens and 16% below 600px. Reading masks clear this moving layer with 14px horizontal and 10px vertical clearance. Reduced motion restores normal page-relative scrolling and removes its traveling packet. It reuses the active canvas and existing frame loop; quiet reading surfaces still have no idle loop. Do not simulate depth with blur or add another animation clock.
+An original cached process train in `src/lib/process-depth.ts` adds a faint second plane: feed tank → pump → four-port exchanger → stirred reactor → tray separator → product trunk, with a recycle return, shared dashed utility circuit and instrument taps. Continuous process pipes meet equipment at boundary nozzles; Bayer stipple stays inside vessels and the product/feed trunk joins successive tiles. Its 1100px-high tile scrolls at 0.32 times the page offset, at 27% opacity on wider screens and 20% below 600px. Flow routes cache segment lengths for packets on process and recycle paths. Reading masks clear this moving layer with 14px horizontal and 10px vertical clearance. Reduced motion restores normal page-relative scrolling and omits packets. It reuses the active canvas and existing frame loop; quiet reading surfaces still have no idle loop. Do not simulate depth with blur or add another animation clock.
 
 ## Shapes
 
@@ -127,6 +129,8 @@ Home, About, Projects, Blog and Resume appear in the shared navigation with the 
 At 360px and below, the header brand uses 18px text with a 6px gap. Navigation uses zero gap and links at least 44px wide with 6px inline padding, keeping its five items on one row. The graph entry hides only its visible text, retaining the existing GraphMark within a target at least 44×44px. Its explicit accessible name and title remain “Knowledge graph”.
 
 Homepage `PlantDiagram` measures section offsets and the three real project links, continuously revealing piping through a viewport marker at 62% height. The node, signal and microscopy project glyphs respond to pointer/focus; marker motion shares the diagram clock. Idle equipment stipple and revealed-path packets paint at approximately 25fps. The homepage About me action leads to `/about`; no Classic view link remains.
+
+Below the introduction, `AffiliationLogos` presents five actual locally stored SVG marks for Arclin, Wood, Bayer, Alcon and Georgia Tech. Render them as static navy alpha masks, preserving each mark's proportions; use existing borderless links and DitherSweep rather than continuous logo animation. Links lead to the real experience pages, Resume or its education anchor, with explicit work/education accessible names. The desktop strip accommodates five marks; at 600px and below a three-column grid forms a 3+2 arrangement, with the final Georgia Tech entry spanning two columns. Include the strip in both paper-grid and depth reading masks. These affiliation assets do not change the original authorship of the process drawing.
 
 `ProcessSurface` and `ProcessBackdrop` unify the subpages. About and indexes have a small margin vessel and traveling packets, with measured content connections and pointer/focus highlights. Detail, experience and Resume surfaces omit idle equipment and animation loops: they repaint on scroll and other invalidations. The margin reveal follows a 58%-height marker. Below 720px its rail is at width minus 22px and equipment/branch detail disappears.
 

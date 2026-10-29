@@ -2,46 +2,113 @@ import { bayer8 } from "./wave-field";
 import type { ReadingArea } from "./process-grid";
 
 type Point = [number, number];
-type DepthLayer = { canvas: HTMLCanvasElement; paths: Point[][]; height: number };
+type Segment = { from: Point; to: Point; start: number; length: number };
+type FlowRoute = { segments: Segment[]; length: number };
+type DepthLayer = { canvas: HTMLCanvasElement; routes: FlowRoute[]; height: number };
 
-/** A separate utility circuit, drawn once; its depth comes from scroll, not blur. */
+function flowRoute(paths: Point[][]): FlowRoute {
+  const segments: Segment[] = [];
+  let length = 0;
+  for (const path of paths) for (let i = 1; i < path.length; i++) {
+    const from = path[i - 1], to = path[i];
+    const distance = Math.hypot(to[0] - from[0], to[1] - from[1]);
+    segments.push({ from, to, start: length, length: distance });
+    length += distance;
+  }
+  return { segments, length };
+}
+
+/** Original connected process train: feed, pump, heat exchange, reaction and separation. */
 export function createProcessDepth(width: number): DepthLayer {
   const canvas = document.createElement("canvas");
-  const height = 760;
+  const height = 1100;
   canvas.width = Math.ceil(width); canvas.height = height;
   const ctx = canvas.getContext("2d")!;
-  const a = width * .09, b = width * .36, c = width * .67, d = width * .93;
-  const paths: Point[][] = [
-    [[d, 0], [d, 100], [b, 100], [b, 280], [a, 280], [a, 510], [c, 510], [c, 655], [d, 655], [d, height]],
-    [[a, 0], [a, 185], [c, 185], [c, 385], [b, 385], [b, 600], [a, 600], [a, height]],
-    [[width * .5, 100], [width * .5, 40], [d, 40]],
-    [[b, 385], [b, 450], [d, 450], [d, 655]],
+  const unit = Math.min(1, width / 760);
+  const a = width * .1, b = width * .37, c = width * .66, d = width * .84;
+  const utility = width * .96;
+  const pumpRadius = 19 * unit, exchangerRadius = 32 * unit;
+  const tankWidth = 70 * unit, reactorWidth = 86 * unit, columnWidth = 54 * unit;
+  const pumpY = 260, exchangerY = 360;
+  const tankTop = 70, tankBottom = 188, reactorTop = 478, reactorBottom = 640;
+  const columnTop = 750, columnBottom = 948;
+
+  // Each segment ends at a real nozzle; no pipe runs through an equipment outline.
+  // The feed/product trunk meets the next tile at exactly the same x coordinate.
+  const main: Point[][] = [
+    [[a, 0], [a, tankTop]],
+    [[a, tankBottom], [a, pumpY - pumpRadius]],
+    [[a + pumpRadius, pumpY], [width * .23, pumpY], [width * .23, exchangerY], [b - exchangerRadius, exchangerY]],
+    [[b + exchangerRadius, exchangerY], [c, exchangerY], [c, reactorTop]],
+    [[c, reactorBottom], [c, 694], [d, 694], [d, columnTop]],
+    [[d, columnBottom], [d, 1028], [a, 1028], [a, height]],
   ];
-  ctx.strokeStyle = "#8da3b5"; ctx.fillStyle = "#8da3b5";
-  ctx.lineWidth = 1.1;
-  ctx.setLineDash([1.3, 3.2]);
-  for (const path of paths) {
-    ctx.beginPath(); path.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
+  const recycle: Point[][] = [
+    [[d - columnWidth / 2, 852], [b, 852], [b, 558], [c - reactorWidth / 2, 558]],
+  ];
+  const utilities: Point[][] = [
+    [[utility, 0], [utility, height]],
+    [[utility, 304], [b, 304], [b, exchangerY - exchangerRadius]],
+    [[b, exchangerY + exchangerRadius], [b, 420], [utility, 420]],
+    [[utility, 518], [c + reactorWidth / 2, 518]],
+    [[c + reactorWidth / 2, 602], [utility, 602]],
+  ];
+  function pipe(points: Point[], dashed = false) {
+    ctx.beginPath();
+    points.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+    ctx.setLineDash(dashed ? [2, 4] : []);
+    ctx.stroke();
+    ctx.setLineDash([]);
   }
-  ctx.setLineDash([]);
-  const equipment = [[b, 210, 44, 86], [c, 330, 60, 100], [d, 550, 28, 72]];
-  for (const [x, y, w, h] of equipment) {
-    const outline = new Path2D(); outline.roundRect(x - w / 2, y - h / 2, w, h, w / 2);
+  ctx.strokeStyle = "#7892a6"; ctx.fillStyle = "#7892a6";
+  ctx.lineWidth = 1.15; ctx.lineJoin = "miter";
+  main.forEach(path => pipe(path));
+  recycle.forEach(path => pipe(path));
+  ctx.strokeStyle = "#9aabba"; ctx.lineWidth = .9;
+  utilities.forEach(path => pipe(path, true));
+
+  // Stipple belongs to the equipment; outlines remain continuous and legible.
+  function vessel(x: number, top: number, w: number, h: number, trays = false) {
+    const outline = new Path2D();
+    outline.roundRect(x - w / 2, top, w, h, Math.min(w / 2, 24 * unit));
     ctx.save(); ctx.clip(outline);
-    for (let py = y - h / 2; py < y + h / 2; py += 3) for (let px = x - w / 2; px < x + w / 2; px += 3) {
-      if (bayer8(Math.floor(px / 3), Math.floor(py / 3)) < .16 + .2 * (px - x + w / 2) / w) ctx.fillRect(px, py, 1.2, 1.2);
+    ctx.fillStyle = "#8da3b5";
+    for (let py = top; py < top + h; py += 3) for (let px = x - w / 2; px < x + w / 2; px += 3) {
+      const density = .1 + .24 * (px - x + w / 2) / w;
+      if (bayer8(Math.floor(px / 3), Math.floor(py / 3)) < density) ctx.fillRect(px, py, 1.25, 1.25);
     }
-    ctx.restore(); ctx.setLineDash([1.2, 2.8]); ctx.stroke(outline); ctx.setLineDash([]);
+    ctx.restore();
+    ctx.strokeStyle = "#7892a6"; ctx.lineWidth = 1.15; ctx.stroke(outline);
+    if (trays) for (let y = top + 30; y < top + h - 20; y += 26) {
+      pipe([[x - w / 2 + 6 * unit, y], [x + w / 2 - 6 * unit, y]]);
+    }
   }
-  // Utility branches, instrument taps and a small exchanger all share the circuit.
-  for (const [x, y] of [[b, 100], [c, 185], [b, 385], [c, 510], [d, 655]]) {
-    ctx.fillRect(x - 2, y - 2, 4, 4);
-    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 24, y - 24); ctx.lineTo(x + 42, y - 24); ctx.stroke();
-    ctx.beginPath(); ctx.arc(x + 50, y - 24, 8, 0, Math.PI * 2); ctx.stroke();
+  vessel(a, tankTop, tankWidth, tankBottom - tankTop);
+  vessel(c, reactorTop, reactorWidth, reactorBottom - reactorTop);
+  vessel(d, columnTop, columnWidth, columnBottom - columnTop, true);
+
+  // Pump suction at the top, discharge to the right; heat exchanger has four ports.
+  ctx.beginPath(); ctx.arc(a, pumpY, pumpRadius, 0, Math.PI * 2); ctx.stroke();
+  pipe([[a - pumpRadius * .45, pumpY + pumpRadius * .45], [a + pumpRadius * .5, pumpY], [a - pumpRadius * .45, pumpY - pumpRadius * .45]]);
+  ctx.beginPath(); ctx.arc(b, exchangerY, exchangerRadius, 0, Math.PI * 2); ctx.stroke();
+  pipe([[b - exchangerRadius * .7, exchangerY], [b - exchangerRadius * .35, exchangerY - exchangerRadius * .45], [b + exchangerRadius * .35, exchangerY + exchangerRadius * .45], [b + exchangerRadius * .7, exchangerY]]);
+  // Agitator and jacket connections make the reactor distinct from a storage vessel.
+  pipe([[c, reactorTop + 16], [c, reactorTop + 86], [c - reactorWidth * .2, reactorTop + 94], [c + reactorWidth * .2, reactorTop + 94]]);
+  pipe([[c - reactorWidth * .2, reactorTop + 16], [c + reactorWidth * .2, reactorTop + 16]]);
+
+  // Actual branch junctions and instrument impulse lines share the same circuit.
+  for (const [x, y] of [[c, exchangerY], [d, 694], [b, 852]]) {
+    ctx.fillStyle = "#7892a6"; ctx.fillRect(x - 1.8, y - 1.8, 3.6, 3.6);
+    const r = 9 * unit, stem = 27 * unit;
+    pipe([[x, y], [x, y - stem]]);
+    ctx.beginPath(); ctx.arc(x, y - stem - r, r, 0, Math.PI * 2); ctx.stroke();
   }
-  ctx.beginPath(); ctx.ellipse(a, 420, 22, 30, 0, 0, Math.PI * 2); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(a - 13, 400); ctx.lineTo(a + 13, 410); ctx.lineTo(a - 13, 430); ctx.lineTo(a + 13, 440); ctx.stroke();
-  return { canvas, paths, height };
+  // Small flow arrows distinguish process direction from dashed utilities.
+  for (const [x, y, direction] of [[a, 222, 1], [c, 440, 1], [d, 984, 1], [a, 1070, 1], [b, 710, -1]]) {
+    const s = 4 * unit;
+    pipe([[x - s, y - s * direction], [x, y], [x + s, y - s * direction]]);
+  }
+  return { canvas, routes: [flowRoute(main), flowRoute(recycle)], height };
 }
 
 export function drawProcessDepth(ctx: CanvasRenderingContext2D, layer: DepthLayer, width: number, height: number, pageTop: number, time: number, reduced: boolean, reading: ReadingArea[]) {
@@ -49,25 +116,21 @@ export function drawProcessDepth(ctx: CanvasRenderingContext2D, layer: DepthLaye
   const first = Math.floor(-offset / layer.height) - 1;
   const count = Math.ceil(height / layer.height) + 3;
   ctx.save();
-  ctx.globalAlpha = width < 600 ? .16 : .22;
+  ctx.globalAlpha = width < 600 ? .2 : .27;
   for (let i = first; i < first + count; i++) {
     const top = offset + i * layer.height;
     ctx.drawImage(layer.canvas, 0, top);
-    if (!reduced) {
-      const path = layer.paths[0];
-      const lengths = [0];
-      for (let n = 1; n < path.length; n++) lengths.push(lengths[n - 1] + Math.hypot(path[n][0] - path[n - 1][0], path[n][1] - path[n - 1][1]));
-      const distance = time * 24 % lengths[lengths.length - 1];
-      const segment = lengths.findIndex(length => length >= distance);
-      if (segment > 0) {
-        const f = (distance - lengths[segment - 1]) / (lengths[segment] - lengths[segment - 1]);
-        const a = path[segment - 1], b = path[segment];
-        const x = a[0] + (b[0] - a[0]) * f, y = a[1] + (b[1] - a[1]) * f + top;
-        ctx.fillStyle = "#58748a"; ctx.fillRect(x - 1.5, y - 1.5, 3, 3);
-      }
-    }
+    if (!reduced) layer.routes.forEach((route, routeIndex) => {
+      const distance = (time * 24 + routeIndex * 137) % route.length;
+      const segment = route.segments.find(segment => distance >= segment.start && distance < segment.start + segment.length);
+      if (!segment) return;
+      const f = (distance - segment.start) / segment.length;
+      const x = segment.from[0] + (segment.to[0] - segment.from[0]) * f;
+      const y = segment.from[1] + (segment.to[1] - segment.from[1]) * f + top;
+      ctx.fillStyle = "#58748a"; ctx.fillRect(x - 1.5, y - 1.5, 3, 3);
+    });
   }
-  // Keep the moving layer out of reading areas, independent of its scroll offset.
+  // Clear only the depth layer beneath current reading positions.
   ctx.globalAlpha = 1; ctx.globalCompositeOperation = "destination-out"; ctx.fillStyle = "black";
   for (const area of reading) ctx.fillRect(area.x - 14, area.y + pageTop - 10, area.w + 28, area.h + 20);
   ctx.restore();
