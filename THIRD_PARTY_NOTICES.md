@@ -12,7 +12,7 @@ The locally hosted SVG files in `public/logos/` identify Yuvraj's work and educa
 
 Retrieved October 28, 2026. No remote logo requests are made by the website.
 
-The circular Background cloud uses local symbol-only derivatives in `public/logos/icons/`: Arclin's symbol, Georgia Tech's GT monogram, and cropped original W/A letterforms from the Wood/Alcon wordmarks. The W/A crops are local display treatments, not claims of official standalone brand icons. Bayer retains its complete cross symbol. The full source lockups remain stored for provenance.
+The Background network uses local Arclin and Georgia Tech symbol derivatives in `public/logos/icons/`, retaining the original vector geometry. Wood and Alcon use their complete source lockups; Bayer retains its complete cross symbol. All marks render through the same navy mask treatment.
 
 ## Dithering shader
 

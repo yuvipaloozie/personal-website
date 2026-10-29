@@ -63,7 +63,7 @@ Use the existing local font files: Geist Pixel Square for display headings, Inst
 
 The content container is 1200px wide with 48px side padding, changing to 20px at widths of at least 1400px. Reading columns cap at 470px. Desktop copy occupies the left at feed, conditioning and separation, and moves right with 54% left padding at reaction. Keep diagram geometry in the complementary open space.
 
-In Background, a 230×250px affiliation cloud sits alongside the career list in `plant-background-details`, moving above it at 900px and below. Five 60×60px links occupy a 78px-radius orbit with faint dotted circles. Navy masks show the Arclin symbol, Wood W crop, intact Bayer cross, Alcon A crop and Georgia Tech monogram, without full wordmarks/taglines. Wood and Alcon are letterform crops, not claims of official standalone symbols. Variants use local `public/logos/icons/` SVGs; Bayer retains the full cross asset. Preserve real experience/Resume/education destinations, accessible names, DitherSweep and dotted keyboard focus. The 65s linear CSS orbit counter-rotates marks upright; hover/focus within pauses all nodes, while reduced motion and print remain static. No JavaScript loop is added. Keep both background reading masks clear beneath the cloud.
+In Background, a stationary 230×270px affiliation network sits alongside the career list in `plant-background-details`, moving above it at 900px and below. Five asymmetrically placed links retain at least 60px width and 60px height, expanding for full Wood and Alcon lockups from `/logos/wood.svg` and `/logos/alcon.svg`. Navy masks retain the Arclin symbol, intact Bayer cross and Georgia Tech monogram, with local icon variants for Arclin/Georgia Tech. Loose pixel-dotted paths and junctions replace circular guides. Preserve real experience/Resume/education destinations, accessible names, DitherSweep and dotted focus. Only the selected mark scales to 1.08 on fine-pointer hover or keyboard focus over 220ms with `cubic-bezier(.16, 1, .3, 1)`; reduced motion removes transition timing. No orbit, continuous affiliation animation or JavaScript loop remains. Keep both background reading masks clear beneath the network.
 
 | Section anchor | Reading purpose | Process geometry |
 | --- | --- | --- |
@@ -102,4 +102,5 @@ Idle motion remains visible without scrolling: existing 8×8 Bayer thresholds st
 - Don't apply these homepage-specific proportions to every reading page; follow root `DESIGN.md` for subpage rules.
 - Don't imply the diagram documents a real facility or add invented process data.
 - Don't restore the retired Classic view action or alter original portrait and factual project records when maintaining this composition.
+
 

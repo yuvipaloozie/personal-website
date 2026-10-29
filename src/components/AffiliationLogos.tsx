@@ -1,5 +1,4 @@
 import Link from "next/link";
-import type { CSSProperties } from "react";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 
 const affiliations = [
@@ -13,12 +12,12 @@ const affiliations = [
 export default function AffiliationLogos() {
   return (
     <ul className="affiliation-logos" aria-label="Work and education">
-      <li className="affiliation-orbit" aria-hidden="true"><svg viewBox="0 0 240 240" fill="none"><circle cx="120" cy="120" r="82" /><circle cx="120" cy="120" r="108" /><path d="M116 116h3v3h-3zM122 119h3v3h-3zM119 125h3v3h-3z" /></svg></li>
-      {affiliations.map(({ name, mark, href, context }, index) => (
-        <li className="affiliation-node" key={mark} style={{ "--angle": `${index * 72 - 90}deg`, "--counter": `${90 - index * 72}deg` } as CSSProperties}>
+      <li className="affiliation-network" aria-hidden="true"><svg viewBox="0 0 230 270" fill="none"><path d="M63 72 84 105M146 99 121 116M87 157 65 191M119 153 163 200M106 220 149 220" /><path className="affiliation-junctions" d="M79 96h3v3h-3zM134 106h3v3h-3zM74 174h3v3h-3zM141 178h3v3h-3zM126 219h3v3h-3z" /></svg></li>
+      {affiliations.map(({ name, mark, href, context }) => (
+        <li className={`affiliation-node affiliation-node-${mark}`} key={mark}>
           <Link href={href} className="affiliation-logo sweep-target" aria-label={`${name} — ${context}`}>
             <DitherSweep />
-            <span className={`affiliation-mark affiliation-mark-${mark}`} aria-hidden="true" style={{ maskImage: `url(/logos/${mark === "bayer" ? "" : "icons/"}${mark}.svg)` }} />
+            <span className={`affiliation-mark affiliation-mark-${mark}`} aria-hidden="true" style={{ maskImage: `url(/logos/${["bayer", "wood", "alcon"].includes(mark) ? "" : "icons/"}${mark}.svg)` }} />
           </Link>
         </li>
       ))}

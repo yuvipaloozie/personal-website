@@ -7,31 +7,32 @@
 .plant-copy p { color: #454944; font-size: 17px; line-height: 1.7; }
 .plant-copy .plant-stage-note { font-size: 14px; max-width: 37ch; margin-top: 18px; color: #536a7d; }
 .plant-hero { min-height: 740px; padding-top: 78px; }
-/* Upright brand symbols revolve together; interaction holds the entire cloud still. */
+/* An open, stationary affiliation network; feedback belongs to the selected logo. */
 .plant-background-details { display: grid; grid-template-columns: minmax(0, 1fr) 230px; align-items: center; gap: 12px; }
-.affiliation-logos { --orbit-radius: 78px; position: relative; width: 230px; height: 250px; list-style: none; margin: 16px 0; padding: 0; }
-.affiliation-node { position: absolute; left: 50%; top: 50%; width: 60px; height: 60px; margin: -30px; transform: rotate(var(--angle)) translateX(var(--orbit-radius)) rotate(var(--counter)); animation: affiliation-revolve 65s linear infinite; }
-.affiliation-logo { display: flex; align-items: center; justify-content: center; width: 60px; height: 60px; padding: 8px; }
-.affiliation-mark { position: relative; z-index: 1; display: block; width: 42px; height: 42px; background: #203858; mask-repeat: no-repeat; mask-position: center; mask-size: contain; }
+.affiliation-logos { position: relative; width: 230px; height: 270px; list-style: none; margin: 16px 0; padding: 0; }
+.affiliation-node { position: absolute; transform: translate(-50%, -50%); }
+.affiliation-node-arclin { left: 50px; top: 48px; }
+.affiliation-node-wood { left: 164px; top: 68px; }
+.affiliation-node-bayer { left: 100px; top: 132px; }
+.affiliation-node-alcon { left: 54px; top: 218px; }
+.affiliation-node-gatech { left: 178px; top: 220px; }
+.affiliation-logo { display: flex; align-items: center; justify-content: center; min-width: 60px; height: 60px; padding: 8px; }
+.affiliation-mark { position: relative; z-index: 1; display: block; width: 42px; height: 42px; background: #203858; mask-repeat: no-repeat; mask-position: center; mask-size: contain; transition: transform 220ms cubic-bezier(.16, 1, .3, 1); }
 .affiliation-mark-arclin { width: 32px; height: 40px; }
-.affiliation-mark-wood { width: 44px; height: 34px; }
-.affiliation-mark-alcon { width: 34px; height: 34px; }
+.affiliation-mark-wood { width: 88px; height: 44px; }
+.affiliation-mark-alcon { width: 88px; height: 26px; }
 .affiliation-mark-gatech { width: 44px; height: 32px; }
-.affiliation-orbit { position: absolute; inset: 5px -5px; pointer-events: none; }
-.affiliation-orbit svg { width: 240px; height: 240px; }
-.affiliation-orbit circle { stroke: #91a5b7; stroke-width: 1; stroke-dasharray: 1 7; opacity: .55; }
-.affiliation-orbit circle + circle { opacity: .22; }
-.affiliation-orbit path { fill: #6e879e; opacity: .5; }
-.affiliation-logos:is(:hover, :focus-within) .affiliation-node { animation-play-state: paused; }
-@keyframes affiliation-revolve {
-  to { transform: rotate(calc(var(--angle) + 360deg)) translateX(var(--orbit-radius)) rotate(calc(var(--counter) - 360deg)); }
-}
+.affiliation-network { position: absolute; inset: 0; pointer-events: none; }
+.affiliation-network svg { width: 230px; height: 270px; }
+.affiliation-network path { stroke: #91a5b7; stroke-width: 1; stroke-dasharray: 1 5; opacity: .55; }
+.affiliation-network .affiliation-junctions { stroke: none; fill: #6e879e; opacity: .5; }
+.affiliation-logo:focus-visible .affiliation-mark { transform: scale(1.08); }
+@media (hover: hover) and (pointer: fine) { .affiliation-logo:hover .affiliation-mark { transform: scale(1.08); } }
 @media (max-width: 900px) {
   .plant-background-details { grid-template-columns: 1fr; gap: 0; }
   .affiliation-logos { grid-row: 1; justify-self: center; }
 }
-@media (prefers-reduced-motion: reduce) { .affiliation-node { animation: none; } }
-@media print { .affiliation-node { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .affiliation-mark { transition: none; } }
 .plant-hero h1 { font-size: clamp(68px, 8vw, 100px); line-height: .98; letter-spacing: -.035em; margin: 0 0 28px; }
 .plant-hero .plant-intro { font-size: 24px; line-height: 1.4; color: #203858; }
 .plant-person { display: flex; align-items: center; gap: 16px; margin-block: 26px; }
