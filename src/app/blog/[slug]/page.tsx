@@ -4,6 +4,8 @@ import RelatedReading from "@/components/RelatedReading";
 import { graphData } from "@/data/graphData";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ProcessSurface from "@/components/ProcessSurface";
+import "@/styles/process-reading.css";
 
 export function generateStaticParams() {
   const blogNodes = graphData.nodes.filter(n => n.type === 'detail' && n.id.startsWith('b_'));
@@ -32,9 +34,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const { title, subtitle, image, description, fullDescription } = node.details;
 
   return (
-    <article className="container section note-detail">
-      <div className="note-reading">
-        <Link href="/blog" className="back-link">Back to notes</Link>
+    <ProcessSurface kind="detail">
+      <article className="process-reading process-reading-article">
+        <Link href="/blog" className="back-link">Back to blog</Link>
         <h1 className="page-title">{title}</h1>
         <p className="entry-date">{subtitle}</p>
         <p className="project-summary">{description}</p>
@@ -46,7 +48,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           {fullDescription?.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </div>
         <RelatedReading nodeId={node.id} />
-      </div>
-    </article>
+      </article>
+    </ProcessSurface>
   );
 }

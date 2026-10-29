@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-29T01:03:11.7553786Z",
+  "title": "Design System: Research and Engineering — Process",
+  "extensions": {
+    "colorMeta": {
+      "process-paper": {
+        "role": "neutral",
+        "displayName": "Warm engineering paper",
+        "canonical": "#fbfaf8"
+      },
+      "process-ink": {
+        "role": "primary",
+        "displayName": "Process navy",
+        "canonical": "#203858"
+      },
+      "process-copy": {
+        "role": "neutral",
+        "displayName": "Reading ink",
+        "canonical": "#454944"
+      },
+      "grid": {
+        "role": "neutral",
+        "displayName": "Broken drawing grid",
+        "canonical": "#a9bac8"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Home display",
+        "purpose": "Homepage name and process identity."
+      },
+      "headline": {
+        "displayName": "Subpage display",
+        "purpose": "Index, About and Resume titles; detail pages use a smaller clamp."
+      },
+      "body": {
+        "displayName": "Reading copy",
+        "purpose": "Long prose at a maximum of 70ch."
+      },
+      "navigation": {
+        "displayName": "Technical navigation",
+        "purpose": "Shared navigation and graph labels."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "selection-glide",
+        "value": "240ms",
+        "purpose": "Bounded selection-surface continuity; immediate with reduced motion."
+      },
+      {
+        "name": "action-arrow",
+        "value": "140ms",
+        "purpose": "Finite directional arrow feedback."
+      },
+      {
+        "name": "pixel-sweep",
+        "value": "520ms",
+        "purpose": "Six-row aspect-fitted deterministic pixel arrival on hover and focus."
+      },
+      {
+        "name": "home-paint-minimum",
+        "value": "40ms",
+        "purpose": "Approximately 25fps idle diagram paint cadence."
+      },
+      {
+        "name": "subpage-paint-minimum",
+        "value": "50ms",
+        "purpose": "Approximately 20fps discovery backdrop cadence; reading/Resume have no idle loop."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-home",
+        "value": "1400px"
+      },
+      {
+        "name": "tablet",
+        "value": "900px"
+      },
+      {
+        "name": "circuit-narrow",
+        "value": "720px"
+      },
+      {
+        "name": "reading-phone",
+        "value": "600px"
+      },
+      {
+        "name": "home-biography-stack",
+        "value": "480px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Career foundation link",
+      "kind": "custom",
+      "description": "A factual About-page path entry with navy pixel marker and explicit keyboard focus.",
+      "html": "<a class=\"ds-foundation-link\" href=\"#experience\"><span>Engineering foundation</span><span class=\"ds-foundation-meta\">Experience and methods</span><svg aria-hidden=\"true\" focusable=\"false\" width=\"16\" height=\"16\" viewBox=\"0 0 8 8\" fill=\"currentColor\" shape-rendering=\"crispEdges\"><path d=\"M4 1h1v1h-1zM5 2h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM5 4h1v1h-1zM4 5h1v1h-1z\"/></svg></a>",
+      "css": ".ds-foundation-link{display:grid;grid-template-columns:minmax(0,1fr) 16px;align-items:center;gap:6px 12px;min-height:70px;border-radius:4px;color:var(--process-ink,#203858);font:18px/1.35 'Instrument Sans',Arial,sans-serif;text-decoration:none}.ds-foundation-meta{grid-column:1;color:#53616c;font-size:14px}.ds-foundation-link svg{grid-column:2;grid-row:1}.ds-foundation-link:hover>span:first-child{text-decoration:underline;text-underline-offset:4px}.ds-foundation-link:focus-visible{outline:2px solid #243d63;outline-offset:7px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Engineering paper and a connected process",
+    "overview": "The approved process design is the main website at /. The /plant alias permanently redirects home. Warm paper, navy, pixel headings and measured process circuits unify discovery and reading surfaces; the established knowledge graph remains intact.",
+    "keyCharacteristics": [
+      "Original abstract process geometry",
+      "Full-contrast reading copy with measured texture clearance",
+      "Shared locally generated drawing stock",
+      "Quieter circuits on reading and Resume pages",
+      "Original factual content and assets"
+    ],
+    "rules": [
+      {
+        "name": "Reading clearance",
+        "body": "Clear grid texture beneath measured content and fade it back over 28 units.",
+        "section": "elevation"
+      },
+      {
+        "name": "Motion follows the surface",
+        "body": "Discovery pages use bounded idle stipple and packets. Detail, experience and Resume backdrops repaint only on invalidation; reduced motion freezes decorative time.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Keep canonical reading routes and the original graph.",
+      "Preserve full-color portrait and project assets.",
+      "Keep labels sharp and interactive targets at least 44px.",
+      "Publish portrait wave frames from the active process canvas."
+    ],
+    "donts": [
+      "Do not restore the retired classic homepage or ambient wave without a request.",
+      "Do not imply the diagram is an operating facility.",
+      "Do not invent factual achievements, publications or equipment data.",
+      "Do not add remote fonts or gratuitous animation loops."
+    ]
+  }
+}

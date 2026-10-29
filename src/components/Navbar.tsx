@@ -7,6 +7,7 @@ import { DitherSweep } from "@/components/ui/dither-sweep";
 import { PixelIcon } from "@/components/ui/pixel-icon";
 import { SelectionIndicator } from "@/components/ui/selection-indicator";
 const links = [
+  ["/", "Home"],
   ["/about", "About"],
   ["/projects", "Projects"],
   ["/blog", "Blog"],

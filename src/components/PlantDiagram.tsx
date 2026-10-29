@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { bayer8, seededNoise } from "@/lib/wave-field";
+import { bayer8, publishWaveFrame } from "@/lib/wave-field";
+import { paintProcessGrid } from "@/lib/process-grid";
 
 type Point = [number, number];
 
@@ -46,31 +47,11 @@ export default function PlantDiagram() {
         return { id: link.dataset.processOutput!, x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top + rect.height / 2) / scale };
       });
       // Cache the engineering paper once per layout, not on the animation clock.
-      drawingStock.width = width <= 900 ? width : 1200;
-      drawingStock.height = Math.ceil(page!.scrollHeight / scale);
-      const stock = drawingStock.getContext("2d")!;
       const reading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-caption, .plant-close")).map(element => {
         const rect = element.getBoundingClientRect();
         return { x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top) / scale, w: rect.width / scale, h: rect.height / scale };
       });
-      stock.fillStyle = "#a9bac8";
-      for (let y = 0; y < drawingStock.height; y += 4) {
-        for (let x = 0; x < drawingStock.width; x += 4) {
-          const axis = x % 64 === 0 || y % 64 === 0;
-          const noise = seededNoise(x, y, 19);
-          if (axis ? noise > .76 : noise < .997) continue;
-          let clearance = 1;
-          for (const rect of reading) {
-            const dx = Math.max(rect.x - x, 0, x - rect.x - rect.w);
-            const dy = Math.max(rect.y - y, 0, y - rect.y - rect.h);
-            clearance = Math.min(clearance, Math.min(1, Math.hypot(dx, dy) / 28));
-          }
-          if (clearance < .03) continue;
-          stock.globalAlpha = (axis ? .34 : .17) * clearance;
-          const dot = x % 64 === 0 && y % 64 === 0 ? 2.6 : 1.35;
-          stock.fillRect(x, y, dot, dot);
-        }
-      }
+      paintProcessGrid(drawingStock, width <= 900 ? width : 1200, page!.scrollHeight / scale, reading);
       dirty = true;
     }
 
@@ -87,6 +68,7 @@ export default function PlantDiagram() {
 
     function draw(time: number) {
       const context = ctx!;
+      publishWaveFrame({ time, left: 0, top: 0, width, height, pixelsWide: width / 3, pixelsHigh: height / 3, scale: 78, cellSize: 1 });
       context.clearRect(0, 0, width, height);
       const top = page!.getBoundingClientRect().top;
       const mobile = width <= 900;

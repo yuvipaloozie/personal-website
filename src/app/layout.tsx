@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import AmbientResearch from "@/components/AmbientResearch";
+import "./plant/plant.css";
+import "@/styles/process.css";
 import { profile } from "@/lib/profile";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { PixelIcon } from "@/components/ui/pixel-icon";
@@ -23,7 +24,6 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        <AmbientResearch />
         <Navbar />
         <main id="main-content">{children}</main>
         <footer className="container site-footer">

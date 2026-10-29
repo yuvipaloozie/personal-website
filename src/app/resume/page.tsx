@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PrintResume from "@/components/PrintResume";
+import ProcessSurface from "@/components/ProcessSurface";
 import { graphData } from "@/data/graphData";
 import { education, profile, technicalSkills } from "@/lib/profile";
+import "@/styles/process-about-resume.css";
 export const metadata: Metadata = {
   title: "Resume",
   description:
@@ -13,26 +15,30 @@ export default function Resume() {
     (node) => node.id.startsWith("e_") && node.details,
   );
   return (
-    <div className="container section">
-      <h1 className="page-title">Resume</h1>
-      <p className="page-intro">
-        {profile.name} · {profile.location}
-        <br />
-        <a href={`mailto:${profile.email}`}>
-          {profile.email}
-        </a>
-      </p>
-      <PrintResume />
-      <section className="cv-section">
-        <h2>Education</h2>
-        <h3>{education.institution}</h3>
-        <p>{education.graduate.degree} · {education.graduate.completion}</p>
-        <p>{education.undergraduate.degree} · {education.undergraduate.completion}</p>
+    <ProcessSurface kind="resume">
+      <header className="process-resume-header">
+        <h1>Resume</h1>
+        <p className="process-resume-contact">
+          {profile.name} · {profile.location}
+          <br />
+          <a href={`mailto:${profile.email}`}>
+            {profile.email}
+          </a>
+        </p>
+        <PrintResume />
+      </header>
+      <section className="process-resume-section" id="education" aria-labelledby="education-title">
+        <h2 id="education-title">Education</h2>
+        <div className="process-resume-entry" data-process-item>
+          <h3>{education.institution}</h3>
+          <p>{education.graduate.degree} · {education.graduate.completion}</p>
+          <p>{education.undergraduate.degree} · {education.undergraduate.completion}</p>
+        </div>
       </section>
-      <section className="cv-section">
-        <h2>Experience</h2>
+      <section className="process-resume-section" aria-labelledby="experience-title">
+        <h2 id="experience-title">Experience</h2>
         {experience.map((node) => (
-          <article className="cv-role" key={node.id}>
+          <article className="process-resume-entry" key={node.id} data-process-item>
             <h3>
               {node.details!.link?.startsWith("/experience/") ? (
                 <Link href={node.details!.link}>{node.details!.title}</Link>
@@ -40,17 +46,22 @@ export default function Resume() {
                 node.details!.title
               )}
             </h3>
-            <p>{node.details!.subtitle}</p>
+            <p className="process-resume-meta">{node.details!.subtitle}</p>
             <p>{node.details!.description}</p>
           </article>
         ))}
       </section>
-      <section className="cv-section">
-        <h2>Technical background</h2>
-        {technicalSkills.map(({ area, tools }) => (
-          <p key={area}><strong>{area}:</strong> {tools}</p>
-        ))}
+      <section className="process-resume-section" aria-labelledby="technical-title">
+        <h2 id="technical-title">Technical background</h2>
+        <dl className="process-resume-skills">
+          {technicalSkills.map(({ area, tools }) => (
+            <div key={area} data-process-item>
+              <dt>{area}</dt>
+              <dd>{tools}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
-    </div>
+    </ProcessSurface>
   );
 }

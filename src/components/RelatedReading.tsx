@@ -13,7 +13,7 @@ export default function RelatedReading({ nodeId }: { nodeId: string }) {
           <li key={node.id}>
             <span className="reading-connection">
               {threadId ? (
-                <Link href={`/#thread-${threadId}`} aria-label={`Follow the ${method} research thread`}>
+                <Link href={`/projects#thread-${threadId}`} aria-label={`Follow the ${method} research thread`}>
                   {method}
                 </Link>
               ) : method}

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import RelatedReading from "@/components/RelatedReading";
 import { graphData } from "@/data/graphData";
+import ProcessSurface from "@/components/ProcessSurface";
+import "@/styles/process-reading.css";
 export function generateStaticParams() {
   return graphData.nodes
     .filter((n) => n.id.startsWith("p_"))
@@ -35,7 +37,8 @@ export default async function Project({
   const { title, subtitle, image, description, fullDescription, tags, github } =
     node.details;
   return (
-    <article className="container section project-detail">
+    <ProcessSurface kind="detail">
+    <article className="process-reading process-reading-article">
       <Link href="/projects" className="back-link">
         Back to projects
       </Link>
@@ -68,5 +71,6 @@ export default async function Project({
       {tags && <p className="entry-tags">{tags.join(" · ")}</p>}
       <RelatedReading nodeId={node.id} />
     </article>
+    </ProcessSurface>
   );
 }

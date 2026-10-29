@@ -69,21 +69,21 @@ export default function ProjectIndex({
       </p>}
       <div id="project-results">
         {visible.map((node) => (
-          <article className={node.details!.image ? "project-entry" : "project-entry project-text-only"} key={node.id}>
+          <article data-process-item className={node.details!.image ? "project-entry" : "project-entry project-text-only"} key={node.id}>
             <div className="project-figure">
               {node.details!.image && (
                 <Image
                   src={node.details!.image}
                   alt={node.details!.title}
-                  width={featured ? 480 : 112}
-                  height={featured ? 336 : 86}
-                  sizes={featured ? "(max-width: 600px) 90vw, 460px" : "112px"}
+                  width={featured ? 480 : 336}
+                  height={featured ? 336 : 256}
+                  sizes={featured ? "(max-width: 600px) 90vw, 460px" : "(max-width: 600px) 80vw, 168px"}
                 />
               )}
             </div>
             <div>
               <ProjectHeading>
-                <Link href={node.details!.link!}>{featured ? projectPreviews[node.id]?.title ?? node.details!.title : node.details!.title}</Link>
+                <Link href={node.details!.link!}>{projectPreviews[node.id]?.title ?? node.details!.title}</Link>
               </ProjectHeading>
               <p>{projectPreviews[node.id]?.summary ?? node.details!.description}</p>
               <div className="project-links">
