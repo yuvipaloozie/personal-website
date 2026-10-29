@@ -12,6 +12,8 @@ The locally hosted SVG files in `public/logos/` identify Yuvraj's work and educa
 
 Retrieved October 28, 2026. No remote logo requests are made by the website.
 
+The circular Background cloud uses local symbol-only derivatives in `public/logos/icons/`: Arclin's symbol, Georgia Tech's GT monogram, and cropped original W/A letterforms from the Wood/Alcon wordmarks. The W/A crops are local display treatments, not claims of official standalone brand icons. Bayer retains its complete cross symbol. The full source lockups remain stored for provenance.
+
 ## Dithering shader
 
 `src/components/ui/dither-shader.tsx` is adapted from the **Dithering** component by Paper Design, retrieved through the 21st.dev component registry (demo 17827).

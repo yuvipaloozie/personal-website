@@ -28,18 +28,18 @@ export default function PlantPage() {
               <Link href="/about">About me</Link>
             </div>
           </div>
-          <AffiliationLogos />
         </section>
 
         <section className="plant-background" id="conditioning" aria-labelledby="plant-background-title">
           <div className="plant-copy">
             <h2 id="plant-background-title">Background</h2>
             <p>My background is in Chemical and Biomolecular Engineering. My work connects physical processes, automation, and data.</p>
-            <dl className="plant-career">
+            <div className="plant-background-details"><dl className="plant-career">
               <div><dt>{career.arclin.employer}</dt><dd>{career.arclin.title}</dd></div>
               <div><dt>Georgia Tech</dt><dd>{education.graduate.degree} · {education.graduate.completion}</dd></div>
               <div><dt>PCOM</dt><dd>Machine learning research · Biomedical imaging</dd></div>
             </dl>
+            <AffiliationLogos /></div>
             <Link className="plant-text-link" href="/resume">Resume <PixelIcon name="arrow" /></Link>
           </div>
         </section>

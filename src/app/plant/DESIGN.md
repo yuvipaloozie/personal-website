@@ -47,7 +47,7 @@ components:
 
 This document details the process homepage now mounted at `/` through `src/components/ProcessHome.tsx`. The former experimental `/plant` route permanently redirects to `/`; the classic homepage is retired. Root `DESIGN.md` is normative for the shared process system across About, Projects, Blog, Resume and detail pages. This file retains homepage-specific geometry and responsive details; the graph keeps its established explorer.
 
-The diagram is original abstract geometry drawn in Canvas 2D, inspired by process diagrams and P&ID symbols. It is not an operating plant drawing and uses no source diagram artwork. The affiliation strip uses actual locally stored SVG logos; no new font download or package is introduced. Product facts continue to come from the shared profile, project previews and graph data.
+The diagram is original abstract geometry drawn in Canvas 2D, inspired by process diagrams and P&ID symbols. It is not an operating plant drawing and uses no source diagram artwork. The affiliation cloud uses locally stored official SVG geometry; no new font download or package is introduced. Product facts continue to come from the shared profile, project previews and graph data.
 
 Visible section labels are Background, Selected projects, Blog and Contact. The hero action is Background. Explanatory captions and repeated stage/writing intros are removed; retain the factual introduction, career entries, project summaries and ordinary destinations.
 
@@ -63,7 +63,7 @@ Use the existing local font files: Geist Pixel Square for display headings, Inst
 
 The content container is 1200px wide with 48px side padding, changing to 20px at widths of at least 1400px. Reading columns cap at 470px. Desktop copy occupies the left at feed, conditioning and separation, and moves right with 54% left padding at reaction. Keep diagram geometry in the complementary open space.
 
-Under the introduction, the static affiliation strip shows Arclin, Wood, Bayer, Alcon and Georgia Tech as locally stored SVG navy masks. Use existing DitherSweep ghost links to the corresponding experience/Resume/education destinations with accessible names. Desktop accommodates all five; at 600px and below use three columns for a 3+2 layout, with Georgia Tech spanning two columns. Keep both background reading masks clear beneath the strip.
+In Background, a 230×250px affiliation cloud sits alongside the career list in `plant-background-details`, moving above it at 900px and below. Five 60×60px links occupy a 78px-radius orbit with faint dotted circles. Navy masks show the Arclin symbol, Wood W crop, intact Bayer cross, Alcon A crop and Georgia Tech monogram, without full wordmarks/taglines. Wood and Alcon are letterform crops, not claims of official standalone symbols. Variants use local `public/logos/icons/` SVGs; Bayer retains the full cross asset. Preserve real experience/Resume/education destinations, accessible names, DitherSweep and dotted keyboard focus. The 65s linear CSS orbit counter-rotates marks upright; hover/focus within pauses all nodes, while reduced motion and print remain static. No JavaScript loop is added. Keep both background reading masks clear beneath the cloud.
 
 | Section anchor | Reading purpose | Process geometry |
 | --- | --- | --- |
@@ -77,7 +77,7 @@ At 720–900px, use intermediate equipment on a right-hand spine at viewport wid
 
 ## Elevation & Depth
 
-An isolated page layer holds a fixed, pointer-transparent canvas behind normal document content. Cached engineering paper uses a broken-pixel grid at 64-unit intervals with sparse seeded stipple. Measured reading masks remove texture beneath copy, closing content and the affiliation strip, fading it back across 28 units of clearance. Paper-filled equipment, restrained outlines and desktop perimeter stipple provide depth without shadows or cards. The original cached depth train connects a feed tank, pump, four-port exchanger, reactor, tray separator and product trunk through boundary nozzles, with recycle, shared utilities and instruments. Its 1100px tile uses continuous process pipes, vessel Bayer stipple and cached process/recycle flow routes. It draws at 27% opacity, or 20% below 600px, and moves at 0.32 times page scroll; reduced motion restores normal page-relative scrolling and omits packets. It uses the same canvas and frame loop, with independent reading masks. Root `DESIGN.md` specifies the shared depth material. Print hides the canvas and removes section minimum heights.
+An isolated page layer holds a fixed, pointer-transparent canvas behind normal document content. Cached engineering paper uses a broken-pixel grid at 64-unit intervals with sparse seeded stipple. Measured reading masks remove texture beneath copy, closing content and the affiliation cloud, fading it back across 28 units of clearance. Paper-filled equipment, restrained outlines and desktop perimeter stipple provide depth without shadows or cards. The original cached depth train connects a feed tank, pump, four-port exchanger, reactor, tray separator and product trunk through boundary nozzles, with recycle, shared utilities and instruments. Its 1100px tile uses continuous process pipes, vessel Bayer stipple and cached process/recycle flow routes. It draws at 27% opacity, or 20% below 600px, and moves at 0.32 times page scroll; reduced motion restores normal page-relative scrolling and omits packets. It uses the same canvas and frame loop, with independent reading masks. Root `DESIGN.md` specifies the shared depth material. Print hides the canvas and removes section minimum heights.
 
 ## Shapes
 
@@ -102,3 +102,4 @@ Idle motion remains visible without scrolling: existing 8×8 Bayer thresholds st
 - Don't apply these homepage-specific proportions to every reading page; follow root `DESIGN.md` for subpage rules.
 - Don't imply the diagram documents a real facility or add invented process data.
 - Don't restore the retired Classic view action or alter original portrait and factual project records when maintaining this composition.
+

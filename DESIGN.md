@@ -72,6 +72,12 @@ components:
     rounded: "{rounded.control}"
     width: "44px"
     height: "44px"
+  affiliation-link:
+    textColor: "{colors.process-ink}"
+    rounded: "{rounded.control}"
+    width: "60px"
+    height: "60px"
+    padding: "8px"
 ---
 
 # Design System: Research and Engineering — Process
@@ -130,7 +136,9 @@ At 360px and below, the header brand uses 18px text with a 6px gap. Navigation u
 
 Homepage `PlantDiagram` measures section offsets and the three real project links, continuously revealing piping through a viewport marker at 62% height. The node, signal and microscopy project glyphs respond to pointer/focus; marker motion shares the diagram clock. Idle equipment stipple and revealed-path packets paint at approximately 25fps. The homepage About me action leads to `/about`; no Classic view link remains.
 
-Below the introduction, `AffiliationLogos` presents five actual locally stored SVG marks for Arclin, Wood, Bayer, Alcon and Georgia Tech. Render them as static navy alpha masks, preserving each mark's proportions; use existing borderless links and DitherSweep rather than continuous logo animation. Links lead to the real experience pages, Resume or its education anchor, with explicit work/education accessible names. The desktop strip accommodates five marks; at 600px and below a three-column grid forms a 3+2 arrangement, with the final Georgia Tech entry spanning two columns. Include the strip in both paper-grid and depth reading masks. These affiliation assets do not change the original authorship of the process drawing.
+In Background, `AffiliationLogos` forms a 230×250px icon-only cloud beside the career list; at 900px and below it sits above the list. Five 60×60px ghost links occupy a 78px-radius orbit with faint dotted circles. Navy alpha masks use official SVG geometry: Arclin's symbol, a Wood W letterform crop, the intact Bayer cross, an Alcon A letterform crop and the Georgia Tech monogram. Local variants live in `public/logos/icons/`, while Bayer uses its existing full cross asset. Do not add full wordmarks/taglines or describe the Wood/Alcon crops as official standalone symbols. Real experience/Resume/education destinations, work/education accessible names, DitherSweep and dotted focus remain intact. Both background reading masks include the cloud.
+
+The cloud uses a 65s linear CSS orbit with equal counter-rotation to keep the marks upright. Hover or focus within the cloud pauses every node together; reduced motion and print show a static arrangement. No JavaScript loop or added package drives the orbit. These affiliation assets retain separate brand authorship from the original process drawing.
 
 `ProcessSurface` and `ProcessBackdrop` unify the subpages. About and indexes have a small margin vessel and traveling packets, with measured content connections and pointer/focus highlights. Detail, experience and Resume surfaces omit idle equipment and animation loops: they repaint on scroll and other invalidations. The margin reveal follows a 58%-height marker. Below 720px its rail is at width minus 22px and equipment/branch detail disappears.
 
@@ -150,3 +158,4 @@ Projects retains full topic filters and the native research-topic disclosure. Re
 - Don't restore the retired classic homepage, ambient wave, removed About hobby/book sections or old floating motion control without a new request.
 - Don't turn the abstract process story into claims about a real plant, new publications or invented accomplishments.
 - Don't add remote fonts, gratuitous looping effects or decorative card grids.
+

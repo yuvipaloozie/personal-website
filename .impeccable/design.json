@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-29T02:27:00.3480997Z",
+  "generatedAt": "2026-10-29T02:34:47.7837534Z",
   "title": "Design System: Research and Engineering — Process",
   "extensions": {
     "colorMeta": {
@@ -102,6 +102,11 @@
         "name": "utility-depth-scroll",
         "value": "0.32",
         "purpose": "Original cached 1100px process-train tile scrolls at 0.32 times page offset, at .27 opacity or .20 below 600px. Cached process/recycle routes share the existing canvas clock. Reduced motion uses normal page-relative scroll with no packets; reading masks remain active."
+      },
+      {
+        "name": "affiliation-orbit",
+        "value": "65s linear infinite",
+        "purpose": "CSS orbit at 78px radius with equal counter-rotation keeps brand geometry upright. Hover/focus-within pauses all five nodes; reduced motion and print are static. No JavaScript loop."
       }
     ],
     "breakpoints": [
@@ -150,7 +155,7 @@
       "Quieter circuits on reading and Resume pages",
       "Original factual content and assets",
       "Original connected feed/pump/exchanger/reactor/separator depth train with slower scroll and independent reading masks",
-      "Five static local affiliation SVG marks with existing ghost-link and pixel-sweep behavior"
+      "Icon-only affiliation cloud in Background, using upright official SVG geometry with existing ghost links and pixel sweeps"
     ],
     "rules": [
       {
@@ -170,7 +175,7 @@
       },
       {
         "name": "Affiliation marks",
-        "body": "Use actual local Arclin, Wood, Bayer, Alcon and Georgia Tech SVGs as static navy alpha masks beneath the homepage introduction. Existing ghost links retain real destinations and accessible names. Desktop accommodates five; the <=600px three-column grid forms 3+2 with Georgia Tech spanning two columns. Clear both background materials under the strip.",
+        "body": "Place the 230×250px cloud beside the Background career list, above it at <=900px. Five 60×60px links use a 78px orbit radius. Local navy alpha masks show Arclin symbol, Wood W letterform crop, intact Bayer cross, Alcon A letterform crop and Georgia Tech monogram. No full wordmarks/taglines or claims that Wood/Alcon crops are official standalone symbols. Preserve real destinations, accessible names, existing DitherSweep/dotted focus and both background reading masks. The 65s CSS orbit stays upright, pauses all nodes on hover/focus-within and is static for reduced motion/print.",
         "section": "components"
       },
       {
