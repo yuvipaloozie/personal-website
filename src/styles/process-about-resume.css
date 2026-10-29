@@ -48,22 +48,35 @@
   left: 0;
   width: 7px;
   height: 7px;
-  background: #203858;
+  background: #8ba1b3;
+  transition: background-color 140ms ease;
 }
 
 .process-about-path a {
+  display: block;
+  min-height: 70px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.process-about-path .process-foundation-label {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 16px;
   align-items: center;
   gap: 6px 12px;
   min-height: 70px;
-  border-radius: 4px;
-  text-decoration: none;
+  width: 100%;
 }
 
 .process-about-path-title { font-size: 18px; line-height: 1.35; }
-.process-about-path a > span:nth-child(2) { grid-column: 1; color: #53616c; font-size: 14px; }
-.process-about-path a > svg { grid-column: 2; grid-row: 1; }
+.process-about-path-subtitle { grid-column: 1; color: #53616c; font-size: 14px; }
+.process-foundation-label > svg { grid-column: 2; grid-row: 1; transition: transform 140ms cubic-bezier(.16,1,.3,1); }
+.process-about-path li:has(a:focus-visible)::before { background: #203858; }
+.process-about-path a:focus-visible .pixel-icon { transform: translateX(3px); }
+@media (hover: hover) and (pointer: fine) {
+  .process-about-path li:has(a:hover)::before { background: #203858; }
+  .process-about-path a:hover .pixel-icon { transform: translateX(3px); }
+}
 .process-about-path a:hover .process-about-path-title { text-decoration: underline; text-underline-offset: 4px; }
 .process-about-path a:focus-visible { outline: 2px solid #243d63; outline-offset: 7px; }
 
@@ -101,9 +114,14 @@
   .process-about-path li:last-child { padding-bottom: 0; border-left-color: transparent; }
   .process-about-path li::before { top: 10px; left: -4px; }
   .process-about-path a { min-height: 65px; }
+  .process-about-path .process-foundation-label { min-height: 65px; }
   .process-resume-header { margin-bottom: 36px; }
   .process-resume-section { margin-top: 36px; }
   .process-resume-entry h3 { font-size: 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .process-foundation-label > svg, .process-about-path li::before { transition: none; }
+  .process-about-path a:is(:hover, :focus-visible) .pixel-icon { transform: none; }
 }
 
 @media print {

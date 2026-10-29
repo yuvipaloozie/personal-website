@@ -33,8 +33,15 @@ typography:
     letterSpacing: "-0.03em"
   body:
     fontFamily: '"Instrument Sans", Arial, Helvetica, sans-serif'
-    fontSize: "17px"
+    fontSize: "1.0625rem"
     lineHeight: 1.8
+  body-compact:
+    fontFamily: '"Instrument Sans", Arial, Helvetica, sans-serif'
+    fontSize: "1rem"
+    lineHeight: 1.75
+  action:
+    fontFamily: '"Instrument Sans", Arial, Helvetica, sans-serif'
+    fontSize: ".875rem"
   navigation:
     fontFamily: '"Geist Mono", monospace'
 rounded:
@@ -75,7 +82,9 @@ The frontmatter records extracted current colors; process paper, ink and copy ar
 
 All fonts are locally hosted: Instrument Sans Latin variable WOFF2 for copy; Geist Pixel Square for identity and display headings; Geist Mono for navigation and graph labels. Preserve their existing OFL license files. No serif face or remote font request is needed.
 
-Home display sizing is in frontmatter. Home section headings use `clamp(38px, 4.5vw, 56px)` with 1.08 line height. Subpage headings use the headline role; detail titles reduce to `clamp(34px, 4.5vw, 54px)`. Subpage section headings are 34px/1.2. Project-index titles stay Instrument Sans 500 at 23px/1.3; Blog links are 20px/1.4. Long prose is 17px/1.8 at 70ch maximum. Dates and diagram labels stay smaller and sharp. At 600px and below, prose becomes 16px, index headings 48px and detail titles 34px.
+Home display sizing is in frontmatter. Home section headings use `clamp(38px, 4.5vw, 56px)` with 1.08 line height. Subpage headings use the headline role; detail titles reduce to `clamp(34px, 4.5vw, 54px)`. Subpage section headings are 34px/1.2. Project-index titles stay Instrument Sans 500 at 23px/1.3; Blog links are 20px/1.4. Long prose is 17px/1.8 at 70ch maximum. Dates and diagram labels stay smaller and sharp. At 600px and below, prose becomes 16px and index headings 48px; detail and experience titles use `clamp(1.75rem, 8.8vw, 2.125rem)`, approximately 28px at 320px and 34px at 390px with the default root size.
+
+Reading sizes use the actual `--process-reading-size`, `--process-reading-compact` and `--process-action-size` properties. At the default root size these are 17px, 16px and 14px respectively. Article prose explicitly uses compact 16px/1.75 (28px line height) at 600px and below; desktop remains 17px/1.8. Project Details/Code actions and result counts use the action role; action links retain 44px targets and result counts use tabular numerals. Process subpage headings balance wrapping; process paragraphs and homepage copy use pretty wrapping. Keep the existing font families and layout.
 
 ## Layout
 
@@ -97,6 +106,8 @@ Use capsule vessels, elliptical conditioning equipment, tray lines, small pixel 
 
 Home, About, Projects, Blog and Resume appear in the shared navigation with the separate Knowledge graph entry. Footer has three named icon links for GitHub, LinkedIn and Email, each a 44px target. Keep visible focus and keyboard semantics. No floating global pause control is mounted; the graph retains its separate control.
 
+At 360px and below, the header brand uses 18px text with a 6px gap. Navigation uses zero gap and links at least 44px wide with 6px inline padding, keeping its five items on one row. The graph entry hides only its visible text, retaining the existing GraphMark within a target at least 44×44px. Its explicit accessible name and title remain “Knowledge graph”.
+
 Homepage `PlantDiagram` measures section offsets and the three real project links, continuously revealing piping through a viewport marker at 62% height. The node, signal and microscopy project glyphs respond to pointer/focus; marker motion shares the diagram clock. Idle equipment stipple and revealed-path packets paint at approximately 25fps. The homepage About me action leads to `/about`; no Classic view link remains.
 
 `ProcessSurface` and `ProcessBackdrop` unify the subpages. About and indexes have a small margin vessel and traveling packets, with measured content connections and pointer/focus highlights. Detail, experience and Resume surfaces omit idle equipment and animation loops: they repaint on scroll and other invalidations. The margin reveal follows a 58%-height marker. Below 720px its rail is at width minus 22px and equipment/branch detail disappears.
@@ -104,6 +115,8 @@ Homepage `PlantDiagram` measures section offsets and the three real project link
 Both canvases publish the wave frame consumed by the portrait edge mask. The homepage and animated subpages restore clock-driven portrait dithering. Reduced motion freezes time, omits packets and removes spatial transitions; scroll reveals and focus feedback remain usable. Hidden tabs cancel frames; disposal guards prevent work after navigation. Canvas device pixel ratio caps at 1.5. Resize, content observations and font readiness rebuild measured drawing stock. No added package or downloaded raster artwork supports this system.
 
 Keep DitherSweep separate from selection motion: deterministic hashed pixel arrival fills a six-row, aspect-fitted grid over 520ms. A bounded 240ms selection glide and 140ms action-arrow response provide finite feedback. Reduced motion settles them immediately; forced colors and print omit decoration. Reading text remains above every effect.
+
+About foundation links reuse DitherSweep with an inner grid label for title, subtitle and arrow. The associated path node changes from gray-blue to navy on keyboard focus or fine-pointer hover; the arrow moves 3px over 140ms. Reduced motion preserves the static highlight and sweep state with no arrow displacement or transition timing. Link semantics, real destinations and visible focus remain unchanged.
 
 Projects retains full topic filters and the native research-topic disclosure. Research thread links target `/projects#thread-{threadId}`; deep links open the disclosure. Detail pages retain related reading and real method connections. Avoid decorative reveals that delay access to content.
 

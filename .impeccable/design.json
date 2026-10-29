@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-29T01:03:11.7553786Z",
+  "generatedAt": "2026-10-29T01:21:05.7702842Z",
   "title": "Design System: Research and Engineering — Process",
   "extensions": {
     "colorMeta": {
@@ -36,11 +36,19 @@
       },
       "body": {
         "displayName": "Reading copy",
-        "purpose": "Long prose at a maximum of 70ch."
+        "purpose": "Long prose at a maximum of 70ch; --process-reading-size is 1.0625rem with 1.8 line height."
       },
       "navigation": {
         "displayName": "Technical navigation",
         "purpose": "Shared navigation and graph labels."
+      },
+      "body-compact": {
+        "displayName": "Compact article copy",
+        "purpose": "At 600px and below, article prose uses --process-reading-compact (1rem) and 1.75 line height, giving 16px/28px at the default root size."
+      },
+      "action": {
+        "displayName": "Project actions",
+        "purpose": "--process-action-size (.875rem) for Details/Code and tabular result counts; action links retain 44px minimum height."
       }
     },
     "shadows": [],
@@ -91,6 +99,10 @@
       {
         "name": "home-biography-stack",
         "value": "480px"
+      },
+      {
+        "name": "header-compact",
+        "value": "360px"
       }
     ]
   },
@@ -98,9 +110,9 @@
     {
       "name": "Career foundation link",
       "kind": "custom",
-      "description": "A factual About-page path entry with navy pixel marker and explicit keyboard focus.",
-      "html": "<a class=\"ds-foundation-link\" href=\"#experience\"><span>Engineering foundation</span><span class=\"ds-foundation-meta\">Experience and methods</span><svg aria-hidden=\"true\" focusable=\"false\" width=\"16\" height=\"16\" viewBox=\"0 0 8 8\" fill=\"currentColor\" shape-rendering=\"crispEdges\"><path d=\"M4 1h1v1h-1zM5 2h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM5 4h1v1h-1zM4 5h1v1h-1z\"/></svg></a>",
-      "css": ".ds-foundation-link{display:grid;grid-template-columns:minmax(0,1fr) 16px;align-items:center;gap:6px 12px;min-height:70px;border-radius:4px;color:var(--process-ink,#203858);font:18px/1.35 'Instrument Sans',Arial,sans-serif;text-decoration:none}.ds-foundation-meta{grid-column:1;color:#53616c;font-size:14px}.ds-foundation-link svg{grid-column:2;grid-row:1}.ds-foundation-link:hover>span:first-child{text-decoration:underline;text-underline-offset:4px}.ds-foundation-link:focus-visible{outline:2px solid #243d63;outline-offset:7px}"
+      "description": "About foundation link with the existing DitherSweep, an inner grid label, a node highlight and 3px/140ms arrow feedback. This self-contained preview uses the source default 12-column grid; production fits columns to link size. Reduced motion keeps static states.",
+      "html": "<div class=\"ds-foundation-item\"><a class=\"ds-foundation-link\" href=\"/resume#education\"><span class=\"ds-foundation-sweep\" aria-hidden=\"true\"><span class=\"ds-foundation-pixels\"><i style=\"--dsn-d:0ms\"></i><i style=\"--dsn-d:116ms\"></i><i style=\"--dsn-d:49ms\"></i><i style=\"--dsn-d:122ms\"></i><i style=\"--dsn-d:125ms\"></i><i style=\"--dsn-d:154ms\"></i><i style=\"--dsn-d:194ms\"></i><i style=\"--dsn-d:168ms\"></i><i style=\"--dsn-d:207ms\"></i><i style=\"--dsn-d:250ms\"></i><i style=\"--dsn-d:315ms\"></i><i style=\"--dsn-d:322ms\"></i><i style=\"--dsn-d:19ms\"></i><i style=\"--dsn-d:97ms\"></i><i style=\"--dsn-d:101ms\"></i><i style=\"--dsn-d:111ms\"></i><i style=\"--dsn-d:114ms\"></i><i style=\"--dsn-d:192ms\"></i><i style=\"--dsn-d:207ms\"></i><i style=\"--dsn-d:203ms\"></i><i style=\"--dsn-d:226ms\"></i><i style=\"--dsn-d:248ms\"></i><i style=\"--dsn-d:218ms\"></i><i style=\"--dsn-d:298ms\"></i><i style=\"--dsn-d:3ms\"></i><i style=\"--dsn-d:29ms\"></i><i style=\"--dsn-d:80ms\"></i><i style=\"--dsn-d:99ms\"></i><i style=\"--dsn-d:183ms\"></i><i style=\"--dsn-d:163ms\"></i><i style=\"--dsn-d:188ms\"></i><i style=\"--dsn-d:209ms\"></i><i style=\"--dsn-d:232ms\"></i><i style=\"--dsn-d:253ms\"></i><i style=\"--dsn-d:255ms\"></i><i style=\"--dsn-d:331ms\"></i><i style=\"--dsn-d:27ms\"></i><i style=\"--dsn-d:64ms\"></i><i style=\"--dsn-d:74ms\"></i><i style=\"--dsn-d:157ms\"></i><i style=\"--dsn-d:150ms\"></i><i style=\"--dsn-d:201ms\"></i><i style=\"--dsn-d:200ms\"></i><i style=\"--dsn-d:164ms\"></i><i style=\"--dsn-d:259ms\"></i><i style=\"--dsn-d:201ms\"></i><i style=\"--dsn-d:246ms\"></i><i style=\"--dsn-d:314ms\"></i><i style=\"--dsn-d:22ms\"></i><i style=\"--dsn-d:106ms\"></i><i style=\"--dsn-d:98ms\"></i><i style=\"--dsn-d:68ms\"></i><i style=\"--dsn-d:97ms\"></i><i style=\"--dsn-d:135ms\"></i><i style=\"--dsn-d:229ms\"></i><i style=\"--dsn-d:195ms\"></i><i style=\"--dsn-d:173ms\"></i><i style=\"--dsn-d:246ms\"></i><i style=\"--dsn-d:275ms\"></i><i style=\"--dsn-d:313ms\"></i><i style=\"--dsn-d:6ms\"></i><i style=\"--dsn-d:38ms\"></i><i style=\"--dsn-d:55ms\"></i><i style=\"--dsn-d:148ms\"></i><i style=\"--dsn-d:107ms\"></i><i style=\"--dsn-d:127ms\"></i><i style=\"--dsn-d:199ms\"></i><i style=\"--dsn-d:246ms\"></i><i style=\"--dsn-d:242ms\"></i><i style=\"--dsn-d:294ms\"></i><i style=\"--dsn-d:305ms\"></i><i style=\"--dsn-d:292ms\"></i></span></span><span class=\"ds-foundation-label\"><span class=\"ds-foundation-title\">Chemical engineering</span><span class=\"ds-foundation-meta\">Georgia Tech</span><svg class=\"pixel-icon\" aria-hidden=\"true\" focusable=\"false\" width=\"16\" height=\"16\" viewBox=\"0 0 8 8\" fill=\"currentColor\" shape-rendering=\"crispEdges\"><path d=\"M4 1h1v1h-1zM5 2h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM5 4h1v1h-1zM4 5h1v1h-1z\"/></svg></span></a></div>",
+      "css": ".ds-foundation-item{position:relative;padding:25px 30px 0 0;border-top:2px dotted #a9bac8}.ds-foundation-item::before{content:'';position:absolute;top:-4px;left:0;width:7px;height:7px;background:#8ba1b3;transition:background-color 140ms ease}.ds-foundation-link{position:relative;isolation:isolate;display:block;min-height:70px;border-radius:8px;color:var(--process-ink,#203858);font-family:'Instrument Sans',Arial,sans-serif;text-decoration:none}.ds-foundation-label{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 16px;align-items:center;gap:6px 12px;min-height:70px;width:100%}.ds-foundation-title{font-size:18px;line-height:1.35}.ds-foundation-meta{grid-column:1;color:#53616c;font-size:14px}.ds-foundation-label>svg{grid-column:2;grid-row:1;transition:transform 140ms cubic-bezier(.16,1,.3,1)}.ds-foundation-sweep{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;border-radius:inherit}.ds-foundation-pixels{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(6,1fr)}.ds-foundation-pixels i{display:block;background:#c9d8eb;opacity:0;transition:opacity 180ms linear var(--dsn-d,0ms)}.ds-foundation-link:focus-visible{outline:2px solid #243d63;outline-offset:7px}.ds-foundation-item:has(a:focus-visible)::before{background:#203858}.ds-foundation-link:focus-visible .pixel-icon{transform:translateX(3px)}.ds-foundation-link:focus-visible .ds-foundation-pixels i{opacity:1}.ds-foundation-link:hover .ds-foundation-title{text-decoration:underline;text-underline-offset:4px}@media(hover:hover) and (pointer:fine){.ds-foundation-item:has(a:hover)::before{background:#203858}.ds-foundation-link:hover .pixel-icon{transform:translateX(3px)}.ds-foundation-link:hover .ds-foundation-pixels i{opacity:1}}@media(prefers-reduced-motion:reduce){.ds-foundation-label>svg,.ds-foundation-item::before,.ds-foundation-pixels i{transition:none}.ds-foundation-link:is(:hover,:focus-visible) .pixel-icon{transform:none}}@media(forced-colors:active){.ds-foundation-sweep{display:none}}@media print{.ds-foundation-sweep{display:none}}"
     }
   ],
   "narrative": {

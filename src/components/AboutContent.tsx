@@ -2,6 +2,7 @@ import FloatingPortrait from "@/components/FloatingPortrait";
 import ProcessSurface from "@/components/ProcessSurface";
 import Link from "next/link";
 import { PixelIcon } from "@/components/ui/pixel-icon";
+import { DitherSweep } from "@/components/ui/dither-sweep";
 import { career, education, profile } from "@/lib/profile";
 import "@/styles/process-about-resume.css";
 export default function AboutContent() {
@@ -32,24 +33,30 @@ export default function AboutContent() {
         <h2 id="foundation-title">Background</h2>
         <ol className="process-about-path">
           <li data-process-item>
-            <Link href="/resume#education">
+            <Link href="/resume#education" className="sweep-target">
+              <DitherSweep /><span className="process-foundation-label sweep-label">
               <span className="process-about-path-title">Chemical engineering</span>
-              <span>{education.shortInstitution}</span>
+              <span className="process-about-path-subtitle">{education.shortInstitution}</span>
               <PixelIcon name="arrow" />
+              </span>
             </Link>
           </li>
           <li data-process-item>
-            <Link href="/experience/arclin">
+            <Link href="/experience/arclin" className="sweep-target">
+              <DitherSweep /><span className="process-foundation-label sweep-label">
               <span className="process-about-path-title">Automation</span>
-              <span>{career.arclin.employer}</span>
+              <span className="process-about-path-subtitle">{career.arclin.employer}</span>
               <PixelIcon name="arrow" />
+              </span>
             </Link>
           </li>
           <li data-process-item>
-            <Link href="/experience/pcom-research">
+            <Link href="/experience/pcom-research" className="sweep-target">
+              <DitherSweep /><span className="process-foundation-label sweep-label">
               <span className="process-about-path-title">Applied machine learning</span>
-              <span>PCOM research</span>
+              <span className="process-about-path-subtitle">PCOM research</span>
               <PixelIcon name="arrow" />
+              </span>
             </Link>
           </li>
         </ol>

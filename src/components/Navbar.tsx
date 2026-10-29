@@ -50,7 +50,7 @@ export default function Navbar() {
             </Link>
           ))}
         </nav>
-        <Link href="/graph" className="graph-nav-link sweep-target nav-sweep" aria-current={pathname === "/graph" ? "page" : undefined}>
+        <Link href="/graph" className="graph-nav-link sweep-target nav-sweep" aria-label="Knowledge graph" title="Knowledge graph" aria-current={pathname === "/graph" ? "page" : undefined}>
           <DitherSweep /><span className="sweep-label"><GraphMark /><span>Knowledge graph</span></span>
         </Link>
       </div>
