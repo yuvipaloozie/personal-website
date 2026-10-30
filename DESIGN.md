@@ -203,3 +203,8 @@ The standalone knowledge graph explorer and its navigation link are retired at t
 ### Dithered process materials
 
 Company marks now connect through an open feed manifold instead of an enclosing tank. The foreground uses analytic cylinder and sphere normals under fixed upper-left light, quantized into fine navy/blue-gray stipple. Elliptical vessel heads establish volume; rounded, layered pipe strokes establish tube thickness. Surface modulation remains subtle and shares the existing clock with flow packets and the projected impeller. The cached parallax train carries a fainter version of the same cylindrical shading and tube treatment. Reading masks, reduced-motion behavior, hidden-page suspension and mobile clearance remain in place. No new animation library or 3D engine is introduced.
+
+
+### Process narrative and labeling
+
+Stage captions are centralized in src/lib/process-story.ts and reflect the verified profile: chemical engineering with mass and energy balances (Georgia Tech, Bayer and simulation work); plant data and controls with signals and constraints (Bayer, Wood, Alcon and Arclin); applied models with a validation feedback loop (industrial and biomedical projects, PCOM and controller benchmarking); shared methods beside Blog; and new questions on the recycle return. Company marks supply work and education context through the feed manifold. Model outputs remain the actual linked projects. These are conceptual portfolio labels, not fabricated ISA instrument tags or an operating plant specification. Faint background equipment remains unlabeled texture. A hidden text equivalent makes the narrative available without the canvas; small-screen layouts omit marginal captions to preserve reading clearance.

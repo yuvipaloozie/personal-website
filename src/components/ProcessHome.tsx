@@ -6,6 +6,7 @@ import AffiliationLogos from "@/components/AffiliationLogos";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 import { career, education, profile } from "@/lib/profile";
 import { projectPreviews } from "@/lib/project-previews";
+import { processStory } from "@/lib/process-story";
 import { graphData } from "@/data/graphData";
 
 export default function PlantPage() {
@@ -14,6 +15,7 @@ export default function PlantPage() {
   return (
     <div className="plant-page">
       <PlantDiagram />
+      <p className="sr-only">{processStory.description}</p>
       <div className="plant-content">
         <section className="plant-hero" id="feed" aria-labelledby="plant-name">
           <div className="plant-copy">
