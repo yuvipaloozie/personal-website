@@ -17,6 +17,8 @@ colors:
   utility-circuit: "#8da3b5"
   depth-process-line: "#7892a6"
   depth-utility-line: "#9aabba"
+  signal-line: "#91a5b7"
+  return-line: "#b0bcc5"
   selected-surface: "#e3e9ef"
   control-border: "#e4e1db"
   sweep: "#c9d8eb"
@@ -95,6 +97,8 @@ Retained reference context: [al-folio](https://alshedivat.github.io/al-folio/), 
 
 [21st Animated Beam](https://21st.dev/@dillionverma/components/animated-beam) informed the connection and motion concept; the utility circuit uses original geometry, with no copied code, installed component or dependency. The [official shadcn ghost Button](https://ui.shadcn.com/docs/components/base/button) supplies the existing Button variant used by PrintResume; shared site styling controls its final appearance.
 
+The local Awesome DESIGN.md IBM analysis (`references/design-md/ibm/DESIGN.md`, upstream [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md)) informed this connection-coherence refinement through 4/8 spacing and flat geometry only. It is a third-party analysis, not an IBM-authored specification. Preserve this site's navy, pixel typography and rounded controls; no IBM palette, font or square-control replacement is adopted.
+
 ## Colors
 
 The frontmatter records extracted current colors; process paper, ink and copy are actual custom properties in `src/styles/process.css`. Navy identifies headings, active circuits and actions. Blue-gray outlines, subdued equipment texture and sparse grid marks stay behind full-contrast reading content. Neutral rounded controls use pale-blue selection and a separately visible blue pixel sweep. Do not texture labels or body text.
@@ -121,11 +125,15 @@ Keep surfaces flat. Fixed pointer-transparent canvases sit behind isolated conte
 
 An original cached process train in `src/lib/process-depth.ts` adds a faint second plane: feed tank → pump → four-port exchanger → stirred reactor → tray separator → product trunk, with a recycle return, shared dashed utility circuit and instrument taps. Continuous process pipes meet equipment at boundary nozzles; Bayer stipple stays inside vessels and the product/feed trunk joins successive tiles. Its 1100px-high tile scrolls at 0.32 times the page offset, at 27% opacity on wider screens and 20% below 600px. Flow routes cache segment lengths for packets on process and recycle paths. Reading masks clear this moving layer with 14px horizontal and 10px vertical clearance. Reduced motion restores normal page-relative scrolling and omits packets. It reuses the active canvas and existing frame loop; quiet reading surfaces still have no idle loop. Do not simulate depth with blur or add another animation clock.
 
+The homepage foreground piping clears a 28px-wide corridor through the depth layer, reduced to 18px at widths of 900px or less. Redraw cached drawing stock after that clearance so paper texture remains coherent. A 14px stroke clearance around equipment outlines keeps rear circuits from appearing physically joined to the foreground plant. This is layer separation, independent of the reading masks.
+
 ## Shapes
 
 Project miniatures are original navy and Bayer-style schematic SVGs in `public/projects/{psm,oclast,trading,arrhythmia,yield}.svg`, derived from the verified repository workflows. They illustrate methods and connections, not empirical performance, clinical results, exported data or facility drawings. Preserve descriptive alt text and complete diagram bounds.
 
 Use capsule vessels, elliptical conditioning equipment, tray lines, small pixel marks, orthogonal process piping and dashed signals. These are original abstract drawings. Shared controls and project images use 8px corners; preserve sharp labels and the authored 8×8 icon vocabulary rendered at 16px. Do not add invented equipment IDs or facility data.
+
+`src/lib/process-symbols.ts` defines the shared connection grammar. Process ports use a solid 1px stem with two flange bars, in the existing dark-stipple blue-gray; normal half-width/stem extents are 7px/12px and compact ones 4px/7px. Signals use a 1px `[2, 5]` dotted path, a 4px solid start square and a 6px hollow terminal. Active signals become solid navy at 1.6px. Main process piping remains solid; the desktop outer return uses a distinct 1px `[10, 5, 2, 5]` dash-dot path with no vertical Learning/feedback caption. Main equipment, project branches and subpage margin vessels share matching ports. Affiliation connections use orthogonal elbows, `[2, 5]` dots and square junctions rather than diagonal strokes.
 
 ## Components
 
@@ -138,6 +146,8 @@ At 360px and below, the header brand uses 18px text with a 6px gap. Navigation u
 Project copy, canonical repository URLs, slugs and images come from `src/lib/project-previews.ts`, verified against GitHub listings and READMEs on October 29, 2026. The public set is PSM Knowledge Graph, OCLAST, Regime-Aware Sector Rotation, ECG Arrhythmia Classification, and Semiconductor Yield Optimization & RCA. Public project nodes and their connections, project listings and topic links use only that set. Index titles and the GitHub icon action link directly to repositories, with existing DitherSweep feedback; no separate Details action remains. The homepage retains three selected direct-repository links (PSM, yield and OCLAST) with GitHub icons. The five legacy `/projects/[slug]` URLs permanently redirect to their repositories; there are no internal project case-study pages. Shared cards suppress a duplicate Read more action when it would equal GitHub.
 
 Homepage `PlantDiagram` measures section offsets and the three real project links, continuously revealing piping through a viewport marker at 62% height. The node, signal and microscopy project glyphs respond to pointer/focus; marker motion shares the diagram clock. Idle equipment stipple and revealed-path packets paint at approximately 25fps. The homepage About me action leads to `/about`; no Classic view link remains.
+
+Homepage repository links explicitly name the project, GitHub destination and new-tab behavior for assistive technology. The Contact email action is also measured in the DOM: on desktop an orthogonal shared signal returns from the outlet beneath the action row to that link, becoming active on hover/focus. Omit this branch at 900px and below. Subpage content branches use the same shared signal terminals and active treatment.
 
 In Background, `AffiliationLogos` forms a stationary 230×270px asymmetric network beside the career list; at 900px and below it sits above the list. Five absolutely positioned ghost links have at least 60px width and 60px height, with wider space for the full Wood and Alcon lockups. Navy alpha masks retain the Arclin symbol, intact Bayer cross and Georgia Tech monogram; Wood and Alcon use their complete local `/logos/wood.svg` and `/logos/alcon.svg` assets. Arclin and Georgia Tech retain local `public/logos/icons/` geometry. Faint pixel-dotted connections and junctions replace the circular orbits. Real experience/Resume/education destinations, accessible work/education names, DitherSweep, dotted focus and both background reading masks remain intact.
 

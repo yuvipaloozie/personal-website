@@ -5,6 +5,7 @@ import { paintProcessGrid } from "@/lib/process-grid";
 import { bayer8, publishWaveFrame } from "@/lib/wave-field";
 import { createProcessDepth, drawProcessDepth } from "@/lib/process-depth";
 import type { ReadingArea } from "@/lib/process-grid";
+import { processPort, processSignal } from "@/lib/process-symbols";
 
 export type ProcessKind = "about" | "projects" | "blog" | "resume" | "detail" | "experience";
 
@@ -75,6 +76,7 @@ export default function ProcessBackdrop({ kind }: { kind: ProcessKind }) {
           if (bayer8(Math.floor(x / 3), Math.floor(y / 3)) < density) { ctx.fillStyle = "#9bafbf"; ctx.fillRect(x, y, 1.7, 1.7); }
         }
         ctx.restore(); ctx.strokeStyle = "#8ba0b1"; ctx.stroke(p);
+        [cy - h / 2, cy + h / 2].forEach(y => processPort(ctx, rail, y));
         if (kind === "blog") for (let i = -2; i <= 2; i++) { ctx.beginPath(); ctx.moveTo(rail - 14, cy + i * 17); ctx.lineTo(rail + 14, cy + i * 17); ctx.stroke(); }
       }
 
@@ -84,9 +86,7 @@ export default function ProcessBackdrop({ kind }: { kind: ProcessKind }) {
         ctx.strokeStyle = active ? "#203858" : "#bac8d3";
         ctx.fillStyle = active ? "#203858" : "#9bafbf";
         if (kind !== "about" && !narrow && right + 18 < rail) {
-          ctx.setLineDash(active ? [] : [2, 4]);
-          ctx.beginPath(); ctx.moveTo(rail, y); ctx.lineTo(right + 15, y); ctx.stroke(); ctx.setLineDash([]);
-          ctx.fillRect(right + 12, y - 2, 4, 4);
+          processSignal(ctx, [[rail, y], [right + 15, y]], active);
         }
         ctx.fillRect(rail - 2, y - 2, 4, 4);
       });

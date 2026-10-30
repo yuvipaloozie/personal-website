@@ -50,7 +50,7 @@ export default function PlantPage() {
             <h2 id="plant-projects-title">Selected projects</h2>
             <div className="plant-project-list">
               {projects.map(node => <article key={node.id}>
-                <a href={node.details!.github!} target="_blank" rel="noreferrer" data-process-output={node.id} className="plant-project-link sweep-target">
+                <a href={node.details!.github!} target="_blank" rel="noreferrer" aria-label={`${projectPreviews[node.id].title} on GitHub, opens in a new tab`} data-process-output={node.id} className="plant-project-link sweep-target">
                   <DitherSweep /><span className="sweep-label">{projectPreviews[node.id].title}<FaGithub aria-hidden="true" /></span>
                 </a>
                 <p>{projectPreviews[node.id].summary}</p>
@@ -70,7 +70,7 @@ export default function PlantPage() {
 
         <section className="plant-close" id="feedback" aria-labelledby="plant-close-title">
           <h2 id="plant-close-title">Contact</h2>
-          <div className="plant-actions"><a className="sweep-target" href={`mailto:${profile.email}`}><DitherSweep /><span className="sweep-label">Get in touch <PixelIcon name="mail" /></span></a><Link href="/graph">Explore the knowledge graph</Link></div>
+          <div className="plant-actions"><a className="sweep-target" data-process-output="contact" href={`mailto:${profile.email}`}><DitherSweep /><span className="sweep-label">Get in touch <PixelIcon name="mail" /></span></a><Link href="/graph">Explore the knowledge graph</Link></div>
         </section>
       </div>
     </div>

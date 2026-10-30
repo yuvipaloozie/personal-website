@@ -24,7 +24,7 @@
 .affiliation-mark-gatech { width: 44px; height: 32px; }
 .affiliation-network { position: absolute; inset: 0; pointer-events: none; }
 .affiliation-network svg { width: 230px; height: 270px; }
-.affiliation-network path { stroke: #91a5b7; stroke-width: 1; stroke-dasharray: 1 5; opacity: .55; }
+.affiliation-network path { stroke: #91a5b7; stroke-width: 1; stroke-dasharray: 2 5; opacity: .55; }
 .affiliation-network .affiliation-junctions { stroke: none; fill: #6e879e; opacity: .5; }
 .affiliation-logo:focus-visible .affiliation-mark { transform: scale(1.08); }
 @media (hover: hover) and (pointer: fine) { .affiliation-logo:hover .affiliation-mark { transform: scale(1.08); } }

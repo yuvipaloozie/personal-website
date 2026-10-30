@@ -5,6 +5,7 @@ import { bayer8, publishWaveFrame } from "@/lib/wave-field";
 import { paintProcessGrid } from "@/lib/process-grid";
 import { createProcessDepth, drawProcessDepth } from "@/lib/process-depth";
 import type { ReadingArea } from "@/lib/process-grid";
+import { processPort, processSignal } from "@/lib/process-symbols";
 
 type Point = [number, number];
 
@@ -28,6 +29,7 @@ export default function PlantDiagram() {
     let disposed = false;
     let activeOutput = "";
     let outputs: { id: string; x: number; y: number }[] = [];
+    let contact: { x: number; y: number } | undefined;
     const drawingStock = document.createElement("canvas");
     let depth: ReturnType<typeof createProcessDepth>;
     let depthReading: ReadingArea[] = [];
@@ -51,10 +53,12 @@ export default function PlantDiagram() {
         const r = element.getBoundingClientRect();
         return { x: r.left - origin.left, y: r.top - origin.top, w: r.width, h: r.height };
       });
-      outputs = Array.from(page!.querySelectorAll<HTMLElement>("[data-process-output]")).map(link => {
+      outputs = Array.from(page!.querySelectorAll<HTMLElement>(".plant-project-list [data-process-output]")).map(link => {
         const rect = link.getBoundingClientRect();
         return { id: link.dataset.processOutput!, x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top + rect.height / 2) / scale };
       });
+      const contactLink = page!.querySelector<HTMLElement>('[data-process-output="contact"]')?.getBoundingClientRect();
+      contact = contactLink ? { x: (contactLink.right - origin.left - left) / scale, y: (contactLink.top - origin.top + contactLink.height / 2) / scale } : undefined;
       // Cache the engineering paper once per layout, not on the animation clock.
       const reading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-close, .affiliation-logos")).map(element => {
         const rect = element.getBoundingClientRect();
@@ -88,7 +92,6 @@ export default function PlantDiagram() {
       context.save();
       context.translate(left, top);
       context.scale(scale, scale);
-      context.drawImage(drawingStock, 0, 0);
       const stage = stages.map(y => y / scale);
       const feed = 310;
       const heat = stage[1] + 310;
@@ -100,6 +103,10 @@ export default function PlantDiagram() {
       const firstTurn = stage[2] - 35;
       const secondTurn = stage[3] - 35;
       const points: Point[] = [[spine, 70], [spine, feed], [spine, heat], [spine, firstTurn], [reactorX, firstTurn], [reactorX, reaction], [reactorX, secondTurn], [spine, secondTurn], [spine, separation], [spine, outlet]];
+      // A narrow foreground clearance prevents the depth circuit from appearing joined.
+      context.save(); context.globalCompositeOperation = "destination-out";
+      line(points, "#000", mobile ? 18 : 28); context.restore();
+      context.drawImage(drawingStock, 0, 0);
       line(points, "#bbc6ce", mobile ? 1.4 : 2);
       const progressY = Math.max(70, Math.min(outlet, (height * .62 - top) / scale));
       const lengths = [0];
@@ -129,10 +136,8 @@ export default function PlantDiagram() {
 
       // A recycle line closes the narrative, while instrument signals use dashes.
       if (!mobile) {
-        line([[spine, outlet], [1165, outlet], [1165, 125], [spine, 125]], "#b0bcc5", 1.2, [5, 6]);
-        context.fillStyle = "#667987";
-        context.font = '14px "Instrument Sans", sans-serif';
-        context.save(); context.translate(1188, heat); context.rotate(-Math.PI / 2); context.fillText("Learning / feedback", 0, 0); context.restore();
+        line([[spine, outlet], [1165, outlet], [1165, 125], [spine, 125]], "#b0bcc5", 1, [10, 5, 2, 5]);
+        [[spine, outlet], [spine, 125]].forEach(([x, y]) => { context.fillStyle = "#8ea1b0"; context.fillRect(x - 2, y - 2, 4, 4); });
       }
 
       function equipment(path: Path2D, bounds: number[], seed: number) {
@@ -149,6 +154,9 @@ export default function PlantDiagram() {
           }
         }
         context.save();
+        context.globalCompositeOperation = "destination-out";
+        context.strokeStyle = "#000"; context.lineWidth = 14; context.stroke(path);
+        context.globalCompositeOperation = "source-over";
         context.fillStyle = "#fbfaf8";
         context.fill(path);
         context.clip(path);
@@ -189,6 +197,7 @@ export default function PlantDiagram() {
       const w = tablet ? 92 : mobile ? 32 : 178;
       const h = tablet ? 170 : mobile ? 95 : 245;
       vessel(spine, feed, w, h, 1);
+      [feed - h / 2, feed + h / 2].forEach(y => processPort(context, spine, y, true, mobile));
       if (!mobile) {
         line([[spine - 62, feed + h / 2 - 5], [spine - 62, feed + 146]], "#8b9eac");
         line([[spine + 62, feed + h / 2 - 5], [spine + 62, feed + 146]], "#8b9eac");
@@ -204,6 +213,7 @@ export default function PlantDiagram() {
       const hy = tablet ? 65 : mobile ? 52 : 102;
       exchanger.ellipse(spine, heat, hx, hy, 0, 0, Math.PI * 2);
       equipment(exchanger, [spine - hx, heat - hy, hx * 2, hy * 2], 3);
+      [heat - hy, heat + hy].forEach(y => processPort(context, spine, y, true, mobile));
       if (tablet) line([[spine - 30, heat - 35], [spine + 30, heat - 35], [spine - 30, heat], [spine + 30, heat + 35], [spine - 30, heat + 35]], "#7890a3", 1.2);
       if (!mobile) {
         line([[spine - 70, heat - 65], [spine + 50, heat - 65], [spine - 50, heat - 20], [spine + 50, heat + 20], [spine - 50, heat + 65], [spine + 70, heat + 65]], "#7890a3", 1.4);
@@ -213,7 +223,9 @@ export default function PlantDiagram() {
         label("Process signals", spine + 124, heat - 62);
       }
 
-      vessel(reactorX, reaction, tablet ? 108 : mobile ? 38 : 210, tablet ? 195 : mobile ? 120 : 280, 5);
+      const reactorHeight = tablet ? 195 : mobile ? 120 : 280;
+      vessel(reactorX, reaction, tablet ? 108 : mobile ? 38 : 210, reactorHeight, 5);
+      [reaction - reactorHeight / 2, reaction + reactorHeight / 2].forEach(y => processPort(context, reactorX, y, true, mobile));
       if (tablet) {
         line([[reactorX, reaction - 120], [reactorX, reaction + 40]], "#587084", 1.3);
         line([[reactorX - 24, reaction + 20], [reactorX + 24, reaction + 35], [reactorX + 24, reaction + 20], [reactorX - 24, reaction + 35]], "#587084", 1.2);
@@ -251,7 +263,8 @@ export default function PlantDiagram() {
           const sourceY = reaction + (index - 1) * 50;
           const elbow = reactorX + 180 + index * 24;
           const branch: Point[] = [[reactorX + 105, sourceY], [elbow, sourceY], [elbow, output.y], [output.x - 16, output.y]];
-          line(branch, ink, selected ? 2 : 1.2, selected ? [] : [2, 4]);
+          processSignal(context, branch, selected);
+          processPort(context, reactorX + 105, sourceY, false);
           outputMark(output.id, output.x - 45, output.y, ink);
           if (selected && !preference.matches) {
             const phase = .5 + .5 * Math.sin(time * 2.4);
@@ -261,7 +274,9 @@ export default function PlantDiagram() {
         } else outputMark(output.id, spine, output.y, ink);
       });
 
-      vessel(spine, separation, tablet ? 80 : mobile ? 34 : 138, tablet ? 215 : mobile ? 130 : 310, 7);
+      const separatorHeight = tablet ? 215 : mobile ? 130 : 310;
+      vessel(spine, separation, tablet ? 80 : mobile ? 34 : 138, separatorHeight, 7);
+      [separation - separatorHeight / 2, separation + separatorHeight / 2].forEach(y => processPort(context, spine, y, true, mobile));
       if (tablet) for (let i = -3; i <= 3; i++) line([[spine - 33, separation + i * 23], [spine + 33, separation + i * 23]], "#9bafbe", 1);
       if (!mobile) {
         for (let i = -3; i <= 3; i++) line([[spine - 60, separation + i * 30], [spine + 60, separation + i * 30]], "#9bafbe", 1);
@@ -270,6 +285,9 @@ export default function PlantDiagram() {
       }
       valve(spine, outlet - 50);
       line([[spine - 8, outlet - 12], [spine, outlet], [spine + 8, outlet - 12]], "#203858", 2);
+      if (!mobile && contact) {
+        processSignal(context, [[spine, outlet], [spine - 110, outlet], [spine - 110, contact.y + 40], [contact.x + 16, contact.y + 40], [contact.x + 16, contact.y]], activeOutput === "contact");
+      }
 
       // Dithered packets travel only through the part revealed by scrolling.
       if (!preference.matches) {

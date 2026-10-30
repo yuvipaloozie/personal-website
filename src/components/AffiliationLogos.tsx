@@ -12,7 +12,7 @@ const affiliations = [
 export default function AffiliationLogos() {
   return (
     <ul className="affiliation-logos" aria-label="Work and education">
-      <li className="affiliation-network" aria-hidden="true"><svg viewBox="0 0 230 270" fill="none"><path d="M63 72 84 105M146 99 121 116M87 157 65 191M119 153 163 200M106 220 149 220" /><path className="affiliation-junctions" d="M79 96h3v3h-3zM134 106h3v3h-3zM74 174h3v3h-3zM141 178h3v3h-3zM126 219h3v3h-3z" /></svg></li>
+      <li className="affiliation-network" aria-hidden="true"><svg viewBox="0 0 230 270" fill="none"><path d="M63 72V91H84V105M146 99H132V116H121M87 157V174H65V191M119 153H142V181H163V200M106 220H149" /><path className="affiliation-junctions" d="M82 89h4v4h-4zM130 114h4v4h-4zM63 172h4v4h-4zM140 179h4v4h-4zM126 218h4v4h-4z" /></svg></li>
       {affiliations.map(({ name, mark, href, context }) => (
         <li className={`affiliation-node affiliation-node-${mark}`} key={mark}>
           <Link href={href} className="affiliation-logo sweep-target" aria-label={`${name} — ${context}`}>

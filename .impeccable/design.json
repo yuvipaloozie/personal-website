@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-29T23:54:47.9882593Z",
+  "generatedAt": "2026-10-30T00:25:45.5674342Z",
   "title": "Design System: Research and Engineering — Process",
   "extensions": {
     "colorMeta": {
@@ -38,6 +38,16 @@
         "role": "neutral",
         "displayName": "Dashed depth utility pipe",
         "canonical": "#9aabba"
+      },
+      "signal-line": {
+        "role": "neutral",
+        "displayName": "Dotted connection signal",
+        "canonical": "#91a5b7"
+      },
+      "return-line": {
+        "role": "neutral",
+        "displayName": "Dash-dot outer return",
+        "canonical": "#b0bcc5"
       }
     },
     "typographyMeta": {
@@ -175,7 +185,7 @@
       },
       {
         "name": "Affiliation marks",
-        "body": "Place the stationary 230×270px asymmetric network beside the Background career list, above it at <=900px. Links have minimum 60px width and 60px height, expanding for full Wood and Alcon local lockups. Preserve Arclin symbol, Bayer cross and Georgia Tech monogram. Navy alpha masks, pixel-dotted paths/junctions, real destinations, accessible names, DitherSweep/dotted focus and both background masks remain. Only the selected mark scales to 1.08 over 220ms on fine-pointer hover or keyboard focus; reduced motion removes timing. No orbit, circles or continuous affiliation animation.",
+        "body": "Place the stationary 230×270px asymmetric network beside the Background career list, above it at <=900px. Links have minimum 60px width and 60px height, expanding for full Wood and Alcon local lockups. Preserve Arclin symbol, Bayer cross and Georgia Tech monogram. Navy alpha masks, orthogonal [2, 5] dotted elbows and square junctions, real destinations, accessible names, DitherSweep/dotted focus and both background masks remain. Only the selected mark scales to 1.08 over 220ms on fine-pointer hover or keyboard focus; reduced motion removes timing. No orbit, circles or continuous affiliation animation.",
         "section": "components"
       },
       {
@@ -186,6 +196,26 @@
       {
         "name": "Curated repository projects",
         "body": "Only PSM Knowledge Graph, OCLAST, Regime-Aware Sector Rotation, ECG Arrhythmia Classification and Semiconductor Yield Optimization & RCA appear in public listings/topics/graph. Copy, repository URLs, slugs and image mappings come from src/lib/project-previews.ts, verified October 29, 2026. Titles and GitHub actions link directly to repositories; the five legacy project URLs permanently redirect, and duplicate Read more/GitHub links are suppressed. Original navy/Bayer-style workflow SVG miniatures use contain and no filters, with descriptive alt text and no empirical-result claims.",
+        "section": "components"
+      },
+      {
+        "name": "Shared process connections",
+        "body": "process-symbols.ts defines solid 1px double-flange ports in #71899d with 7px/12px half-width/stem extents, compact 4px/7px. Signals use 1px [2, 5] dots with 4px solid starts and 6px hollow ends; active paths are solid navy at 1.6px. Primary piping stays solid and desktop outer return uses 1px [10, 5, 2, 5] dash-dot without the vertical caption. Share ports and signals across main equipment, project branches and subpage margin circuits.",
+        "section": "components"
+      },
+      {
+        "name": "Foreground separation",
+        "body": "Clear a 28px-wide main-path corridor through the rear process circuit, or 18px at <=900px, then redraw cached paper stock. Clear a 14px stroke band around equipment outlines. Preserve independent reading masks and the existing clock/reduced-motion behavior.",
+        "section": "elevation"
+      },
+      {
+        "name": "Contact return and destinations",
+        "body": "Measure the homepage Contact email action and connect it with a desktop-only orthogonal signal beneath the action row from the outlet; hover/focus activates it. Omit at <=900px. Homepage project accessible names identify the GitHub destination and new-tab behavior.",
+        "section": "components"
+      },
+      {
+        "name": "IBM reference boundary",
+        "body": "The local Awesome DESIGN.md IBM analysis, references/design-md/ibm/DESIGN.md from VoltAgent/awesome-design-md, informed 4/8 spacing and flat geometry only. It is third-party analysis, not an IBM-authored specification; retain this site navy/pixel/rounded-control system.",
         "section": "components"
       }
     ],
