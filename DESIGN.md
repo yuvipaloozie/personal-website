@@ -193,3 +193,8 @@ The knowledge graph retains pointer exploration while motion is paused. Physics,
 The homepage closes with three Blog links and a shorter process outlet. A shell-and-tube exchanger replaces the repeated tray vessel beside Blog; measured branches end beside the actual titles. The stationary company marks sit within a dished vessel outline, piped into the conditioning stage. The project reactor uses four pitched impeller blades projected from a rotating horizontal plane, sharing the existing animation clock and reduced-motion path.
 
 Favorites retains natural cover proportions, drag, keyboard and arrow navigation. The visible media title, kind icon and count are retired; a polite hidden announcement preserves item identification, and filler podcasts keep their placeholder label. Resume shows dated experience entries on a navy rail, with existing company marks where available; its contact header and print button are retired. Graph controls are collapsed within a native title disclosure by default, preserving entry selection, reset, motion control and dialog focus restoration.
+
+
+### Knowledge graph retirement
+
+The standalone knowledge graph explorer and its navigation link are retired at the user's request. Old /graph links redirect to the homepage. The PSM Knowledge Graph project and shared factual content remain part of the portfolio.
