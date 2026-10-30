@@ -9,10 +9,9 @@ interface CircularGalleryProps {
   items: GalleryItem[];
   bend?: number;
   borderRadius?: number;
-  scrollEase?: number;
+  durationMs?: number;
   selected: number;
   onSelect: (index: number) => void;
-  onInteract: () => void;
   reducedMotion: boolean;
   className?: string;
 }
@@ -20,14 +19,14 @@ interface CircularGalleryProps {
 /** Adapted from the user-supplied 21st.dev CircularGallery / OGL component.
  * Natural image geometry replaces uniform cropped planes; input stays local,
  * DOM controls/captions remain accessible, and GPU resources are disposed. */
-export function CircularGallery({ items, bend = 1.3, borderRadius = 0.015, scrollEase = 0.075, selected, onSelect, onInteract, reducedMotion, className }: CircularGalleryProps) {
+export function CircularGallery({ items, bend = 1.1, borderRadius = 0.015, durationMs = 820, selected, onSelect, reducedMotion, className }: CircularGalleryProps) {
   const container = useRef<HTMLDivElement>(null);
   const navigate = useRef<((index: number) => void) | null>(null);
   const selection = useRef(selected);
-  const callbacks = useRef({ onSelect, onInteract });
+  const callbacks = useRef({ onSelect });
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  useEffect(() => { callbacks.current = { onSelect, onInteract }; }, [onSelect, onInteract]);
+  useEffect(() => { callbacks.current = { onSelect }; }, [onSelect]);
   useEffect(() => { selection.current = selected; navigate.current?.(selected); }, [selected]);
 
   useEffect(() => {
@@ -48,6 +47,7 @@ export function CircularGallery({ items, bend = 1.3, borderRadius = 0.015, scrol
     let disposed = false, raf = 0, visible = false, current = 0, target = 0, total = 1, time = 0, lastTime = 0;
     let inMotion = false, dragging = false, startX = 0, startScroll = 0, dragDistance = 0;
     let worldWidth = 1, worldHeight = 1, settledIndex = selection.current;
+    let glideFrom = 0, glideElapsed = 0, deformation = 0;
     const media = items.map((item, index) => {
       const texture = new Texture(gl, { generateMipmaps: false });
       const program = new Program(gl, {
@@ -80,12 +80,17 @@ export function CircularGallery({ items, bend = 1.3, borderRadius = 0.015, scrol
     function paint(now: number) {
       raf = 0;
       if (disposed || !visible || document.hidden) return;
-      const dt = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 0;
+      const dt = lastTime ? Math.min((now - lastTime) / 1000, 0.05) : 1 / 60;
       lastTime = now; time += dt;
       const previous = current;
-      current = reducedMotion ? target : current + (target - current) * (1 - Math.pow(1 - scrollEase, dt * 60 || 1));
-      if (Math.abs(target - current) < 0.001) current = target;
-      const speed = reducedMotion ? 0 : Math.min(Math.abs(current - previous) * 0.65, 0.12);
+      glideElapsed += dt;
+      const progress = Math.min(1, glideElapsed * 1000 / durationMs);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      current = reducedMotion || dragging ? target : glideFrom + (target - glideFrom) * eased;
+      if (progress === 1 || Math.abs(target - current) < 0.0001) current = target;
+      const speed = reducedMotion ? 0 : Math.min(Math.abs(current - previous) / dt * 0.002, 0.025);
+      deformation += (speed - deformation) * (1 - Math.exp(-12 * dt));
+      if (current === target && !dragging) deformation = 0;
       media.forEach(m => {
         const x = wrap(m.center - current);
         m.mesh.position.x = x;
@@ -95,7 +100,7 @@ export function CircularGallery({ items, bend = 1.3, borderRadius = 0.015, scrol
         m.mesh.position.y = amount ? -(radius - Math.sqrt(Math.max(0, radius * radius - effective * effective))) : 0;
         m.mesh.rotation.z = amount ? -Math.sign(x) * Math.asin(Math.min(effective / radius, 1)) : 0;
         m.program.uniforms.uTime.value = time;
-        m.program.uniforms.uSpeed.value = speed;
+        m.program.uniforms.uSpeed.value = deformation;
       });
       renderer.render({ scene, camera });
       if (inMotion && !dragging && current === target) { inMotion = false; const next = nearest(); if (next !== settledIndex) { settledIndex = next; callbacks.current.onSelect(next); } }
@@ -110,25 +115,27 @@ export function CircularGallery({ items, bend = 1.3, borderRadius = 0.015, scrol
       let offset = 0;
       media.forEach(m => {
         const aspect = items[m.index].width / items[m.index].height;
-        const h = Math.min(worldHeight * 0.64, worldWidth * 0.74 / aspect), w = h * aspect;
+        const h = Math.min(worldHeight * 0.76, worldHeight * 1.02 / aspect, worldWidth * 0.74 / aspect), w = h * aspect;
         m.mesh.scale.set(w, h, 1); m.width = w; m.center = offset + w / 2;
         offset += w + worldHeight * 0.09;
       });
       total = offset;
-      current = target = media[settledIndex]?.center ?? 0;
+      current = target = glideFrom = media[settledIndex]?.center ?? 0;
+      glideElapsed = durationMs / 1000;
       requestPaint();
     }
-    navigate.current = index => { settledIndex = index; target = current + wrap(media[index].center - current); inMotion = true; requestPaint(); };
+    function glide(position: number) { glideFrom = current; glideElapsed = 0; lastTime = 0; target = position; inMotion = true; requestPaint(); }
+    navigate.current = index => { settledIndex = index; glide(current + wrap(media[index].center - current)); };
     function down(event: PointerEvent) {
       if (event.button !== 0) return;
-      callbacks.current.onInteract(); dragging = true; startX = event.clientX; startScroll = current; dragDistance = 0;
+      dragging = true; startX = event.clientX; startScroll = current; target = current; dragDistance = 0;
       element!.setPointerCapture(event.pointerId);
     }
     function move(event: PointerEvent) { if (!dragging) return; dragDistance = event.clientX - startX; target = startScroll - dragDistance / element!.clientWidth * worldWidth; requestPaint(); }
     function up() {
       if (!dragging) return;
       dragging = false; current = reducedMotion ? target : current;
-      const next = nearest(target); target = current + wrap(media[next].center - current); inMotion = true; requestPaint();
+      const next = nearest(target); glide(current + wrap(media[next].center - current));
     }
     function visibility() { if (document.hidden) { cancelAnimationFrame(raf); raf = 0; lastTime = 0; } else requestPaint(); }
     const observer = new ResizeObserver(resize); observer.observe(element);
@@ -145,7 +152,7 @@ export function CircularGallery({ items, bend = 1.3, borderRadius = 0.015, scrol
       media.forEach(m => { m.image.onload = null; m.image.onerror = null; gl.deleteTexture(m.texture.texture); gl.deleteProgram(m.program.program); }); geometry.remove(); canvas.remove();
       gl.getExtension("WEBGL_lose_context")?.loseContext();
     };
-  }, [items, bend, borderRadius, scrollEase, reducedMotion]);
+  }, [items, bend, borderRadius, durationMs, reducedMotion]);
 
   return <div className={cn("circular-gallery", className)}>
     <div ref={container} className="circular-gallery-canvas" style={{ display: failed ? "none" : undefined }} aria-hidden="true" />
