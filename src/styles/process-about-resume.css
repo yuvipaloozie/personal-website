@@ -13,8 +13,6 @@
 
 .process-resume-header { margin-bottom: 50px; }
 .process-resume-header h1 { margin: 0 0 24px; }
-.process-resume-contact { margin: 0 0 22px; line-height: 1.8; overflow-wrap: anywhere; }
-.process-resume-header .print-action { margin: 0; }
 .process-resume-section { margin-top: 44px; scroll-margin-top: 120px; }
 .process-resume-section h2 { margin: 0 0 24px; }
 .process-resume-entry { position: relative; margin: 0 0 28px; padding: 0 0 27px; }
@@ -23,6 +21,15 @@
 .process-resume-entry h3 a { text-decoration-thickness: 1px; text-underline-offset: 4px; }
 .process-resume-entry p { margin: 5px 0 0; max-width: 70ch; }
 .process-resume-entry .process-resume-meta { color: #53616c; font-size: 14px; margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.resume-timeline { position: relative; }
+.resume-timeline::before { content: ""; position: absolute; top: 13px; bottom: 24px; right: 163px; width: 1px; background: #c2ced8; }
+.resume-timeline-entry { display: grid; grid-template-columns: minmax(0, 1fr) 142px; gap: 42px; }
+.resume-role { min-width: 0; }
+.process-resume-entry .resume-role-heading { display: flex; align-items: center; gap: 14px; min-height: 36px; }
+.resume-employer-mark { display: block; flex: 0 0 36px; width: 36px; height: 32px; background: var(--process-ink); mask-size: contain; mask-position: center; mask-repeat: no-repeat; }
+.resume-employer-mark-e_wood, .resume-employer-mark-e_alcon { flex-basis: 62px; width: 62px; }
+.process-resume-entry .resume-date { position: relative; margin: 8px 0 0; color: #536a7d; font-size: 13px; line-height: 1.65; font-variant-numeric: tabular-nums; }
+.resume-date::before { content: ""; position: absolute; top: 5px; left: -25px; width: 7px; height: 7px; background: var(--process-ink); box-shadow: 0 0 0 5px var(--process-paper); }
 .process-resume-skills { margin: 0; }
 .process-resume-skills > div { margin-bottom: 30px; }
 .process-resume-skills dt { font-weight: 500; margin-bottom: 12px; }
@@ -49,6 +56,13 @@
   .process-resume-header { margin-bottom: 36px; }
   .process-resume-section { margin-top: 36px; }
   .process-resume-entry h3 { font-size: 19px; }
+  .resume-timeline { padding-left: 20px; }
+  .resume-timeline::before { left: 3px; right: auto; top: 12px; bottom: 12px; }
+  .resume-timeline-entry { display: flex; flex-direction: column; gap: 0; }
+  .process-resume-entry .resume-date { order: -1; margin: 0 0 10px; }
+  .resume-date::before { left: -20px; top: 7px; width: 6px; height: 6px; box-shadow: 0 0 0 4px var(--process-paper); }
+  .process-resume-entry .resume-role-heading { align-items: flex-start; flex-direction: column; gap: 10px; }
+  .resume-employer-mark { flex-basis: auto; }
 }
 
 @media print {
@@ -57,8 +71,10 @@
   .technical-tools svg { width: 12pt; height: 12pt; }
   .process-resume-header { margin-bottom: 20pt; }
   .process-resume-header h1 { font-family: "Instrument Sans", Arial, sans-serif; font-size: 28pt; color: #111; margin-bottom: 10pt; }
-  .process-resume-header .print-action { display: none; }
-  .process-resume-contact { margin: 0; font-size: 10pt; }
+  .resume-timeline::before, .resume-date::before { display: none; }
+  .resume-timeline { padding-left: 0; }
+  .resume-timeline-entry { display: grid; grid-template-columns: minmax(0, 1fr) 100pt; gap: 18pt; }
+  .process-resume-entry .resume-date { font-size: 9pt; }
   .process-resume-section { margin-top: 18pt; }
   .process-resume-section h2 { font-family: "Instrument Sans", Arial, sans-serif; font-size: 15pt; color: #111; margin-bottom: 10pt; break-after: avoid; }
   .process-resume-entry { break-inside: avoid; margin-bottom: 12pt; padding-bottom: 10pt; }

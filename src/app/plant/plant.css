@@ -60,12 +60,12 @@
 .plant-project-link .sweep-label { width: 100%; justify-content: space-between; gap: 20px; }
 .plant-project-link svg { flex-shrink: 0; width: 18px; }
 .plant-project-list p { font-size: 15px; margin: 2px 0; }
-.plant-writing { min-height: 720px; padding-top: 80px; }
+.plant-writing { min-height: 470px; padding-top: 80px; }
 .plant-writing ul { list-style: none; margin: 32px 0; padding: 0; }
 .plant-writing li { margin-bottom: 20px; }
 .plant-writing li a { display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 17px; line-height: 1.5; min-height: 44px; padding-block: 6px; }
 .plant-writing li svg { flex-shrink: 0; width: 16px; }
-.plant-outlet { height: 110px; }
+.plant-outlet { height: 55px; }
 .plant-disclaimer { font-size: 13px; color: #626a70; margin-top: 42px; }
 body:has(.plant-page) .site-footer { border: 0; margin-top: 0; }
 @media (min-width: 1400px) { .plant-content { padding-inline: 20px; } }
@@ -80,7 +80,7 @@ body:has(.plant-page) .site-footer { border: 0; margin-top: 0; }
   .plant-actions { gap: 16px; }
   .plant-caption { left: 0; right: auto; bottom: 32px; }
   .plant-projects { min-height: 800px; padding-left: 0; padding-top: 60px; }
-  .plant-writing { min-height: 630px; padding-top: 60px; }
+  .plant-writing { min-height: 410px; padding-top: 60px; }
   .plant-copy p { font-size: 16px; }
   .plant-content h2 { font-size: 38px; }
 }
@@ -95,3 +95,6 @@ body:has(.plant-page) .site-footer { border: 0; margin-top: 0; }
   .plant-hero { min-height: 980px; }
 }
 @media print { .plant-canvas { display: none; } .plant-content section { min-height: 0; padding: 30px 0; break-inside: avoid; } }
+
+.affiliation-network .affiliation-shell { stroke: #8da3b5; stroke-dasharray: none; opacity: .6; }
+.affiliation-network .affiliation-pipes { stroke: #8da3b5; stroke-dasharray: none; opacity: .65; }

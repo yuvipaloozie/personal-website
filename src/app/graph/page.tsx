@@ -24,6 +24,8 @@ export default function GraphPage() {
   const [entryId, setEntryId] = useState("");
   const dialogRef = useRef<HTMLDialogElement>(null);
   const exploreRef = useRef<HTMLSelectElement>(null);
+  const controlsRef = useRef<HTMLDetailsElement>(null);
+  const controlsTitleRef = useRef<HTMLElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
   const selectNode = useCallback((node: NodeData | null) => {
     if (node && node.type !== "category") {
@@ -39,7 +41,8 @@ export default function GraphPage() {
     setSelectedNode(null);
     const target = returnFocusRef.current;
     if (target && target !== document.body && target.isConnected) target.focus();
-    else exploreRef.current?.focus();
+    else if (controlsRef.current?.open) exploreRef.current?.focus();
+    else controlsTitleRef.current?.focus();
   }, []);
   useEffect(() => {
     if (selectedNode) {
@@ -60,8 +63,11 @@ export default function GraphPage() {
   return (
     <div className="graph-page" data-paused={paused}>
       <BackgroundSnippets />
-      <div className="graph-help">
-        <h1>Knowledge graph</h1>
+      <details className="graph-help" ref={controlsRef}>
+        <summary ref={controlsTitleRef} aria-label="Knowledge graph controls">
+          <h1>Knowledge graph</h1>
+        </summary>
+        <div className="graph-controls">
         <p>Select a node to explore; select a category to expand.</p>
         <p>Scroll to zoom · drag to pan.</p>
         <label className="graph-explore-label" htmlFor="graph-explore">Explore an entry</label>
@@ -92,7 +98,8 @@ export default function GraphPage() {
           <DitherSweep /><span className="sweep-label"><PixelIcon name={paused ? "play" : "pause"} />{paused ? "Resume motion" : "Pause motion"}</span>
         </button>
         </div>
-      </div>
+        </div>
+      </details>
       {/* Physics Canvas */}
       <GraphCanvas onNodeSelect={selectNode} paused={paused} resetView={resetView} />
 

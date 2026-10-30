@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight, BookOpen, Film, Disc3, Headphones, Newspaper } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 import { CircularGallery } from "@/components/ui/circular-gallery-2";
@@ -24,21 +24,13 @@ export default function FavoriteMedia() {
   const item = favorites[index];
   return <section className="favorite-media" aria-labelledby="favorites-title" aria-roledescription="carousel"
     onKeyDown={event => { if (event.key === "ArrowRight" || event.key === "ArrowLeft") { event.preventDefault(); move(event.key === "ArrowRight" ? 1 : -1); } }}>
-    <div className="favorites-heading"><h2 id="favorites-title">Favorites</h2><span className="favorites-count">{index + 1} / {favorites.length}</span></div>
+    <div className="favorites-heading"><h2 id="favorites-title">Favorites</h2></div>
     <CircularGallery items={galleryItems} selected={index} onSelect={setIndex} reducedMotion={reduced} />
     <div className="favorites-footer">
-      <Button variant="ghost" size="icon" className="sweep-target" aria-label="Previous favorite" onClick={() => move(-1)}><DitherSweep /><ChevronLeft size={18} /></Button>
-    <div className="favorite-caption" aria-live="polite" aria-atomic="true">
-      <MediaIcon kind={item.kind} />
-      {item.href ? <a href={item.href}>{item.title}</a> : <span>{item.title}</span>}
-      {item.kind.includes("placeholder") && <small>placeholder</small>}
-    </div>
-      <Button variant="ghost" size="icon" className="sweep-target" aria-label="Next favorite" onClick={() => move(1)}><DitherSweep /><ChevronRight size={18} /></Button>
+      <Button variant="ghost" size="icon" className="sweep-target" aria-label="Previous favorite" onClick={() => move(-1)}><DitherSweep /><span className="sweep-label"><ChevronLeft size={18} /></span></Button>
+      <p className="sr-only" aria-live="polite" aria-atomic="true">{item.title} by {item.creator}. {item.kind}.</p>
+      {item.kind.includes("placeholder") && <small className="favorite-placeholder">placeholder</small>}
+      <Button variant="ghost" size="icon" className="sweep-target" aria-label="Next favorite" onClick={() => move(1)}><DitherSweep /><span className="sweep-label"><ChevronRight size={18} /></span></Button>
     </div>
   </section>;
-}
-
-function MediaIcon({ kind }: { kind: string }) {
-  const Icon = kind.startsWith("Book") ? BookOpen : kind.startsWith("Film") ? Film : kind.startsWith("Album") ? Disc3 : kind.startsWith("Podcast") ? Headphones : Newspaper;
-  return <Icon size={13} strokeWidth={1.5} aria-label={kind.split(" · ")[0]} role="img" />;
 }
