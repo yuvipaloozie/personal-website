@@ -161,3 +161,5 @@ Projects retains topic filters and the native research-topic disclosure for the 
 - Don't restore the retired classic homepage, ambient wave, removed About hobby/book sections or old floating motion control without a new request.
 - Don't turn the abstract process story into claims about a real plant, new publications or invented accomplishments.
 - Don't add remote fonts, gratuitous looping effects or decorative card grids.
+
+Project cards show two or three static method tags below each description. These use 12px text, navy `#203858` on `#eaf0f5`, 6px corners and a wrapping 6px gap. They identify ML concepts rather than tools, have no icons or motion, and are rendered as a labeled list. Canonical labels live in `project-previews.ts`.

@@ -1,5 +1,5 @@
 /** Curated project copy, verified against GitHub listings and READMEs on October 29, 2026. */
-export const projectPreviews: Record<string, { title: string; summary: string; github: string; slug: string; image: string; imageAlt: string; year: number; tags: string[] }> = {
+export const projectPreviews: Record<string, { title: string; summary: string; github: string; slug: string; image: string; imageAlt: string; year: number; tags: string[]; methods: string[] }> = {
   "p_psm": {
     "title": "PSM Knowledge Graph",
     "summary": "Structures HAZOPs, alarm registers and P&IDs into a process safety graph with NLP, fuzzy matching and local GraphRAG.",
@@ -14,6 +14,11 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
       "NLP",
       "GraphRAG",
       "Streamlit"
+    ],
+    "methods": [
+      "NLP",
+      "Knowledge Graphs",
+      "GraphRAG"
     ]
   },
   "p_chana": {
@@ -29,6 +34,10 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
       "U-Net++",
       "TransUNet",
       "Curriculum learning"
+    ],
+    "methods": [
+      "Semantic Segmentation",
+      "Curriculum Learning"
     ]
   },
   "p_trading": {
@@ -43,6 +52,10 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
       "Gaussian HMM",
       "XGBRanker",
       "Walk-forward evaluation"
+    ],
+    "methods": [
+      "Hidden Markov Models",
+      "Learning to Rank"
     ]
   },
   "p_arrhythmia": {
@@ -57,6 +70,11 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
       "ECG",
       "Feature engineering",
       "Logistic regression",
+      "1D CNN"
+    ],
+    "methods": [
+      "Feature Engineering",
+      "Logistic Regression",
       "1D CNN"
     ]
   },
@@ -73,6 +91,11 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
       "SHAP",
       "SECOM",
       "Cost-sensitive learning"
+    ],
+    "methods": [
+      "XGBoost",
+      "Cost-Sensitive Learning",
+      "SHAP"
     ]
   }
 };

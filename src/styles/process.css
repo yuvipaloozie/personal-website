@@ -58,3 +58,7 @@ body:has(.process-page) .site-footer { margin-top: 0; }
   .site-header .header-inner nav { gap: 0; }
   .site-header .header-inner nav a.nav-sweep { min-width: 44px; padding-inline: 6px; }
 }
+
+/* Static method tags help compare projects without competing with their diagrams. */
+.project-methods { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 12px 0 8px; }
+.project-methods li { background: #eaf0f5; color: #203858; border-radius: 6px; padding: 4px 8px; font-size: .75rem; line-height: 1.5; }
