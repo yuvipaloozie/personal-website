@@ -86,6 +86,25 @@ export default function PlantDiagram() {
       ctx!.setLineDash([]);
     }
 
+    function pipe(points: Point[], active: boolean, narrow: boolean) {
+      if (points.length < 2) return;
+      const path = new Path2D(); path.moveTo(...points[0]);
+      for (let i = 1; i < points.length - 1; i++) {
+        const [ax, ay] = points[i - 1], [bx, by] = points[i], [cx, cy] = points[i + 1];
+        const before = Math.hypot(bx - ax, by - ay), after = Math.hypot(cx - bx, cy - by);
+        const r = Math.min(12, before / 2, after / 2);
+        if (!before || !after) { path.lineTo(bx, by); continue; }
+        path.lineTo(bx - (bx - ax) / before * r, by - (by - ay) / before * r);
+        path.quadraticCurveTo(bx, by, bx + (cx - bx) / after * r, by + (cy - by) / after * r);
+      }
+      path.lineTo(...points[points.length - 1]);
+      const c = ctx!; c.save(); c.lineCap = "round"; c.lineJoin = "round";
+      c.strokeStyle = active ? "#60788e" : "#b4c1cb"; c.lineWidth = narrow ? 3 : 6; c.stroke(path);
+      c.strokeStyle = active ? "#9aafbf" : "#d9e1e6"; c.lineWidth = narrow ? 1.4 : 3.4; c.stroke(path);
+      c.translate(-.65, -.65); c.strokeStyle = active ? "#d5e0e7" : "#edf1f3";
+      c.lineWidth = narrow ? .55 : 1; c.stroke(path); c.restore();
+    }
+
     function draw(time: number) {
       const context = ctx!;
       publishWaveFrame({ time, left: 0, top: 0, width, height, pixelsWide: width / 3, pixelsHigh: height / 3, scale: 78, cellSize: 1 });
@@ -114,7 +133,7 @@ export default function PlantDiagram() {
       context.save(); context.globalCompositeOperation = "destination-out";
       line(points, "#000", mobile ? 18 : 28); context.restore();
       context.drawImage(drawingStock, 0, 0);
-      line(points, "#bbc6ce", mobile ? 1.4 : 2);
+      pipe(points, false, mobile);
       const progressY = Math.max(70, Math.min(outlet, (height * .62 - top) / scale));
       const lengths = [0];
       for (let i = 1; i < points.length; i++) lengths.push(lengths[i - 1] + Math.hypot(points[i][0] - points[i - 1][0], points[i][1] - points[i - 1][1]));
@@ -139,7 +158,7 @@ export default function PlantDiagram() {
       }
       const active = points.filter((_, i) => lengths[i] <= revealed);
       active.push(atDistance(revealed));
-      if (active.length > 1) line(active, "#203858", mobile ? 2 : 2.5);
+      if (active.length > 1) pipe(active, true, mobile);
 
       // A recycle line closes the narrative, while instrument signals use dashes.
       if (!mobile) {
@@ -147,7 +166,7 @@ export default function PlantDiagram() {
         [[spine, outlet], [spine, 125]].forEach(([x, y]) => { context.fillStyle = "#8ea1b0"; context.fillRect(x - 2, y - 2, 4, 4); });
       }
 
-      function equipment(path: Path2D, bounds: number[], seed: number) {
+      function equipment(path: Path2D, bounds: number[], seed: number, spherical = false) {
         const [x, y, w, h] = bounds;
         // Skip equipment outside the viewport; no offscreen stipple work.
         if ((y + h) * scale + top < -30 || y * scale + top > height + 30) return;
@@ -167,29 +186,45 @@ export default function PlantDiagram() {
         context.fillStyle = "#fbfaf8";
         context.fill(path);
         context.clip(path);
-        const cell = mobile ? 3 : 3.5;
+        // Fixed upper-left illumination on an analytic cylinder/sphere surface.
+        // Dither encodes the normal-based shade; motion only moves a faint flow band.
+        const cell = mobile ? 2.6 : 2.3;
         for (let py = y; py < y + h; py += cell) {
           for (let px = x; px < x + w; px += cell) {
-            const nx = (px - x) / w;
-            const ny = (py - y) / h;
-            const wave = .5 + .5 * Math.sin(nx * 4 + ny * 5 - time * .42 + seed);
-            const shade = .06 + .36 * nx * nx + .20 * wave + .12 * ny;
-            if (bayer8(Math.floor(px / cell), Math.floor(py / cell)) < shade) {
-              context.fillStyle = nx > .7 ? "#71899d" : "#a1b1bd";
-              context.fillRect(px, py, cell * .64, cell * .64);
+            const nx = (px - x) / w * 2 - 1;
+            const ny = (py - y) / h * 2 - 1;
+            const nz = Math.sqrt(Math.max(0, 1 - nx * nx - (spherical ? ny * ny : 0)));
+            const light = Math.max(0, -.48 * nx - (spherical ? .3 * ny : 0) + .82 * nz);
+            const flow = Math.sin(ny * 5 - time * .35 + seed) * .025;
+            const shade = Math.max(.035, Math.min(.9, .82 - light * .79 + flow + Math.max(0, ny) * .06));
+            const gx = Math.floor(px / cell), gy = Math.floor(py / cell);
+            const grain = (Math.sin(gx * 127.1 + gy * 311.7 + seed) * 43758.5453) % 1;
+            const threshold = bayer8(gx, gy) * .83 + Math.abs(grain) * .17;
+            if (threshold < shade) {
+              context.fillStyle = shade > .55 ? "#526d86" : shade > .3 ? "#879eaf" : "#b4c4cf";
+              context.fillRect(px, py, cell * .77, cell * .77);
             }
           }
         }
         context.restore();
         context.strokeStyle = "#587084";
-        context.lineWidth = mobile ? 1.2 : 1.6;
+        context.lineWidth = mobile ? .8 : 1;
         context.stroke(path);
       }
 
       function vessel(x: number, y: number, w: number, h: number, seed: number) {
+        const cap = Math.min(w * .18, h * .12);
+        const upper = y - h / 2, lower = y + h / 2;
         const p = new Path2D();
-        p.roundRect(x - w / 2, y - h / 2, w, h, [w / 2, w / 2, w / 2, w / 2]);
-        equipment(p, [x - w / 2, y - h / 2, w, h], seed);
+        p.moveTo(x - w / 2, upper + cap);
+        p.bezierCurveTo(x - w / 2, upper - cap / 3, x + w / 2, upper - cap / 3, x + w / 2, upper + cap);
+        p.lineTo(x + w / 2, lower - cap);
+        p.bezierCurveTo(x + w / 2, lower + cap / 3, x - w / 2, lower + cap / 3, x - w / 2, lower - cap);
+        p.closePath();
+        equipment(p, [x - w / 2, upper, w, h], seed);
+        // The near rim establishes the vessel's elliptical end without a second outline.
+        const rim = new Path2D(); rim.ellipse(x, upper + cap, w / 2, cap, 0, 0, Math.PI);
+        context.strokeStyle = "#9bafbd"; context.lineWidth = .8; context.stroke(rim);
       }
       function label(text: string, x: number, y: number) {
         if (mobile) return;
@@ -219,7 +254,7 @@ export default function PlantDiagram() {
       const hx = tablet ? 43 : mobile ? 19 : 88;
       const hy = tablet ? 58 : mobile ? 52 : 88;
       exchanger.ellipse(spine, heat, hx, hy, 0, 0, Math.PI * 2);
-      equipment(exchanger, [spine - hx, heat - hy, hx * 2, hy * 2], 3);
+      equipment(exchanger, [spine - hx, heat - hy, hx * 2, hy * 2], 3, true);
       [heat - hy, heat + hy].forEach(y => processPort(context, spine, y, true, mobile));
       if (tablet) line([[spine - 30, heat - 35], [spine + 30, heat - 35], [spine - 30, heat], [spine + 30, heat + 35], [spine - 30, heat + 35]], "#7890a3", 1.2);
       if (!mobile) {
@@ -233,7 +268,7 @@ export default function PlantDiagram() {
 
       if (!mobile && affiliation) {
         const elbow = Math.max(affiliation.x + 24, spine - 155);
-        line([[affiliation.x, affiliation.y], [elbow, affiliation.y], [elbow, heat - 25], [spine - Math.sqrt(hx * hx - 25 * 25), heat - 25]], "#8da3b5", 1.2);
+        pipe([[affiliation.x, affiliation.y], [elbow, affiliation.y], [elbow, heat - 25], [spine - Math.sqrt(hx * hx - 25 * 25), heat - 25]], false, true);
         processPort(context, affiliation.x, affiliation.y, false);
       }
 
