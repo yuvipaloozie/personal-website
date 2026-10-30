@@ -64,7 +64,7 @@ export default function ProjectIndex({
       <div id="project-results">
         {visible.map((node) => (
           <article data-process-item className={node.details!.image ? "project-entry" : "project-entry project-text-only"} key={node.id}>
-            <a className="project-figure" href={node.details!.github!} target="_blank" rel="noreferrer" aria-label={`${node.details!.title} on GitHub`}>
+            <a className="project-figure" href={node.details!.github!} target="_blank" rel="noreferrer" aria-label={`${node.details!.title} on GitHub, opens in a new tab`}>
               {node.details!.image && (
                 <Image
                   src={node.details!.image}
@@ -77,7 +77,7 @@ export default function ProjectIndex({
             </a>
             <div>
               <ProjectHeading>
-                <a href={node.details!.github!} target="_blank" rel="noreferrer">{projectPreviews[node.id].title}</a>
+                <a href={node.details!.github!} target="_blank" rel="noreferrer">{projectPreviews[node.id].title}<span className="sr-only"> on GitHub, opens in a new tab</span></a>
               </ProjectHeading>
               <p>{projectPreviews[node.id]?.summary ?? node.details!.description}</p>
               <ul className="project-methods" aria-label="Libraries and skills">
@@ -91,7 +91,7 @@ export default function ProjectIndex({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <DitherSweep /><span className="sweep-label"><FaGithub aria-hidden="true" /> GitHub<span className="sr-only">: {node.details!.title}</span></span>
+                    <DitherSweep /><span className="sweep-label"><FaGithub aria-hidden="true" /> GitHub<span className="sr-only">: {node.details!.title}, opens in a new tab</span></span>
                   </a>
                 )}
                 <span>

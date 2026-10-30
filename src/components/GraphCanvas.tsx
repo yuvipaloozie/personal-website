@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState, useCallback, useMemo } from "react";
 import ForceGraph2D from "react-force-graph-2d";
 import { graphData, NodeData } from "@/data/graphData";
 import { bayer8, waveField } from "@/lib/wave-field";
@@ -8,9 +8,11 @@ import { bayer8, waveField } from "@/lib/wave-field";
 export default function GraphCanvas({
   onNodeSelect,
   paused = false,
+  resetView = 0,
 }: {
   onNodeSelect: (node: NodeData | null) => void;
   paused?: boolean;
+  resetView?: number;
 }) {
   const fgRef = useRef<any>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,46 +39,51 @@ export default function GraphCanvas({
   }, []);
 
   useEffect(() => {
-    if (visible && !paused) fgRef.current?.resumeAnimation();
+    // pauseAnimation also disables hit-testing and interaction. Only use it
+    // for hidden tabs; pause visible motion via the physics/render props.
+    if (visible) fgRef.current?.resumeAnimation();
     else fgRef.current?.pauseAnimation();
+    if (animated) fgRef.current?.d3ReheatSimulation();
     clock.current.last = 0;
   }, [visible, animated, paused]);
 
   // Filter nodes and links based on expanded state
-  const visibleNodes = graphData.nodes.filter((node) => {
-    if (node.id === "me") return true;
-    // Visible if it's connected to an expanded node (or 'me' which is always expanded)
-    return graphData.links.some(
-      (link) =>
-        ((typeof link.source === "object"
-          ? (link.source as any).id
-          : link.source) === "me" &&
-          (typeof link.target === "object"
-            ? (link.target as any).id
-            : link.target) === node.id) ||
-        (expandedNodes.has(
-          typeof link.source === "object"
+  const graphDataFiltered = useMemo(() => {
+    const visibleNodes = graphData.nodes.filter((node) => {
+      if (node.id === "me") return true;
+      // Visible if it's connected to an expanded node (or 'me' which is always expanded)
+      return graphData.links.some(
+        (link) =>
+          ((typeof link.source === "object"
             ? (link.source as any).id
-            : link.source,
-        ) &&
-          (typeof link.target === "object"
-            ? (link.target as any).id
-            : link.target) === node.id),
-    );
-  });
+            : link.source) === "me" &&
+            (typeof link.target === "object"
+              ? (link.target as any).id
+              : link.target) === node.id) ||
+          (expandedNodes.has(
+            typeof link.source === "object"
+              ? (link.source as any).id
+              : link.source,
+          ) &&
+            (typeof link.target === "object"
+              ? (link.target as any).id
+              : link.target) === node.id),
+      );
+    });
 
-  const visibleLinks = graphData.links.filter((link) => {
-    const sourceId =
-      typeof link.source === "object" ? (link.source as any).id : link.source;
-    const targetId =
-      typeof link.target === "object" ? (link.target as any).id : link.target;
-    return (
-      visibleNodes.some((n) => n.id === sourceId) &&
-      visibleNodes.some((n) => n.id === targetId)
-    );
-  });
+    const visibleLinks = graphData.links.filter((link) => {
+      const sourceId =
+        typeof link.source === "object" ? (link.source as any).id : link.source;
+      const targetId =
+        typeof link.target === "object" ? (link.target as any).id : link.target;
+      return (
+        visibleNodes.some((n) => n.id === sourceId) &&
+        visibleNodes.some((n) => n.id === targetId)
+      );
+    });
 
-  const graphDataFiltered = { nodes: visibleNodes, links: visibleLinks };
+    return { nodes: visibleNodes, links: visibleLinks };
+  }, [expandedNodes]);
 
   useEffect(() => {
     const updateDimensions = () => {
@@ -121,17 +128,17 @@ export default function GraphCanvas({
       }
 
       if (fgRef.current) {
-        fgRef.current.centerAt(node.x, node.y, reduced ? 0 : 700);
+        fgRef.current.centerAt(node.x, node.y, animated ? 700 : 0);
         // Zoom in deeper for detail nodes, otherwise maintain a moderate zoom for categories so it doesn't zoom out to empty space
         if (node.type === "detail") {
-          fgRef.current.zoom(6, reduced ? 0 : 700);
+          fgRef.current.zoom(6, animated ? 700 : 0);
         } else {
-          fgRef.current.zoom(4.5, reduced ? 0 : 700);
+          fgRef.current.zoom(4.5, animated ? 700 : 0);
         }
       }
       onNodeSelect(node);
     },
-    [onNodeSelect, reduced],
+    [onNodeSelect, animated],
   );
 
   const handleBackgroundClick = useCallback(() => {
@@ -141,6 +148,10 @@ export default function GraphCanvas({
     }
     onNodeSelect(null);
   }, [onNodeSelect]);
+
+  useEffect(() => {
+    if (resetView) handleBackgroundClick();
+  }, [resetView, handleBackgroundClick]);
 
   return (
     <div
@@ -170,6 +181,9 @@ export default function GraphCanvas({
         linkDirectionalParticleWidth={2}
         linkDirectionalParticleSpeed={.003}
         autoPauseRedraw={!animated}
+        cooldownTicks={animated ? Infinity : 0}
+        // Settle newly expanded nodes before drawing, without visible motion.
+        warmupTicks={animated ? 0 : 60}
         onRenderFramePre={() => {
           const now = performance.now();
           if (animated && clock.current.last) clock.current.time += Math.min(now - clock.current.last, 100) / 1000;

@@ -34,7 +34,6 @@
   text-wrap: pretty;
 }
 
-.process-blog .process-writing-list .pixel-icon { flex: 0 0 16px; align-self: baseline; color: #587084; }
 .process-blog .process-writing-list a:hover { text-decoration: underline; text-underline-offset: 5px; }
 
 .process-blog .process-writing-list .entry-date {
@@ -98,7 +97,6 @@
   .process-blog .page-intro { margin-bottom: 32px; font-size: 17px; }
   .process-blog .process-writing-list li { grid-template-columns: 1fr; gap: 0; padding-block: 16px; }
   .process-blog .process-writing-list li > a { font-size: 18px; }
-  .process-blog .process-writing-list .entry-date { padding-left: 30px; }
   .process-reading-article .project-summary { font-size: 18px; }
   .process-reading-article .back-link { margin-bottom: 20px; }
   .process-reading-article .related-reading { margin-top: 48px; }

@@ -54,10 +54,13 @@ body:has(.process-page) .site-footer { margin-top: 0; }
 @media (max-width: 360px) {
   .site-header .site-name { font-size: 18px; gap: 6px; }
   .site-header .graph-nav-link { min-width: 44px; min-height: 44px; justify-content: center; }
-  .site-header .graph-nav-link .sweep-label > span { display: none; }
+  .site-header .graph-nav-link .graph-nav-full { display: none; }
+  .site-header .graph-nav-link .graph-nav-short { display: inline; }
   .site-header .header-inner nav { gap: 0; }
   .site-header .header-inner nav a.nav-sweep { min-width: 44px; padding-inline: 6px; }
 }
+
+.graph-nav-short { display: none; }
 
 /* Static method tags help compare projects without competing with their diagrams. */
 .project-methods { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 12px 0 8px; }

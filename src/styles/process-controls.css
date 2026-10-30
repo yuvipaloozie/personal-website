@@ -21,6 +21,8 @@ body :is(
 
 body .sweep-target { --sweep-fill: #c9d8eb; }
 
+body .site-name { display: inline-flex; align-items: center; min-height: 44px; }
+
 /* Keep navigation's compact responsive padding, including its 320px rule. */
 body .site-header nav {
   border: 0;
@@ -59,6 +61,7 @@ body .thread-choices button {
 
 body .topic-filter button:is([aria-pressed="true"], [data-pressed]),
 body .thread-choices button[aria-pressed="true"],
+body .graph-motion-control[aria-pressed="true"],
 body .site-header nav a[aria-current],
 body .graph-nav-link[aria-current] {
   background: #e3e9ef !important;
@@ -125,6 +128,7 @@ body .thread-entries a:is(:hover, :focus-visible) > .pixel-icon {
   }
   body .topic-filter button:is([aria-pressed="true"], [data-pressed]),
   body .thread-choices button[aria-pressed="true"],
+  body .graph-motion-control[aria-pressed="true"],
   body .site-header nav a[aria-current],
   body .graph-nav-link[aria-current],
   body .site-header nav:has(> .selection-indicator[data-ready="true"]) a[aria-current],

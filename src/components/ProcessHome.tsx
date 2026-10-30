@@ -4,7 +4,6 @@ import FloatingPortrait from "@/components/FloatingPortrait";
 import PlantDiagram from "@/components/PlantDiagram";
 import AffiliationLogos from "@/components/AffiliationLogos";
 import { DitherSweep } from "@/components/ui/dither-sweep";
-import { PixelIcon } from "@/components/ui/pixel-icon";
 import { career, education, profile } from "@/lib/profile";
 import { projectPreviews } from "@/lib/project-previews";
 import { graphData } from "@/data/graphData";
@@ -37,8 +36,8 @@ export default function PlantPage() {
               <AffiliationLogos />
             </div>
             <div className="plant-actions">
-              <Link href="/about" className="sweep-target"><DitherSweep /><span className="sweep-label">About me <PixelIcon name="arrow" /></span></Link>
-              <Link href="/resume" className="sweep-target"><DitherSweep /><span className="sweep-label">Resume <PixelIcon name="arrow" /></span></Link>
+              <Link href="/about" className="sweep-target"><DitherSweep /><span className="sweep-label">About me</span></Link>
+              <Link href="/resume" className="sweep-target"><DitherSweep /><span className="sweep-label">Resume</span></Link>
             </div>
           </div>
         </section>
@@ -54,15 +53,15 @@ export default function PlantPage() {
                 <p>{projectPreviews[node.id].summary}</p>
               </article>)}
             </div>
-            <Link className="plant-text-link" href="/projects">All projects <PixelIcon name="arrow" /></Link>
+            <Link className="plant-text-link" href="/projects">All projects</Link>
           </div>
         </section>
 
         <section className="plant-writing" id="separation" aria-labelledby="plant-writing-title">
           <div className="plant-copy">
             <h2 id="plant-writing-title">Blog</h2>
-            <ul>{writing.map(node => <li key={node.id}><Link href={node.details!.link!}>{node.details!.title}<PixelIcon name="arrow" /></Link></li>)}</ul>
-            <Link className="plant-text-link" href="/blog">All posts <PixelIcon name="arrow" /></Link>
+            <ul>{writing.map(node => <li key={node.id}><Link href={node.details!.link!}>{node.details!.title}</Link></li>)}</ul>
+            <Link className="plant-text-link" href="/blog">All posts</Link>
           </div>
         </section>
 

@@ -42,7 +42,7 @@ export default function Card({
           )}
           {github && (
             <a href={github} target="_blank" rel="noreferrer">
-              <FaGithub aria-hidden="true" /> GitHub<span className="sr-only">: {title}</span>
+              <FaGithub aria-hidden="true" /> GitHub<span className="sr-only">: {title}, opens in a new tab</span>
             </a>
           )}
         </div>
