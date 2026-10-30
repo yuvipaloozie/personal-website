@@ -94,7 +94,7 @@ export default function PlantDiagram() {
       context.scale(scale, scale);
       const stage = stages.map(y => y / scale);
       const feed = 310;
-      const heat = stage[1] + 310;
+      const heat = stage[1] + 150;
       const reaction = stage[2] + 340;
       const separation = stage[3] + 300;
       const outlet = stage[4] + 230;
@@ -194,8 +194,8 @@ export default function PlantDiagram() {
         line([[x - 9, y - 9], [x + 9, y + 9], [x + 9, y - 9], [x - 9, y + 9], [x - 9, y - 9]], "#587084");
       }
 
-      const w = tablet ? 92 : mobile ? 32 : 178;
-      const h = tablet ? 170 : mobile ? 95 : 245;
+      const w = tablet ? 82 : mobile ? 32 : 156;
+      const h = tablet ? 150 : mobile ? 95 : 216;
       vessel(spine, feed, w, h, 1);
       [feed - h / 2, feed + h / 2].forEach(y => processPort(context, spine, y, true, mobile));
       if (!mobile) {
@@ -209,16 +209,17 @@ export default function PlantDiagram() {
       valve(spine, feed + h / 2 + 52);
 
       const exchanger = new Path2D();
-      const hx = tablet ? 48 : mobile ? 19 : 102;
-      const hy = tablet ? 65 : mobile ? 52 : 102;
+      const hx = tablet ? 43 : mobile ? 19 : 88;
+      const hy = tablet ? 58 : mobile ? 52 : 88;
       exchanger.ellipse(spine, heat, hx, hy, 0, 0, Math.PI * 2);
       equipment(exchanger, [spine - hx, heat - hy, hx * 2, hy * 2], 3);
       [heat - hy, heat + hy].forEach(y => processPort(context, spine, y, true, mobile));
       if (tablet) line([[spine - 30, heat - 35], [spine + 30, heat - 35], [spine - 30, heat], [spine + 30, heat + 35], [spine - 30, heat + 35]], "#7890a3", 1.2);
       if (!mobile) {
-        line([[spine - 70, heat - 65], [spine + 50, heat - 65], [spine - 50, heat - 20], [spine + 50, heat + 20], [spine - 50, heat + 65], [spine + 70, heat + 65]], "#7890a3", 1.4);
-        line([[spine - 170, heat - 25], [spine - 100, heat - 25]], "#a2b0bb");
-        line([[spine + 100, heat + 25], [spine + 170, heat + 25]], "#a2b0bb");
+        line([[spine - 60, heat - 55], [spine + 43, heat - 55], [spine - 43, heat - 17], [spine + 43, heat + 17], [spine - 43, heat + 55], [spine + 60, heat + 55]], "#7890a3", 1.4);
+        const sidePort = Math.sqrt(hx * hx - 25 * 25);
+        line([[spine - 155, heat - 25], [spine - sidePort, heat - 25]], "#a2b0bb");
+        line([[spine + sidePort, heat + 25], [spine + 155, heat + 25]], "#a2b0bb");
         label("Automation / measurement", spine + 24, heat - 135);
         label("Process signals", spine + 124, heat - 62);
       }

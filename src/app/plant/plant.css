@@ -6,9 +6,11 @@
 .plant-content h1, .plant-content h2 { font-family: "Geist Pixel", "Instrument Sans", sans-serif; font-weight: 400; color: #203858; }
 .plant-copy p { color: #454944; font-size: 17px; line-height: 1.7; }
 .plant-copy .plant-stage-note { font-size: 14px; max-width: 37ch; margin-top: 18px; color: #536a7d; }
-.plant-hero { min-height: 740px; padding-top: 78px; }
+.plant-hero { min-height: 980px; padding-top: 78px; padding-bottom: 70px; }
 /* An open, stationary affiliation network; feedback belongs to the selected logo. */
-.plant-background-details { display: grid; grid-template-columns: minmax(0, 1fr) 230px; align-items: center; gap: 12px; }
+.plant-background-details { display: grid; grid-template-columns: minmax(0, 1fr) 230px; align-items: start; gap: 12px; margin-top: 12px; scroll-margin-top: 110px; }
+.plant-background-details > p { margin: 28px 0 0; font-size: 15px; line-height: 1.65; }
+.plant-background-details .affiliation-logos { margin-block: 0; }
 .affiliation-logos { position: relative; width: 230px; height: 270px; list-style: none; margin: 16px 0; padding: 0; }
 .affiliation-node { position: absolute; transform: translate(-50%, -50%); }
 .affiliation-node-arclin { left: 50px; top: 48px; }
@@ -30,7 +32,7 @@
 @media (hover: hover) and (pointer: fine) { .affiliation-logo:hover .affiliation-mark { transform: scale(1.08); } }
 @media (max-width: 900px) {
   .plant-background-details { grid-template-columns: 1fr; gap: 0; }
-  .affiliation-logos { grid-row: 1; justify-self: center; }
+  .affiliation-logos { justify-self: start; }
 }
 @media (prefers-reduced-motion: reduce) { .affiliation-mark { transition: none; } }
 .plant-hero h1 { font-size: clamp(68px, 8vw, 100px); line-height: .98; letter-spacing: -.035em; margin: 0 0 28px; }
@@ -43,12 +45,7 @@
 .plant-actions > .sweep-target { padding: 12px 16px; background: #e8edf2; border-radius: 8px; }
 .plant-actions svg { width: 16px; height: 16px; }
 .plant-caption { position: absolute; bottom: 65px; left: 0; font-size: 13px; line-height: 1.6; color: #576774; }
-.plant-background { min-height: 770px; padding-top: 130px; }
 .plant-content h2 { font-size: clamp(38px, 4.5vw, 56px); line-height: 1.08; letter-spacing: -.025em; margin: 0 0 26px; }
-.plant-career { margin-block: 32px; }
-.plant-career > div { margin-bottom: 24px; }
-.plant-career dt { font-size: 17px; font-weight: 600; }
-.plant-career dd { font-size: 14px; color: #555d60; margin: 4px 0 0; line-height: 1.6; }
 .plant-text-link { display: inline-flex; gap: 12px; align-items: center; font-size: 14px; min-height: 44px; }
 .plant-text-link svg { width: 16px; }
 .plant-projects { min-height: 900px; padding-top: 90px; padding-left: 54%; }
@@ -71,14 +68,13 @@ body:has(.plant-page) .site-footer { border: 0; margin-top: 0; }
 @media (max-width: 900px) {
   .plant-content { padding-inline: 24px; }
   .plant-copy { max-width: min(520px, calc(100% - 52px)); }
-  .plant-hero { min-height: 720px; padding-top: 56px; }
+  .plant-hero { min-height: 1000px; padding-top: 56px; padding-bottom: 48px; }
   .plant-hero h1 { font-size: clamp(58px, 12vw, 80px); }
   .plant-hero .plant-intro { font-size: 21px; }
   .plant-person { align-items: flex-start; gap: 8px; margin-left: -10px; }
   .plant-person p { font-size: 14px; }
   .plant-actions { gap: 16px; }
   .plant-caption { left: 0; right: auto; bottom: 32px; }
-  .plant-background { min-height: 730px; padding-top: 70px; }
   .plant-projects { min-height: 800px; padding-left: 0; padding-top: 60px; }
   .plant-writing { min-height: 630px; padding-top: 60px; }
   .plant-close { min-height: 390px; padding-top: 40px; padding-right: 42px; }
@@ -89,10 +85,10 @@ body:has(.plant-page) .site-footer { border: 0; margin-top: 0; }
   .plant-person { display: block; margin-left: 0; }
   .plant-person p { max-width: 31ch; margin-top: 10px; }
   .plant-person .portrait-frame { margin-left: -10px; }
-  .plant-hero { min-height: 800px; }
+  .plant-hero { min-height: 0; }
 }
 @media (min-width: 720px) and (max-width: 900px) {
   .plant-copy { max-width: min(520px, calc(100% - 220px)); }
-  .plant-hero { min-height: 680px; }
+  .plant-hero { min-height: 980px; }
 }
 @media print { .plant-canvas { display: none; } .plant-content section { min-height: 0; padding: 30px 0; break-inside: avoid; } }

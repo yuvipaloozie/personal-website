@@ -173,3 +173,6 @@ Projects retains topic filters and the native research-topic disclosure for the 
 - Don't add remote fonts, gratuitous looping effects or decorative card grids.
 
 Project cards show two or three static method tags below each description. These use 12px text, navy `#203858` on `#eaf0f5`, 6px corners and a wrapping 6px gap. They identify libraries and ML skills, have no icons or motion, and are rendered as a labeled list. Canonical labels live in `project-previews.ts`.
+
+
+The homepage introduction now combines the former hero and Background sections within #feed. The nested #conditioning anchor is retained as a measured process location, with a short Chemical and Biomolecular Engineering / PCOM paragraph and the affiliation network. Arclin and Georgia Tech appear once in the portrait introduction. About and Resume actions close this continuous opening. The separate Background heading, repeated career/education list and in-page Background button are retired. Both original right-side units remain connected: the opening vessel and exchanger are about 12–14% smaller on desktop, and the exchanger follows the nested background block. Later process stages retain their existing content and geometry.

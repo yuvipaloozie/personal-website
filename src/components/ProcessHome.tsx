@@ -24,24 +24,14 @@ export default function PlantPage() {
               <FloatingPortrait width={112} height={136} preload />
               <p>{career.arclin.title} at {career.arclin.employer}.<br />{education.graduate.subject} graduate student at {education.shortInstitution}.</p>
             </div>
-            <div className="plant-actions">
-              <a href="#conditioning" className="sweep-target"><DitherSweep /><span className="sweep-label">Background <PixelIcon name="arrow" /></span></a>
-              <Link href="/about">About me</Link>
+            <div className="plant-background-details" id="conditioning">
+              <p>My background is in Chemical and Biomolecular Engineering. At PCOM, I research machine learning for biomedical imaging.</p>
+              <AffiliationLogos />
             </div>
-          </div>
-        </section>
-
-        <section className="plant-background" id="conditioning" aria-labelledby="plant-background-title">
-          <div className="plant-copy">
-            <h2 id="plant-background-title">Background</h2>
-            <p>My background is in Chemical and Biomolecular Engineering. My work connects physical processes, automation, and data.</p>
-            <div className="plant-background-details"><dl className="plant-career">
-              <div><dt>{career.arclin.employer}</dt><dd>{career.arclin.title}</dd></div>
-              <div><dt>Georgia Tech</dt><dd>{education.graduate.degree} · {education.graduate.completion}</dd></div>
-              <div><dt>PCOM</dt><dd>Machine learning research · Biomedical imaging</dd></div>
-            </dl>
-            <AffiliationLogos /></div>
-            <Link className="plant-text-link" href="/resume">Resume <PixelIcon name="arrow" /></Link>
+            <div className="plant-actions">
+              <Link href="/about" className="sweep-target"><DitherSweep /><span className="sweep-label">About me <PixelIcon name="arrow" /></span></Link>
+              <Link href="/resume" className="sweep-target"><DitherSweep /><span className="sweep-label">Resume <PixelIcon name="arrow" /></span></Link>
+            </div>
           </div>
         </section>
 
