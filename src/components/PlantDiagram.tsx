@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { bayer8, publishWaveFrame } from "@/lib/wave-field";
 import { paintProcessGrid } from "@/lib/process-grid";
 import { createProcessDepth, drawProcessDepth } from "@/lib/process-depth";
+import { processStory } from "@/lib/process-story";
 import type { ReadingArea } from "@/lib/process-grid";
 import { processPort, processSignal } from "@/lib/process-symbols";
 
@@ -245,8 +246,8 @@ export default function PlantDiagram() {
         line([[spine + 62, feed + h / 2 - 5], [spine + 62, feed + 146]], "#8b9eac");
         line([[spine - 76, feed + 146], [spine - 48, feed + 146]], "#8b9eac");
         line([[spine + 48, feed + 146], [spine + 76, feed + 146]], "#8b9eac");
-        label("Chemical engineering", spine - 150, feed - 154);
-        label("Physical systems", spine + 112, feed + 4);
+        label(processStory.foundation.title, spine - 150, feed - 154);
+        label(processStory.foundation.context, spine + 112, feed + 4);
       }
       valve(spine, feed + h / 2 + 52);
 
@@ -262,8 +263,8 @@ export default function PlantDiagram() {
         const sidePort = Math.sqrt(hx * hx - 25 * 25);
         line([[spine - 155, heat - 25], [spine - sidePort, heat - 25]], "#a2b0bb");
         line([[spine + sidePort, heat + 25], [spine + 155, heat + 25]], "#a2b0bb");
-        label("Automation / measurement", spine + 24, heat - 135);
-        label("Process signals", spine + 124, heat - 62);
+        label(processStory.conditioning.title, spine + 24, heat - 135);
+        label(processStory.conditioning.context, spine + 110, heat + 47);
       }
 
       if (!mobile && affiliation) {
@@ -302,12 +303,13 @@ export default function PlantDiagram() {
         impeller(reactorX, reaction + 48, 59);
         line([[reactorX - 120, reaction - 60], [reactorX - 120, reaction + 100], [reactorX - 70, reaction + 152]], "#a6b5c0", 1.3);
         line([[reactorX + 120, reaction - 60], [reactorX + 120, reaction + 100], [reactorX + 70, reaction + 152]], "#a6b5c0", 1.3);
-        label("Applied machine learning", reactorX - 205, reaction - 205);
+        label(processStory.models.title, reactorX - 205, reaction - 205);
         // A measured signal returns to the process, rather than ornamental wiring.
         line([[reactorX + 105, reaction - 75], [reactorX + 175, reaction - 75], [reactorX + 175, reaction - 255], [reactorX, reaction - 255], [reactorX, reaction - 175]], "#8ea1b0", 1, [4, 5]);
         const instrument = new Path2D(); instrument.arc(reactorX + 175, reaction - 175, 21, 0, Math.PI * 2);
         context.fillStyle = "#fbfaf8"; context.fill(instrument); context.strokeStyle = "#8ea1b0"; context.stroke(instrument);
-        context.fillStyle = "#536a7d"; context.font = '12px "Instrument Sans", sans-serif'; context.fillText("ML", reactorX + 166, reaction - 171);
+        context.fillStyle = "#536a7d"; context.font = '12px "Instrument Sans", sans-serif'; context.textAlign = "center"; context.fillText(processStory.models.instrument, reactorX + 175, reaction - 171); context.textAlign = "start";
+        label(processStory.models.feedback, reactorX + 205, reaction - 170);
       }
 
       // The actual projects are outputs, with matching symbols and ordinary links.
@@ -352,6 +354,7 @@ export default function PlantDiagram() {
         [-1, 1].forEach(sign => line([[spine - shellWidth * .42, separation + sign * shellHeight * .36], [spine + shellWidth * .42, separation + sign * shellHeight * .36]], "#8da3b5", 1));
       }
       if (!mobile) {
+        label(processStory.writing.title, spine + 20, separation - shellHeight / 2 - 34);
         writingOutputs.forEach((output, i) => {
           const sy = separation + (i - 1) * 48;
           const elbow = spine - 120 - i * 20;
@@ -360,6 +363,7 @@ export default function PlantDiagram() {
         });
         line([[spine + shellWidth / 2, separation - 48], [spine + 130, separation - 48], [spine + 130, separation + 80], [spine + shellWidth / 2, separation + 80]], "#a3b1bc", 1.1);
       }
+      label(processStory.recycle.title, spine + 20, outlet - 22);
       valve(spine, outlet - 50);
       line([[spine - 8, outlet - 12], [spine, outlet], [spine + 8, outlet - 12]], "#203858", 2);
 
