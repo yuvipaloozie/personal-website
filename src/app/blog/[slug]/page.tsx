@@ -40,7 +40,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <article className="process-reading process-reading-article">
         <Link href="/blog" className="back-link">Back to blog</Link>
         <h1 className="page-title">{title}</h1>
-        <p className="entry-date">{subtitle}{node.id === "b_unet" && " · 5 min read"}</p>
+        <p className="entry-date">{subtitle}{node.id === "b_unet" && " · 7 min read"}</p>
         <p className="project-summary">{description}</p>
         {image && (
           <Image src={image} alt={title} width={760} height={400}

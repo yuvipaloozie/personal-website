@@ -72,15 +72,15 @@ const originalGraphData: { nodes: NodeData[]; links: LinkData[] } = {
     // BLOG POSTS
     {
       id: "b_unet",
-      label: "How CNNs learn to see",
+      label: "CNNs and the visual cortex",
       group: 4,
       type: "detail",
       details: {
-        title: "How CNNs learn to see",
+        title: "CNNs and the visual cortex",
         subtitle: "October 30, 2026",
-        description: "How small filters become useful visual features, and what this shares with human vision.",
+        description: "How CNNs inherit ideas from visual cortex, and how researchers test the overlap using human brain data.",
         fullDescription: [
-          "An illustrated introduction to convolution, receptive fields, and learning, grounded in visual neuroscience and medical imaging research.",
+          "A research-led explanation of receptive fields, pooling, cortical hierarchies, and the experiments that measure shared representations in CNNs and human visual cortex.",
         ],
         link: "/blog/how-cnns-learn-to-see",
       },
