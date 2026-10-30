@@ -8,14 +8,10 @@ export default function RelatedReading({ nodeId }: { nodeId: string }) {
     <aside className="related-reading" aria-labelledby="related-title">
       <h2 id="related-title">Related</h2>
       <ul>
-        {entries.map(({ node, method, threadId }) => (
+        {entries.map(({ node, method }) => (
           <li key={node.id}>
             <span className="reading-connection">
-              {threadId ? (
-                <Link href={`/projects#thread-${threadId}`} aria-label={`Follow the ${method} research thread`}>
-                  {method}
-                </Link>
-              ) : method}
+              {method}
             </span>
             <div className="reading-preview">
               <Link href={node.details!.link!}>{node.details!.title}</Link>
