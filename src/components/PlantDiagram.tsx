@@ -28,6 +28,8 @@ export default function PlantDiagram() {
     let dirty = true;
     let disposed = false;
     let activeOutput = "";
+    let writingOutputs: { x: number; y: number }[] = [];
+    let affiliation: { x: number; y: number } | undefined;
     let outputs: { id: string; x: number; y: number }[] = [];
     const drawingStock = document.createElement("canvas");
     let depth: ReturnType<typeof createProcessDepth>;
@@ -56,6 +58,14 @@ export default function PlantDiagram() {
         const rect = link.getBoundingClientRect();
         return { id: link.dataset.processOutput!, x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top + rect.height / 2) / scale };
       });
+      writingOutputs = Array.from(page!.querySelectorAll<HTMLElement>(".plant-writing li a")).map(link => {
+        const r = link.getBoundingClientRect();
+        const text = document.createRange(); text.selectNodeContents(link);
+        const textBounds = text.getBoundingClientRect();
+        return { x: (textBounds.right - origin.left - left) / scale, y: (r.top - origin.top + r.height / 2) / scale };
+      });
+      const marks = page!.querySelector<HTMLElement>(".affiliation-logos")?.getBoundingClientRect();
+      affiliation = marks ? { x: (marks.right - origin.left - left) / scale, y: (marks.top - origin.top + marks.height / 2) / scale } : undefined;
       // Cache the engineering paper once per layout, not on the animation clock.
       const reading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .affiliation-logos")).map(element => {
         const rect = element.getBoundingClientRect();
@@ -93,7 +103,7 @@ export default function PlantDiagram() {
       const feed = 310;
       const heat = stage[1] + 150;
       const reaction = stage[2] + 340;
-      const separation = stage[3] + 300;
+      const separation = stage[3] + (mobile ? 225 : 245);
       const outlet = stage[4] + 45;
       const spine = tablet ? width - 110 : mobile ? width - 27 : 885;
       const reactorX = mobile ? spine : 300;
@@ -221,16 +231,40 @@ export default function PlantDiagram() {
         label("Process signals", spine + 124, heat - 62);
       }
 
+      if (!mobile && affiliation) {
+        const elbow = Math.max(affiliation.x + 24, spine - 155);
+        line([[affiliation.x, affiliation.y], [elbow, affiliation.y], [elbow, heat - 25], [spine - Math.sqrt(hx * hx - 25 * 25), heat - 25]], "#8da3b5", 1.2);
+        processPort(context, affiliation.x, affiliation.y, false);
+      }
+
+      function impeller(x: number, y: number, radius: number) {
+        // Four pitched blades projected from a horizontal rotating plane.
+        const phase = time * 1.35;
+        const blades = Array.from({ length: 4 }, (_, i) => {
+          const a = phase + i * Math.PI / 2;
+          return { a, depth: Math.sin(a) };
+        }).sort((a, b) => a.depth - b.depth);
+        for (const { a, depth } of blades) {
+          const blade = new Path2D();
+          const project = (r: number, angle: number, pitch: number): Point => [x + Math.cos(angle) * r, y + Math.sin(angle) * r * .26 + pitch];
+          const corners = [project(radius * .13, a - .11, -3), project(radius, a - .15, -5), project(radius, a + .15, 5), project(radius * .13, a + .11, 3)];
+          corners.forEach(([px, py], i) => i ? blade.lineTo(px, py) : blade.moveTo(px, py));
+          blade.closePath();
+          context.fillStyle = depth > 0 ? "#d5dfe5" : "#edf1f3";
+          context.fill(blade); context.strokeStyle = "#587084"; context.lineWidth = 1.2; context.stroke(blade);
+        }
+        context.fillStyle = "#587084"; context.fillRect(x - 2, y - 3, 4, 6);
+      }
       const reactorHeight = tablet ? 195 : mobile ? 120 : 280;
       vessel(reactorX, reaction, tablet ? 108 : mobile ? 38 : 210, reactorHeight, 5);
       [reaction - reactorHeight / 2, reaction + reactorHeight / 2].forEach(y => processPort(context, reactorX, y, true, mobile));
       if (tablet) {
         line([[reactorX, reaction - 120], [reactorX, reaction + 40]], "#587084", 1.3);
-        line([[reactorX - 24, reaction + 20], [reactorX + 24, reaction + 35], [reactorX + 24, reaction + 20], [reactorX - 24, reaction + 35]], "#587084", 1.2);
+        impeller(reactorX, reaction + 28, 30);
       }
       if (!mobile) {
         line([[reactorX, reaction - 175], [reactorX, reaction + 62]], "#587084", 1.8);
-        line([[reactorX - 50, reaction + 36], [reactorX + 50, reaction + 60], [reactorX + 50, reaction + 36], [reactorX - 50, reaction + 60]], "#587084");
+        impeller(reactorX, reaction + 48, 59);
         line([[reactorX - 120, reaction - 60], [reactorX - 120, reaction + 100], [reactorX - 70, reaction + 152]], "#a6b5c0", 1.3);
         line([[reactorX + 120, reaction - 60], [reactorX + 120, reaction + 100], [reactorX + 70, reaction + 152]], "#a6b5c0", 1.3);
         label("Applied machine learning", reactorX - 205, reaction - 205);
@@ -272,14 +306,24 @@ export default function PlantDiagram() {
         } else outputMark(output.id, spine, output.y, ink);
       });
 
-      const separatorHeight = tablet ? 215 : mobile ? 130 : 310;
-      vessel(spine, separation, tablet ? 80 : mobile ? 34 : 138, separatorHeight, 7);
-      [separation - separatorHeight / 2, separation + separatorHeight / 2].forEach(y => processPort(context, spine, y, true, mobile));
-      if (tablet) for (let i = -3; i <= 3; i++) line([[spine - 33, separation + i * 23], [spine + 33, separation + i * 23]], "#9bafbe", 1);
+      // A shell-and-tube exchanger shares the writing stream across three outlets.
+      const shellWidth = tablet ? 72 : mobile ? 30 : 148;
+      const shellHeight = tablet ? 150 : mobile ? 110 : 220;
+      vessel(spine, separation, shellWidth, shellHeight, 7);
+      [separation - shellHeight / 2, separation + shellHeight / 2].forEach(y => processPort(context, spine, y, true, mobile));
+      if (!mobile || tablet) {
+        const tube = shellWidth * .29;
+        for (let i = -1; i <= 1; i++) line([[spine + i * tube, separation - shellHeight * .36], [spine + i * tube, separation + shellHeight * .36]], "#8da3b5", 1);
+        [-1, 1].forEach(sign => line([[spine - shellWidth * .42, separation + sign * shellHeight * .36], [spine + shellWidth * .42, separation + sign * shellHeight * .36]], "#8da3b5", 1));
+      }
       if (!mobile) {
-        for (let i = -3; i <= 3; i++) line([[spine - 60, separation + i * 30], [spine + 60, separation + i * 30]], "#9bafbe", 1);
-        line([[spine + 69, separation - 75], [spine + 155, separation - 75], [spine + 155, separation + 160], [spine, separation + 160]], "#a3b1bc");
-        label("Writing / shared methods", spine + 20, separation - 190);
+        writingOutputs.forEach((output, i) => {
+          const sy = separation + (i - 1) * 48;
+          const elbow = spine - 120 - i * 20;
+          line([[spine - shellWidth / 2, sy], [elbow, sy], [elbow, output.y], [output.x + 26, output.y]], "#a3b1bc", 1.1);
+          processPort(context, spine - shellWidth / 2, sy, false);
+        });
+        line([[spine + shellWidth / 2, separation - 48], [spine + 130, separation - 48], [spine + 130, separation + 80], [spine + shellWidth / 2, separation + 80]], "#a3b1bc", 1.1);
       }
       valve(spine, outlet - 50);
       line([[spine - 8, outlet - 12], [spine, outlet], [spine + 8, outlet - 12]], "#203858", 2);
