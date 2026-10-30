@@ -43,7 +43,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_trading": {
     "title": "Regime-Aware Sector Rotation",
-    "summary": "Ranks 11 sector ETFs using Gaussian HMM regimes and XGBRanker, with a four-week purge/embargo in walk-forward evaluation.",
+    "summary": "Ranks sector ETFs with HMM regimes and XGBRanker. Original backtest (legacy): Sharpe 0.88 versus 0.65 for SPY; not yet reproduced by the revised pipeline.",
     "github": "https://github.com/yuvipaloozie/Regime-Aware-Sector-Trading",
     "slug": "regime-aware-trading",
     "image": "/projects/trading.svg",
