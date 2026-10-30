@@ -29,7 +29,6 @@ export default function PlantDiagram() {
     let disposed = false;
     let activeOutput = "";
     let outputs: { id: string; x: number; y: number }[] = [];
-    let contact: { x: number; y: number } | undefined;
     const drawingStock = document.createElement("canvas");
     let depth: ReturnType<typeof createProcessDepth>;
     let depthReading: ReadingArea[] = [];
@@ -49,7 +48,7 @@ export default function PlantDiagram() {
       const left = width <= 900 ? 0 : (width - 1200 * scale) / 2;
       const origin = page!.getBoundingClientRect();
       depth = createProcessDepth(width);
-      depthReading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-close, .affiliation-logos")).map(element => {
+      depthReading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .affiliation-logos")).map(element => {
         const r = element.getBoundingClientRect();
         return { x: r.left - origin.left, y: r.top - origin.top, w: r.width, h: r.height };
       });
@@ -57,10 +56,8 @@ export default function PlantDiagram() {
         const rect = link.getBoundingClientRect();
         return { id: link.dataset.processOutput!, x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top + rect.height / 2) / scale };
       });
-      const contactLink = page!.querySelector<HTMLElement>('[data-process-output="contact"]')?.getBoundingClientRect();
-      contact = contactLink ? { x: (contactLink.right - origin.left - left) / scale, y: (contactLink.top - origin.top + contactLink.height / 2) / scale } : undefined;
       // Cache the engineering paper once per layout, not on the animation clock.
-      const reading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .plant-close, .affiliation-logos")).map(element => {
+      const reading = Array.from(page!.querySelectorAll<HTMLElement>(".plant-copy, .affiliation-logos")).map(element => {
         const rect = element.getBoundingClientRect();
         return { x: (rect.left - origin.left - left) / scale, y: (rect.top - origin.top) / scale, w: rect.width / scale, h: rect.height / scale };
       });
@@ -97,7 +94,7 @@ export default function PlantDiagram() {
       const heat = stage[1] + 150;
       const reaction = stage[2] + 340;
       const separation = stage[3] + 300;
-      const outlet = stage[4] + 230;
+      const outlet = stage[4] + 45;
       const spine = tablet ? width - 110 : mobile ? width - 27 : 885;
       const reactorX = mobile ? spine : 300;
       const firstTurn = stage[2] - 35;
@@ -286,9 +283,6 @@ export default function PlantDiagram() {
       }
       valve(spine, outlet - 50);
       line([[spine - 8, outlet - 12], [spine, outlet], [spine + 8, outlet - 12]], "#203858", 2);
-      if (!mobile && contact) {
-        processSignal(context, [[spine, outlet], [spine - 110, outlet], [spine - 110, contact.y + 40], [contact.x + 16, contact.y + 40], [contact.x + 16, contact.y]], activeOutput === "contact");
-      }
 
       // Dithered packets travel only through the part revealed by scrolling.
       if (!preference.matches) {

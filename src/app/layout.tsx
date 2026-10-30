@@ -10,11 +10,11 @@ import { PixelIcon } from "@/components/ui/pixel-icon";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 export const metadata: Metadata = {
   title: {
-    default: "Yuvraj Tripathy | Research & Engineering",
+    default: "Yuvraj Tripathy | Industrial AI & Engineering",
     template: "%s | Yuvraj Tripathy",
   },
   description:
-    "Research, projects, and technical notes by Yuvraj Tripathy: process engineering, machine learning, knowledge graphs, and biomedical computer vision.",
+    "Industrial AI and process engineering by Yuvraj Tripathy: machine learning for manufacturing, process safety knowledge graphs, controls, and scientific image analysis.",
 };
 export default function RootLayout({
   children,

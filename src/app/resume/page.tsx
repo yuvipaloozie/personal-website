@@ -30,11 +30,12 @@ export default function Resume() {
       </header>
       <section className="process-resume-section" id="education" aria-labelledby="education-title">
         <h2 id="education-title">Education</h2>
-        <div className="process-resume-entry" data-process-item>
-          <h3>{education.institution}</h3>
-          <p>{education.graduate.degree} · {education.graduate.completion}</p>
-          <p>{education.undergraduate.degree} · {education.undergraduate.completion}</p>
-        </div>
+        {[education.graduate, education.undergraduate].map(degree => (
+          <div className="process-resume-entry" data-process-item key={degree.year}>
+            <h3>{education.shortInstitution}</h3>
+            <p>{degree.degree} · {degree.completion}</p>
+          </div>
+        ))}
       </section>
       <section className="process-resume-section" aria-labelledby="experience-title">
         <h2 id="experience-title">Experience</h2>
