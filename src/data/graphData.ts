@@ -72,20 +72,17 @@ const originalGraphData: { nodes: NodeData[]; links: LinkData[] } = {
     // BLOG POSTS
     {
       id: "b_unet",
-      label: "Scaling U-Net++",
+      label: "How CNNs learn to see",
       group: 4,
       type: "detail",
       details: {
-        title: "Scaling U-Net++ for High-Res Microscopy Data",
-        subtitle: "May 10, 2026",
-        description:
-          "Exploring the memory management challenges and patch-based optimizations required when adapting segmentation networks for large biological imagery.",
+        title: "How CNNs learn to see",
+        subtitle: "October 30, 2026",
+        description: "How small filters become useful visual features, and what this shares with human vision.",
         fullDescription: [
-          "When dealing with ultra high-resolution microscopy images, standard Convolutional Neural Networks like U-Net often struggle with memory constraints. Attempting to load a full 4K or 8K cellular scan into VRAM for segmentation usually results in an Out Of Memory (OOM) error.",
-          "In this post, we explore patch-based training methodologies. By slicing the original high-resolution image into overlapping 256x256 or 512x512 patches, we can feed the network manageable chunks without losing the critical spatial context. We then use a specialized overlap-stitching algorithm during inference to reconstruct the final segmentation map seamlessly.",
-          "Furthermore, we discuss the integration of deep supervision in U-Net++ architectures, which helps gradient flow and accelerates convergence when dealing with highly imbalanced cellular backgrounds.",
+          "An illustrated introduction to convolution, receptive fields, and learning, grounded in visual neuroscience and medical imaging research.",
         ],
-        link: "/blog/scaling-unet",
+        link: "/blog/how-cnns-learn-to-see",
       },
     },
     {

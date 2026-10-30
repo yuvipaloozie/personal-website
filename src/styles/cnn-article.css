@@ -1,0 +1,80 @@
+.cnn-article h2 {
+  margin: 48px 0 16px;
+  color: #203858;
+  font-family: "Instrument Sans", Arial, Helvetica, sans-serif;
+  font-size: clamp(23px, 3vw, 28px);
+  font-weight: 550;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.cnn-article strong { color: #203858; font-weight: 600; }
+.cnn-article a { color: #243d63; text-decoration: underline; text-underline-offset: 3px; }
+.cnn-article a:hover { color: #142844; }
+.cnn-article a:focus-visible { outline: 2px solid #243d63; outline-offset: 4px; border-radius: 2px; }
+.cnn-cite { margin-left: 3px; font-size: 11px; line-height: 0; white-space: nowrap; }
+.cnn-cite a { padding: 5px 1px; }
+
+.cnn-figure {
+  margin: 32px 0;
+  padding: 28px 24px 20px;
+  border-radius: 12px;
+  background: #f0f3f6;
+  color: #203858;
+}
+.cnn-figure svg { display: block; width: 100%; height: auto; font-family: inherit; }
+.cnn-figure figcaption {
+  margin-top: 20px;
+  color: #455d72;
+  font-size: 13px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.cnn-filter-demo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 20px minmax(0, 1fr) 20px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+}
+.cnn-diagram-label { display: block; color: #203858; font-size: 13px; line-height: 1.4; text-align: center; }
+.cnn-filter-demo .cnn-diagram-label { min-height: 38px; }
+.cnn-operator { font-size: 24px; text-align: center; }
+.cnn-response { display: flex; flex-direction: column; align-items: center; align-self: stretch; justify-content: space-between; }
+.cnn-response strong { margin: auto; font-size: clamp(36px, 6vw, 64px); font-weight: 500; line-height: 1.5; }
+.cnn-response > span:last-child { font-size: 13px; white-space: nowrap; }
+.cnn-field-demo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.cnn-field-demo svg { margin-block: 12px; }
+
+.cnn-equation {
+  margin: 24px 0;
+  padding: 16px 0;
+  color: #203858;
+  overflow-x: auto;
+  font-size: 23px;
+  scrollbar-color: #a9bac8 transparent;
+  scrollbar-width: thin;
+}
+.cnn-equation math { width: max-content; min-width: 100%; margin: 0; }
+.cnn-references { margin-top: 56px; padding-top: 24px; border-top: 1px solid #e4e1db; }
+.cnn-references h2 { margin-top: 0; font-size: 22px; }
+.cnn-references ol { margin: 0; padding-left: 24px; }
+.cnn-references li { padding-left: 5px; margin: 0 0 16px; color: #454944; font-size: 14px; line-height: 1.7; overflow-wrap: anywhere; scroll-margin-top: 110px; }
+.cnn-references li:target { background: #e3e9ef; border-radius: 4px; outline: 6px solid #e3e9ef; }
+.cnn-references .cnn-figure-credit { margin: 24px 0 0; color: #536a7d; font-size: 13px; line-height: 1.6; }
+
+@media (max-width: 600px) {
+  .cnn-figure { margin-inline: -6px; padding: 20px 12px 16px; }
+  .cnn-filter-demo { gap: 5px; grid-template-columns: minmax(0, 1fr) 12px minmax(0, 1fr) 12px minmax(0, 0.85fr); }
+  .cnn-filter-demo .cnn-diagram-label { font-size: 12px; min-height: 38px; }
+  .cnn-operator { font-size: 18px; }
+  .cnn-response > span:last-child { font-size: 11px; }
+  .cnn-field-demo { gap: 10px; }
+  .cnn-field-demo .cnn-diagram-label { font-size: 12px; }
+  .cnn-article h2 { margin-top: 40px; }
+  .cnn-equation { font-size: 21px; }
+}
+
+@media print {
+  .cnn-figure, .cnn-equation { break-inside: avoid; }
+  .cnn-figure { print-color-adjust: exact; }
+}
