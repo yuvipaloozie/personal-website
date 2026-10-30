@@ -48,9 +48,6 @@ export default function Navbar() {
             </Link>
           ))}
         </nav>
-        <Link href="/graph" className="graph-nav-link sweep-target nav-sweep" aria-label="Knowledge graph" title="Knowledge graph" aria-current={pathname === "/graph" ? "page" : undefined}>
-          <DitherSweep /><span className="sweep-label"><span className="graph-nav-full">Knowledge graph</span><span className="graph-nav-short" aria-hidden="true">Graph</span></span>
-        </Link>
       </div>
     </header>
   );
