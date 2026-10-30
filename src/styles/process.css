@@ -1,0 +1,64 @@
+:root { --process-paper: #fbfaf8; --process-ink: #203858; --process-copy: #454944; --process-reading-size: 1.0625rem; --process-reading-compact: 1rem; --process-action-size: .875rem; }
+.process-page { position: relative; isolation: isolate; background: var(--process-paper); min-height: calc(100svh - 220px); }
+.process-backdrop { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+.process-content { max-width: 1200px; margin-inline: auto; padding: 66px 100px 92px 48px; }
+.process-page h1, .process-page h2 { font-family: "Geist Pixel", "Instrument Sans", sans-serif; font-weight: 400; color: var(--process-ink); text-wrap: balance; }
+.process-page p, .plant-copy p { text-wrap: pretty; }
+.process-page h1, .process-page .page-title { font-size: clamp(48px, 7vw, 78px); line-height: 1.05; letter-spacing: -.03em; margin: 0 0 28px; }
+.process-page h2 { font-size: 34px; line-height: 1.2; letter-spacing: -.02em; }
+.process-page p { color: var(--process-copy); }
+.process-page .page-intro { font-size: 18px; line-height: 1.65; max-width: 53ch; margin-bottom: 36px; }
+.process-page .back-link { min-height: 44px; display: inline-flex; align-items: center; margin-bottom: 28px; font-size: 14px; }
+.process-page .prose { max-width: 70ch; font-size: var(--process-reading-size); line-height: 1.8; }
+.process-page .prose p { margin-bottom: 24px; }
+.process-page .project-index { max-width: 900px; }
+.process-projects .topic-filter { margin-top: 30px; }
+.process-projects #project-results { position: relative; padding-left: 26px; margin-top: 34px; }
+.process-projects #project-results::before { content: ""; position: absolute; left: 2px; top: 24px; bottom: 40px; border-left: 2px dotted #c2ced8; }
+.process-page.process-projects .project-index .project-entry { position: relative; grid-template-columns: 168px minmax(0, 1fr); gap: 30px; padding-block: 28px; border: 0; margin: 0; }
+.process-projects .project-entry::before { content: ""; position: absolute; width: 5px; height: 5px; background: #8ba1b3; left: -26px; top: 48px; }
+.process-projects .project-entry:focus-within::before, .process-projects .project-entry:hover::before { background: #203858; }
+.process-projects .project-entry h2 { font-family: "Instrument Sans", sans-serif; font-weight: 500; font-size: 23px; line-height: 1.3; max-width: 32ch; }
+.process-projects .project-entry p { max-width: 57ch; font-size: 16px; line-height: 1.7; }
+.process-projects .project-figure { border-radius: 8px; align-self: start; overflow: hidden; }
+.process-projects .project-figure img { width: 168px; height: 128px; object-fit: contain; border-radius: 8px; filter: none; }
+.process-projects .project-links a { display: inline-flex; min-height: 44px; align-items: center; font-size: var(--process-action-size); }
+.process-projects .result-count { color: #627584; font-size: var(--process-action-size); font-variant-numeric: tabular-nums; }
+.process-detail .process-content, .process-experience .process-content, .process-resume .process-content { padding-right: 160px; }
+.process-page.process-detail h1, .process-page.process-experience h1 { font-size: clamp(34px, 4.5vw, 54px); max-width: 27ch; }
+body:has(.process-page) .site-footer { margin-top: 0; }
+@media (max-width: 900px) {
+  .process-content { padding: 48px 74px 72px 28px; }
+  .process-detail .process-content, .process-experience .process-content, .process-resume .process-content { padding-right: 80px; }
+  .process-page.process-projects .project-index .project-entry { grid-template-columns: 128px minmax(0,1fr); gap: 22px; }
+  .process-projects .project-figure img { width: 128px; height: 105px; }
+}
+@media (max-width: 600px) {
+  .process-content, .process-detail .process-content, .process-experience .process-content, .process-resume .process-content { padding: 42px 48px 60px 22px; }
+  .process-page h1, .process-page .page-title { font-size: 48px; margin-bottom: 22px; }
+  .process-page h2 { font-size: 30px; }
+  .process-page .page-intro { font-size: 17px; }
+  .process-page .prose { font-size: var(--process-reading-compact); }
+  .process-page.process-detail h1, .process-page.process-experience h1 { font-size: clamp(1.75rem, 8.8vw, 2.125rem); }
+  .process-page.process-projects .project-index .project-entry { grid-template-columns: 1fr; gap: 18px; padding-block: 24px; }
+  .process-projects .project-figure img { width: 100%; height: 175px; }
+  .process-projects .project-entry h2 { font-size: 22px; }
+  .process-projects .topic-filter { gap: 5px; }
+}
+@media print {
+  .process-backdrop, .process-projects #project-results::before, .process-projects .project-entry::before { display: none; }
+  .process-page { background: white; min-height: 0; }
+  .process-content, .process-detail .process-content, .process-experience .process-content, .process-resume .process-content { max-width: none; padding: 0; }
+  .process-page h1, .process-page .page-title { font: 28pt "Instrument Sans", sans-serif; color: black; }
+}
+@media (max-width: 360px) {
+  .site-header .site-name { font-size: 18px; gap: 6px; }
+  .site-header .graph-nav-link { min-width: 44px; min-height: 44px; justify-content: center; }
+  .site-header .graph-nav-link .sweep-label > span { display: none; }
+  .site-header .header-inner nav { gap: 0; }
+  .site-header .header-inner nav a.nav-sweep { min-width: 44px; padding-inline: 6px; }
+}
+
+/* Static method tags help compare projects without competing with their diagrams. */
+.project-methods { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 12px 0 8px; }
+.project-methods li { background: #eaf0f5; color: #203858; border-radius: 6px; padding: 4px 8px; font-size: .75rem; line-height: 1.5; }

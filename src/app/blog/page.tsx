@@ -1,28 +1,29 @@
-import Card from "@/components/Card";
-import AnimateIn from "@/components/AnimateIn";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PixelIcon } from "@/components/ui/pixel-icon";
 import { graphData } from "@/data/graphData";
-
+import ProcessSurface from "@/components/ProcessSurface";
+import "@/styles/process-reading.css";
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Notes on machine learning, biomedical image analysis, and engineering software.",
+};
 export default function Blog() {
-  const blogNodes = graphData.nodes.filter(n => n.type === 'detail' && n.id.startsWith('b_'));
-
+  const notes = graphData.nodes.filter((n) => n.id.startsWith("b_"));
   return (
-    <div className="container section">
-      <AnimateIn delay={0.1}>
-        <h1 className="section-title">blog</h1>
-      </AnimateIn>
-      
-      <div className="grid grid-2">
-        {blogNodes.map((node, i) => (
-          <AnimateIn delay={0.2 + (i * 0.1)} key={node.id}>
-            <Card 
-              title={node.details!.title}
-              subtitle={node.details!.subtitle}
-              description={node.details!.description}
-              link={node.details!.link}
-            />
-          </AnimateIn>
-        ))}
+    <ProcessSurface kind="blog">
+      <h1 className="page-title">Blog</h1>
+      <div className="process-reading process-writing-list">
+        <ul>
+          {notes.map((n) => (
+            <li key={n.id} data-process-item={n.id}>
+              <Link href={n.details!.link!}><PixelIcon name="document" />{n.details!.title}</Link>
+              <time className="entry-date" dateTime={n.details!.subtitle ? new Date(n.details!.subtitle).toISOString().slice(0, 10) : undefined}>{n.details!.subtitle}</time>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </ProcessSurface>
   );
 }

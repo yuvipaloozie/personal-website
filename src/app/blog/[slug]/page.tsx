@@ -1,7 +1,11 @@
-import AnimateIn from "@/components/AnimateIn";
+import type { Metadata } from "next";
+import Image from "next/image";
+import RelatedReading from "@/components/RelatedReading";
 import { graphData } from "@/data/graphData";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ProcessSurface from "@/components/ProcessSurface";
+import "@/styles/process-reading.css";
 
 export function generateStaticParams() {
   const blogNodes = graphData.nodes.filter(n => n.type === 'detail' && n.id.startsWith('b_'));
@@ -9,6 +13,14 @@ export function generateStaticParams() {
     const slug = node.details?.link?.split("/").pop();
     return { slug };
   });
+}
+
+export async function generateMetadata({ params }: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const details = graphData.nodes.find(n => n.details?.link === `/blog/${slug}`)?.details;
+  return details ? { title: details.title, description: details.description } : { title: "Note not found" };
 }
 
 export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
@@ -22,33 +34,21 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   const { title, subtitle, image, description, fullDescription } = node.details;
 
   return (
-    <div className="container section">
-      <AnimateIn delay={0.1}>
-        <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <Link href="/blog" style={{ color: 'var(--accent-color)', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600, display: 'inline-block', marginBottom: '2rem', textDecoration: 'none' }}>&larr; Back to Blog</Link>
-          
-          {image && (
-            <div style={{ marginBottom: '2rem', border: '1px solid var(--card-border)', padding: '0.5rem', background: 'var(--bg-color)', position: 'relative' }}>
-               <div style={{ position: 'absolute', top: '-5px', left: '-5px', width: '10px', height: '10px', borderTop: '2px solid var(--accent-color)', borderLeft: '2px solid var(--accent-color)' }}></div>
-              <div style={{ position: 'absolute', bottom: '-5px', right: '-5px', width: '10px', height: '10px', borderBottom: '2px solid var(--accent-color)', borderRight: '2px solid var(--accent-color)' }}></div>
-              <img src={image} alt={title} style={{ width: '100%', height: '400px', objectFit: 'cover', display: 'block', filter: 'contrast(1.1) grayscale(0.2)' }} />
-            </div>
-          )}
-          
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--text-color)' }}>{title}</h1>
-          <h2 style={{ color: 'var(--accent-color)', fontSize: '1.2rem', marginBottom: '2rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{subtitle}</h2>
-          
-          <div style={{ borderLeft: '3px solid var(--card-border)', paddingLeft: '1.5rem', marginBottom: '2rem' }}>
-            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>{description}</p>
-          </div>
-
-          <div style={{ fontSize: '1.1rem', lineHeight: 1.8, color: 'var(--text-color)' }}>
-            {fullDescription?.map((p, idx) => (
-              <p key={idx} style={{ marginBottom: '1.5rem' }}>{p}</p>
-            ))}
-          </div>
+    <ProcessSurface kind="detail">
+      <article className="process-reading process-reading-article">
+        <Link href="/blog" className="back-link">Back to blog</Link>
+        <h1 className="page-title">{title}</h1>
+        <p className="entry-date">{subtitle}</p>
+        <p className="project-summary">{description}</p>
+        {image && (
+          <Image src={image} alt={title} width={760} height={400}
+            sizes="(max-width: 800px) 100vw, 760px" className="detail-image" />
+        )}
+        <div className="prose">
+          {fullDescription?.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
         </div>
-      </AnimateIn>
-    </div>
+        <RelatedReading nodeId={node.id} />
+      </article>
+    </ProcessSurface>
   );
 }

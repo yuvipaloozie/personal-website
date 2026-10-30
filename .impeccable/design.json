@@ -1,0 +1,236 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T00:25:45.5674342Z",
+  "title": "Design System: Research and Engineering — Process",
+  "extensions": {
+    "colorMeta": {
+      "process-paper": {
+        "role": "neutral",
+        "displayName": "Warm engineering paper",
+        "canonical": "#fbfaf8"
+      },
+      "process-ink": {
+        "role": "primary",
+        "displayName": "Process navy",
+        "canonical": "#203858"
+      },
+      "process-copy": {
+        "role": "neutral",
+        "displayName": "Reading ink",
+        "canonical": "#454944"
+      },
+      "grid": {
+        "role": "neutral",
+        "displayName": "Broken drawing grid",
+        "canonical": "#a9bac8"
+      },
+      "utility-circuit": {
+        "role": "neutral",
+        "displayName": "Depth equipment stipple",
+        "canonical": "#8da3b5"
+      },
+      "depth-process-line": {
+        "role": "neutral",
+        "displayName": "Continuous depth process pipe",
+        "canonical": "#7892a6"
+      },
+      "depth-utility-line": {
+        "role": "neutral",
+        "displayName": "Dashed depth utility pipe",
+        "canonical": "#9aabba"
+      },
+      "signal-line": {
+        "role": "neutral",
+        "displayName": "Dotted connection signal",
+        "canonical": "#91a5b7"
+      },
+      "return-line": {
+        "role": "neutral",
+        "displayName": "Dash-dot outer return",
+        "canonical": "#b0bcc5"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Home display",
+        "purpose": "Homepage name and process identity."
+      },
+      "headline": {
+        "displayName": "Subpage display",
+        "purpose": "Index, About and Resume titles; detail pages use a smaller clamp."
+      },
+      "body": {
+        "displayName": "Reading copy",
+        "purpose": "Long prose at a maximum of 70ch; --process-reading-size is 1.0625rem with 1.8 line height."
+      },
+      "navigation": {
+        "displayName": "Technical navigation",
+        "purpose": "Shared navigation and graph labels."
+      },
+      "body-compact": {
+        "displayName": "Compact article copy",
+        "purpose": "At 600px and below, article prose uses --process-reading-compact (1rem) and 1.75 line height, giving 16px/28px at the default root size."
+      },
+      "action": {
+        "displayName": "Project actions",
+        "purpose": "--process-action-size (.875rem) for project GitHub actions and tabular result counts; action links retain 44px minimum height."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "selection-glide",
+        "value": "240ms",
+        "purpose": "Bounded selection-surface continuity; immediate with reduced motion."
+      },
+      {
+        "name": "pixel-sweep",
+        "value": "520ms",
+        "purpose": "Six-row aspect-fitted deterministic pixel arrival on hover and focus."
+      },
+      {
+        "name": "home-paint-minimum",
+        "value": "40ms",
+        "purpose": "Approximately 25fps idle diagram paint cadence."
+      },
+      {
+        "name": "subpage-paint-minimum",
+        "value": "50ms",
+        "purpose": "Approximately 20fps discovery backdrop cadence; reading/Resume have no idle loop."
+      },
+      {
+        "name": "control-feedback",
+        "value": "160ms",
+        "purpose": "Shared borderless control color/surface feedback; reduced motion removes timing."
+      },
+      {
+        "name": "foundation-node",
+        "value": "140ms",
+        "purpose": "Foundation node gray-blue to navy; icons stay stationary."
+      },
+      {
+        "name": "utility-depth-scroll",
+        "value": "0.32",
+        "purpose": "Original cached 1100px process-train tile scrolls at 0.32 times page offset, at .27 opacity or .20 below 600px. Cached process/recycle routes share the existing canvas clock. Reduced motion uses normal page-relative scroll with no packets; reading masks remain active."
+      },
+      {
+        "name": "affiliation-mark-feedback",
+        "value": "220ms cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Only the selected mark scales to 1.08 on fine-pointer hover or keyboard focus; reduced motion removes transition timing. The affiliation network stays stationary with no continuous animation."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-home",
+        "value": "1400px"
+      },
+      {
+        "name": "tablet",
+        "value": "900px"
+      },
+      {
+        "name": "circuit-narrow",
+        "value": "720px"
+      },
+      {
+        "name": "reading-phone",
+        "value": "600px"
+      },
+      {
+        "name": "home-biography-stack",
+        "value": "480px"
+      },
+      {
+        "name": "header-compact",
+        "value": "360px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Career foundation link",
+      "kind": "custom",
+      "description": "Borderless 8px ghost About link with DitherSweep, inner grid label and gray-blue to navy path node. Icons remain stationary; dotted keyboard focus and static reduced-motion states follow shared process-controls.css. The self-contained preview uses the source default 12-column grid; production fits columns to link size.",
+      "html": "<div class=\"ds-foundation-item\"><a class=\"ds-foundation-link\" href=\"/resume#education\"><span class=\"ds-foundation-sweep\" aria-hidden=\"true\"><span class=\"ds-foundation-pixels\"><i style=\"--dsn-d:0ms\"></i><i style=\"--dsn-d:116ms\"></i><i style=\"--dsn-d:49ms\"></i><i style=\"--dsn-d:122ms\"></i><i style=\"--dsn-d:125ms\"></i><i style=\"--dsn-d:154ms\"></i><i style=\"--dsn-d:194ms\"></i><i style=\"--dsn-d:168ms\"></i><i style=\"--dsn-d:207ms\"></i><i style=\"--dsn-d:250ms\"></i><i style=\"--dsn-d:315ms\"></i><i style=\"--dsn-d:322ms\"></i><i style=\"--dsn-d:19ms\"></i><i style=\"--dsn-d:97ms\"></i><i style=\"--dsn-d:101ms\"></i><i style=\"--dsn-d:111ms\"></i><i style=\"--dsn-d:114ms\"></i><i style=\"--dsn-d:192ms\"></i><i style=\"--dsn-d:207ms\"></i><i style=\"--dsn-d:203ms\"></i><i style=\"--dsn-d:226ms\"></i><i style=\"--dsn-d:248ms\"></i><i style=\"--dsn-d:218ms\"></i><i style=\"--dsn-d:298ms\"></i><i style=\"--dsn-d:3ms\"></i><i style=\"--dsn-d:29ms\"></i><i style=\"--dsn-d:80ms\"></i><i style=\"--dsn-d:99ms\"></i><i style=\"--dsn-d:183ms\"></i><i style=\"--dsn-d:163ms\"></i><i style=\"--dsn-d:188ms\"></i><i style=\"--dsn-d:209ms\"></i><i style=\"--dsn-d:232ms\"></i><i style=\"--dsn-d:253ms\"></i><i style=\"--dsn-d:255ms\"></i><i style=\"--dsn-d:331ms\"></i><i style=\"--dsn-d:27ms\"></i><i style=\"--dsn-d:64ms\"></i><i style=\"--dsn-d:74ms\"></i><i style=\"--dsn-d:157ms\"></i><i style=\"--dsn-d:150ms\"></i><i style=\"--dsn-d:201ms\"></i><i style=\"--dsn-d:200ms\"></i><i style=\"--dsn-d:164ms\"></i><i style=\"--dsn-d:259ms\"></i><i style=\"--dsn-d:201ms\"></i><i style=\"--dsn-d:246ms\"></i><i style=\"--dsn-d:314ms\"></i><i style=\"--dsn-d:22ms\"></i><i style=\"--dsn-d:106ms\"></i><i style=\"--dsn-d:98ms\"></i><i style=\"--dsn-d:68ms\"></i><i style=\"--dsn-d:97ms\"></i><i style=\"--dsn-d:135ms\"></i><i style=\"--dsn-d:229ms\"></i><i style=\"--dsn-d:195ms\"></i><i style=\"--dsn-d:173ms\"></i><i style=\"--dsn-d:246ms\"></i><i style=\"--dsn-d:275ms\"></i><i style=\"--dsn-d:313ms\"></i><i style=\"--dsn-d:6ms\"></i><i style=\"--dsn-d:38ms\"></i><i style=\"--dsn-d:55ms\"></i><i style=\"--dsn-d:148ms\"></i><i style=\"--dsn-d:107ms\"></i><i style=\"--dsn-d:127ms\"></i><i style=\"--dsn-d:199ms\"></i><i style=\"--dsn-d:246ms\"></i><i style=\"--dsn-d:242ms\"></i><i style=\"--dsn-d:294ms\"></i><i style=\"--dsn-d:305ms\"></i><i style=\"--dsn-d:292ms\"></i></span></span><span class=\"ds-foundation-label\"><span class=\"ds-foundation-title\">Chemical engineering</span><span class=\"ds-foundation-meta\">Georgia Tech</span><svg class=\"pixel-icon\" aria-hidden=\"true\" focusable=\"false\" width=\"16\" height=\"16\" viewBox=\"0 0 8 8\" fill=\"currentColor\" shape-rendering=\"crispEdges\"><path d=\"M4 1h1v1h-1zM5 2h1v1h-1zM1 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM5 4h1v1h-1zM4 5h1v1h-1z\"/></svg></span></a></div>",
+      "css": ".ds-foundation-item{position:relative;padding:25px 30px 0 0;border-top:2px dotted #a9bac8}.ds-foundation-item::before{content:'';position:absolute;top:-4px;left:0;width:7px;height:7px;background:#8ba1b3;transition:background-color 140ms ease}.ds-foundation-link{position:relative;isolation:isolate;display:block;min-height:70px;border:0;box-shadow:none;border-radius:8px;background:transparent;transition:color 160ms ease,background-color 160ms ease;color:var(--process-ink,#203858);font-family:'Instrument Sans',Arial,sans-serif;text-decoration:none}.ds-foundation-label{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 16px;align-items:center;gap:6px 12px;min-height:70px;width:100%}.ds-foundation-title{font-size:18px;line-height:1.35}.ds-foundation-meta{grid-column:1;color:#53616c;font-size:14px}.ds-foundation-label>svg{grid-column:2;grid-row:1;transition:transform 140ms cubic-bezier(.16,1,.3,1)}.ds-foundation-sweep{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;border-radius:inherit}.ds-foundation-pixels{position:absolute;inset:0;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(6,1fr)}.ds-foundation-pixels i{display:block;background:#c9d8eb;opacity:0;transition:opacity 180ms linear var(--dsn-d,0ms)}.ds-foundation-link:focus-visible{outline:2px dotted var(--process-ink,#203858);outline-offset:3px}.ds-foundation-item:has(a:focus-visible)::before{background:#203858}.ds-foundation-link:focus-visible .pixel-icon{transform:none}.ds-foundation-link:focus-visible .ds-foundation-pixels i{opacity:1}.ds-foundation-link:hover .ds-foundation-title{text-decoration:underline;text-underline-offset:4px}@media(hover:hover) and (pointer:fine){.ds-foundation-item:has(a:hover)::before{background:#203858}.ds-foundation-link:hover .pixel-icon{transform:none}.ds-foundation-link:hover .ds-foundation-pixels i{opacity:1}}@media(prefers-reduced-motion:reduce){.ds-foundation-link,.ds-foundation-label>svg,.ds-foundation-item::before,.ds-foundation-pixels i{transition:none}.ds-foundation-link:is(:hover,:focus-visible) .pixel-icon{transform:none}}@media(forced-colors:active){.ds-foundation-sweep{display:none}.ds-foundation-link:focus-visible{outline-color:Highlight}}@media print{.ds-foundation-sweep{display:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Engineering paper and a connected process",
+    "overview": "The approved process design is the main website at /. The /plant alias permanently redirects home. Warm paper, navy, pixel headings and measured process circuits unify discovery and reading surfaces; the established knowledge graph remains intact.",
+    "keyCharacteristics": [
+      "Original abstract process geometry",
+      "Full-contrast reading copy with measured texture clearance",
+      "Shared locally generated drawing stock",
+      "Quieter circuits on reading and Resume pages",
+      "Original factual content and assets",
+      "Original connected feed/pump/exchanger/reactor/separator depth train with slower scroll and independent reading masks",
+      "Stationary asymmetric affiliation network in Background with full Wood/Alcon lockups and selected-mark feedback"
+    ],
+    "rules": [
+      {
+        "name": "Reading clearance",
+        "body": "Clear grid texture beneath measured content and fade it back over 28 units.",
+        "section": "elevation"
+      },
+      {
+        "name": "Motion follows the surface",
+        "body": "Discovery pages use bounded idle stipple and packets. Detail, experience and Resume backdrops repaint only on invalidation; reduced motion freezes decorative time.",
+        "section": "components"
+      },
+      {
+        "name": "Shared ghost controls",
+        "body": "Use borderless 8px controls with 44px minimum height, visible pixel sweeps and 2px dotted keyboard focus. Keep labels and icons stationary.",
+        "section": "components"
+      },
+      {
+        "name": "Affiliation marks",
+        "body": "Place the stationary 230×270px asymmetric network beside the Background career list, above it at <=900px. Links have minimum 60px width and 60px height, expanding for full Wood and Alcon local lockups. Preserve Arclin symbol, Bayer cross and Georgia Tech monogram. Navy alpha masks, orthogonal [2, 5] dotted elbows and square junctions, real destinations, accessible names, DitherSweep/dotted focus and both background masks remain. Only the selected mark scales to 1.08 over 220ms on fine-pointer hover or keyboard focus; reduced motion removes timing. No orbit, circles or continuous affiliation animation.",
+        "section": "components"
+      },
+      {
+        "name": "Connected depth train",
+        "body": "The original 1100px cached tile connects feed tank, pump, four-port exchanger, stirred reactor, tray separator and product trunk at boundary nozzles; recycle, shared utilities and instruments belong to the same train. Process pipes stay continuous and Bayer stipple stays inside equipment. Cache process/recycle flow routes and reuse the existing canvas loop.",
+        "section": "elevation"
+      },
+      {
+        "name": "Curated repository projects",
+        "body": "Only PSM Knowledge Graph, OCLAST, Regime-Aware Sector Rotation, ECG Arrhythmia Classification and Semiconductor Yield Optimization & RCA appear in public listings/topics/graph. Copy, repository URLs, slugs and image mappings come from src/lib/project-previews.ts, verified October 29, 2026. Titles and GitHub actions link directly to repositories; the five legacy project URLs permanently redirect, and duplicate Read more/GitHub links are suppressed. Original navy/Bayer-style workflow SVG miniatures use contain and no filters, with descriptive alt text and no empirical-result claims.",
+        "section": "components"
+      },
+      {
+        "name": "Shared process connections",
+        "body": "process-symbols.ts defines solid 1px double-flange ports in #71899d with 7px/12px half-width/stem extents, compact 4px/7px. Signals use 1px [2, 5] dots with 4px solid starts and 6px hollow ends; active paths are solid navy at 1.6px. Primary piping stays solid and desktop outer return uses 1px [10, 5, 2, 5] dash-dot without the vertical caption. Share ports and signals across main equipment, project branches and subpage margin circuits.",
+        "section": "components"
+      },
+      {
+        "name": "Foreground separation",
+        "body": "Clear a 28px-wide main-path corridor through the rear process circuit, or 18px at <=900px, then redraw cached paper stock. Clear a 14px stroke band around equipment outlines. Preserve independent reading masks and the existing clock/reduced-motion behavior.",
+        "section": "elevation"
+      },
+      {
+        "name": "Contact return and destinations",
+        "body": "Measure the homepage Contact email action and connect it with a desktop-only orthogonal signal beneath the action row from the outlet; hover/focus activates it. Omit at <=900px. Homepage project accessible names identify the GitHub destination and new-tab behavior.",
+        "section": "components"
+      },
+      {
+        "name": "IBM reference boundary",
+        "body": "The local Awesome DESIGN.md IBM analysis, references/design-md/ibm/DESIGN.md from VoltAgent/awesome-design-md, informed 4/8 spacing and flat geometry only. It is third-party analysis, not an IBM-authored specification; retain this site navy/pixel/rounded-control system.",
+        "section": "components"
+      }
+    ],
+    "dos": [
+      "Keep canonical reading routes and the original graph.",
+      "Preserve full-color portrait and project assets.",
+      "Keep labels sharp and interactive targets at least 44px.",
+      "Publish portrait wave frames from the active process canvas.",
+      "Use the five curated project records and original workflow schematics; GitHub is the canonical detail destination."
+    ],
+    "donts": [
+      "Do not restore the retired classic homepage or ambient wave without a request.",
+      "Do not imply the diagram is an operating facility.",
+      "Do not invent factual achievements, publications or equipment data.",
+      "Do not add remote fonts or gratuitous animation loops."
+    ]
+  }
+}

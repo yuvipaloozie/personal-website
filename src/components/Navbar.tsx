@@ -1,33 +1,57 @@
-import Link from 'next/link';
-
+"use client";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { GraphMark } from "@/components/ui/graph-mark";
+import { DitherSweep } from "@/components/ui/dither-sweep";
+import { SelectionIndicator } from "@/components/ui/selection-indicator";
+const links = [
+  ["/", "Home"],
+  ["/about", "About"],
+  ["/projects", "Projects"],
+  ["/blog", "Blog"],
+  ["/resume", "Resume"],
+];
 export default function Navbar() {
+  const pathname = usePathname();
+  const header = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(true);
+  useEffect(() => {
+    if (!header.current) return;
+    const size = new ResizeObserver(([entry]) => {
+      document.documentElement.style.setProperty("--header-height", `${entry.target.getBoundingClientRect().height}px`);
+    });
+    const visibility = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+    size.observe(header.current);
+    visibility.observe(header.current);
+    return () => { size.disconnect(); visibility.disconnect(); };
+  }, []);
   return (
-    <header style={{
-      width: '100%',
-      backgroundColor: '#ffffff',
-      borderBottom: 'var(--card-border)',
-      position: 'fixed',
-      top: 0,
-      zIndex: 1000,
-    }}>
-      <div className="container" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: '80px'
-      }}>
-        <div style={{ fontWeight: 800, fontSize: '1.5rem', letterSpacing: '-0.05em' }}>
-          <Link href="/" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>
-            yuvraj<span style={{ color: 'var(--accent-color)' }}>.</span>tripathy
-          </Link>
-        </div>
-        <nav style={{ display: 'flex', gap: '2.5rem', fontWeight: 600, fontSize: '0.85rem', textTransform: 'lowercase' }}>
-          <Link href="/about" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>about</Link>
-          <Link href="/projects" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>projects</Link>
-          <Link href="/graph" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>knowledge graph</Link>
-          <Link href="/resume" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>resume</Link>
-          <Link href="/blog" style={{ color: 'var(--text-color)', textDecoration: 'none' }}>blog</Link>
+    <header ref={header} className="site-header" data-visible={visible}>
+      <div className="container header-inner">
+        <Link href="/" className="site-name">
+          Yuvraj Tripathy
+        </Link>
+        <nav aria-label="Main navigation">
+          <SelectionIndicator value={pathname} selector='[aria-current="page"]' />
+          {links.map(([href, label]) => (
+            <Link
+              key={href}
+              href={href}
+              className="sweep-target nav-sweep"
+              aria-current={
+                pathname === href || pathname.startsWith(href + "/")
+                  ? "page"
+                  : undefined
+              }
+            >
+              <DitherSweep /><span className="sweep-label">{label}</span>
+            </Link>
+          ))}
         </nav>
+        <Link href="/graph" className="graph-nav-link sweep-target nav-sweep" aria-label="Knowledge graph" title="Knowledge graph" aria-current={pathname === "/graph" ? "page" : undefined}>
+          <DitherSweep /><span className="sweep-label"><GraphMark /><span>Knowledge graph</span></span>
+        </Link>
       </div>
     </header>
   );
