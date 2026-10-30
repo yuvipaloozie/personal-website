@@ -19,13 +19,24 @@ export function SelectionIndicator({ value, selector = '[aria-pressed="true"]' }
 
     function place(animate: boolean) {
       const selected = group!.querySelector<HTMLElement>(selector);
-      if (!selected) { element!.dataset.ready = "false"; return; }
+      if (!selected) {
+        animation.current?.cancel();
+        element!.hidden = true;
+        element!.dataset.ready = "false";
+        return;
+      }
       const before = element!.getBoundingClientRect();
       const bounds = group!.getBoundingClientRect();
       const target = selected.getBoundingClientRect();
-      if (!target.width || !target.height) { element!.dataset.ready = "false"; return; }
+      if (!target.width || !target.height) {
+        animation.current?.cancel();
+        element!.hidden = true;
+        element!.dataset.ready = "false";
+        return;
+      }
       const ready = element!.dataset.ready === "true";
       animation.current?.cancel();
+      element!.hidden = false;
       const x = target.left - bounds.left;
       const y = target.top - bounds.top;
       element!.style.width = `${target.width}px`;
@@ -65,5 +76,5 @@ export function SelectionIndicator({ value, selector = '[aria-pressed="true"]' }
 
   useLayoutEffect(() => () => animation.current?.cancel(), []);
 
-  return <span ref={surface} className="selection-indicator" aria-hidden="true" />;
+  return <span ref={surface} hidden className="selection-indicator" aria-hidden="true" />;
 }

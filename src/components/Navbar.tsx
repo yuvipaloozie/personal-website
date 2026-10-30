@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { GraphMark } from "@/components/ui/graph-mark";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 import { SelectionIndicator } from "@/components/ui/selection-indicator";
 const links = [
@@ -50,7 +49,7 @@ export default function Navbar() {
           ))}
         </nav>
         <Link href="/graph" className="graph-nav-link sweep-target nav-sweep" aria-label="Knowledge graph" title="Knowledge graph" aria-current={pathname === "/graph" ? "page" : undefined}>
-          <DitherSweep /><span className="sweep-label"><GraphMark /><span>Knowledge graph</span></span>
+          <DitherSweep /><span className="sweep-label"><span className="graph-nav-full">Knowledge graph</span><span className="graph-nav-short" aria-hidden="true">Graph</span></span>
         </Link>
       </div>
     </header>

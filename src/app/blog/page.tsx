@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PixelIcon } from "@/components/ui/pixel-icon";
 import { graphData } from "@/data/graphData";
 import ProcessSurface from "@/components/ProcessSurface";
 import "@/styles/process-reading.css";
@@ -18,7 +17,7 @@ export default function Blog() {
         <ul>
           {notes.map((n) => (
             <li key={n.id} data-process-item={n.id}>
-              <Link href={n.details!.link!}><PixelIcon name="document" />{n.details!.title}</Link>
+              <Link href={n.details!.link!}>{n.details!.title}</Link>
               <time className="entry-date" dateTime={n.details!.subtitle ? new Date(n.details!.subtitle).toISOString().slice(0, 10) : undefined}>{n.details!.subtitle}</time>
             </li>
           ))}

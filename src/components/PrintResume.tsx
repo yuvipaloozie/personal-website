@@ -1,5 +1,4 @@
 "use client";
-import { PixelIcon } from "@/components/ui/pixel-icon";
 import { DitherSweep } from "@/components/ui/dither-sweep";
 import { Button } from "@/components/ui/button";
 export default function PrintResume() {
@@ -10,7 +9,7 @@ export default function PrintResume() {
       type="button"
       onClick={() => window.print()}
     >
-      <DitherSweep /><span className="sweep-label"><PixelIcon name="document" />Print / save as PDF</span>
+      <DitherSweep /><span className="sweep-label">Print / save as PDF</span>
     </Button>
   );
 }
