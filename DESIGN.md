@@ -176,3 +176,6 @@ Project cards show two or three static method tags below each description. These
 
 
 The homepage introduction now combines the former hero and Background sections within #feed. The nested #conditioning anchor is retained as a measured process location, with a short Chemical and Biomolecular Engineering / PCOM paragraph and the affiliation network. Arclin and Georgia Tech appear once in the portrait introduction. About and Resume actions close this continuous opening. The separate Background heading, repeated career/education list and in-page Background button are retired. Both original right-side units remain connected: the opening vessel and exchanger are about 12–14% smaller on desktop, and the exchanger follows the nested background block. Later process stages retain their existing content and geometry.
+
+
+Resume technical background uses three wrapping groups of navy marks and text labels. Real brand marks from the existing react-icons library identify supported tools; neutral Lucide symbols identify general methods and industrial systems without a suitable mark. All 24 skill names remain sourced from profile.ts. Static groups expose all skills without a carousel or idle motion. Soft blue-gray backgrounds, 8px corners and 44px minimum height match the site's restrained component language; print removes the fills and compacts the marks.

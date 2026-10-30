@@ -3,7 +3,8 @@ import Link from "next/link";
 import PrintResume from "@/components/PrintResume";
 import ProcessSurface from "@/components/ProcessSurface";
 import { graphData } from "@/data/graphData";
-import { education, profile, technicalSkills } from "@/lib/profile";
+import { education, profile } from "@/lib/profile";
+import TechnicalSkills from "@/components/TechnicalSkills";
 import "@/styles/process-about-resume.css";
 export const metadata: Metadata = {
   title: "Resume",
@@ -53,14 +54,7 @@ export default function Resume() {
       </section>
       <section className="process-resume-section" aria-labelledby="technical-title">
         <h2 id="technical-title">Technical background</h2>
-        <dl className="process-resume-skills">
-          {technicalSkills.map(({ area, tools }) => (
-            <div key={area} data-process-item>
-              <dt>{area}</dt>
-              <dd>{tools}</dd>
-            </div>
-          ))}
-        </dl>
+        <TechnicalSkills />
       </section>
     </ProcessSurface>
   );

@@ -50,3 +50,8 @@ Cover artwork remains the property of its respective publishers/artists. Locally
 - Hard Fork: The New York Times, podcast artwork via https://podcasts.apple.com/us/podcast/hard-fork/id1528594034 .
 - Tangle: official purple logo from https://www.readtangle.com/ .
 - The Economist: wordmark by The Economist from https://commons.wikimedia.org/wiki/File:TheEconomistLogo.svg (2009/2011 version). This simple text logo is marked public domain on Commons; trademark ownership remains with The Economist.
+
+
+## Technical skill marks
+
+Resume marks use the installed react-icons package: [Simple Icons](https://simpleicons.org/) brand symbols and the [Font Awesome](https://fontawesome.com/license/free) AWS mark. Generic technical symbols use the installed [Lucide](https://lucide.dev/license) package. Marks are rendered in navy; brand names and marks retain their respective ownership.
