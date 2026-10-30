@@ -53,32 +53,48 @@ export function createProcessDepth(width: number): DepthLayer {
     [[utility, 518], [c + reactorWidth / 2, 518]],
     [[c + reactorWidth / 2, 602], [utility, 602]],
   ];
-  function pipe(points: Point[], dashed = false) {
-    ctx.beginPath();
-    points.forEach(([x, y], i) => i ? ctx.lineTo(x, y) : ctx.moveTo(x, y));
+  function pipe(points: Point[], dashed = false, solid = false) {
+    ctx.save(); ctx.beginPath(); ctx.moveTo(...points[0]);
+    for (let i = 1; i < points.length - 1; i++) {
+      const [ax, ay] = points[i - 1], [bx, by] = points[i], [cx, cy] = points[i + 1];
+      const before = Math.hypot(bx - ax, by - ay), after = Math.hypot(cx - bx, cy - by);
+      const r = Math.min(8 * unit, before / 2, after / 2);
+      if (!before || !after) { ctx.lineTo(bx, by); continue; }
+      ctx.lineTo(bx - (bx - ax) / before * r, by - (by - ay) / before * r);
+      ctx.quadraticCurveTo(bx, by, bx + (cx - bx) / after * r, by + (cy - by) / after * r);
+    }
+    ctx.lineTo(...points[points.length - 1]);
     ctx.setLineDash(dashed ? [2, 4] : []);
-    ctx.stroke();
-    ctx.setLineDash([]);
+    if (solid) { ctx.lineWidth = 3 * unit; ctx.stroke(); ctx.lineWidth = 1.2 * unit; ctx.strokeStyle = "#e4ebf0"; }
+    ctx.stroke(); ctx.restore();
   }
   ctx.strokeStyle = "#7892a6"; ctx.fillStyle = "#7892a6";
   ctx.lineWidth = 1.15; ctx.lineJoin = "miter";
-  main.forEach(path => pipe(path));
-  recycle.forEach(path => pipe(path));
+  main.forEach(path => pipe(path, false, true));
+  recycle.forEach(path => pipe(path, false, true));
   ctx.strokeStyle = "#9aabba"; ctx.lineWidth = .9;
   utilities.forEach(path => pipe(path, true));
 
   // Stipple belongs to the equipment; outlines remain continuous and legible.
   function vessel(x: number, top: number, w: number, h: number, trays = false) {
     const outline = new Path2D();
-    outline.roundRect(x - w / 2, top, w, h, Math.min(w / 2, 24 * unit));
+    const cap = w * .18;
+    outline.moveTo(x - w / 2, top + cap);
+    outline.bezierCurveTo(x - w / 2, top - cap / 3, x + w / 2, top - cap / 3, x + w / 2, top + cap);
+    outline.lineTo(x + w / 2, top + h - cap);
+    outline.bezierCurveTo(x + w / 2, top + h + cap / 3, x - w / 2, top + h + cap / 3, x - w / 2, top + h - cap);
+    outline.closePath();
     ctx.save(); ctx.clip(outline);
     ctx.fillStyle = "#8da3b5";
     for (let py = top; py < top + h; py += 3) for (let px = x - w / 2; px < x + w / 2; px += 3) {
-      const density = .1 + .24 * (px - x + w / 2) / w;
-      if (bayer8(Math.floor(px / 3), Math.floor(py / 3)) < density) ctx.fillRect(px, py, 1.25, 1.25);
+      const nx = (px - x) / (w / 2);
+      const light = Math.max(0, -.48 * nx + .82 * Math.sqrt(Math.max(0, 1 - nx * nx)));
+      const density = .72 - light * .65;
+      if (bayer8(Math.floor(px / 3), Math.floor(py / 3)) < density) ctx.fillRect(px, py, 1.8, 1.8);
     }
     ctx.restore();
-    ctx.strokeStyle = "#7892a6"; ctx.lineWidth = 1.15; ctx.stroke(outline);
+    ctx.strokeStyle = "#7892a6"; ctx.lineWidth = .85; ctx.stroke(outline);
+    ctx.beginPath(); ctx.ellipse(x, top + cap, w / 2, cap, 0, 0, Math.PI); ctx.stroke();
     if (trays) for (let y = top + 30; y < top + h - 20; y += 26) {
       pipe([[x - w / 2 + 6 * unit, y], [x + w / 2 - 6 * unit, y]]);
     }

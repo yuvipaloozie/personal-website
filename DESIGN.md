@@ -198,3 +198,8 @@ Favorites retains natural cover proportions, drag, keyboard and arrow navigation
 ### Knowledge graph retirement
 
 The standalone knowledge graph explorer and its navigation link are retired at the user's request. Old /graph links redirect to the homepage. The PSM Knowledge Graph project and shared factual content remain part of the portfolio.
+
+
+### Dithered process materials
+
+Company marks now connect through an open feed manifold instead of an enclosing tank. The foreground uses analytic cylinder and sphere normals under fixed upper-left light, quantized into fine navy/blue-gray stipple. Elliptical vessel heads establish volume; rounded, layered pipe strokes establish tube thickness. Surface modulation remains subtle and shares the existing clock with flow packets and the projected impeller. The cached parallax train carries a fainter version of the same cylindrical shading and tube treatment. Reading masks, reduced-motion behavior, hidden-page suspension and mobile clearance remain in place. No new animation library or 3D engine is introduced.
