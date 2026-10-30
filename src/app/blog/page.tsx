@@ -18,7 +18,7 @@ export default function Blog() {
           {notes.map((n) => (
             <li key={n.id} data-process-item={n.id}>
               <Link href={n.details!.link!}>{n.details!.title}</Link>
-              <time className="entry-date" dateTime={n.details!.subtitle ? new Date(n.details!.subtitle).toISOString().slice(0, 10) : undefined}>{n.details!.subtitle}</time>
+              <time className="entry-date" dateTime={n.details!.date}>{n.details!.subtitle}</time>
             </li>
           ))}
         </ul>
