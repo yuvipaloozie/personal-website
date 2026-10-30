@@ -2,7 +2,7 @@
 export const projectPreviews: Record<string, { title: string; summary: string; github: string; slug: string; image: string; imageAlt: string; year: number; tags: string[]; methods: string[] }> = {
   "p_psm": {
     "title": "PSM Knowledge Graph",
-    "summary": "Structures HAZOPs, alarm registers and P&IDs into a process safety graph with NLP, fuzzy matching and local GraphRAG.",
+    "summary": "Builds a process safety graph from HAZOPs and alarm registers using NLP and local GraphRAG. Synthetic demo: 3,584 nodes and 5,537 relationships.",
     "github": "https://github.com/yuvipaloozie/PSM-Knowledge-Graph",
     "slug": "psm-knowledge-graph",
     "image": "/projects/psm.svg",
@@ -23,7 +23,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_chana": {
     "title": "OCLAST",
-    "summary": "Compares U-Net, U-Net++ and TransUNet with a four-stage curriculum for osteoclast segmentation, counting and morphometry.",
+    "summary": "Curriculum learning for osteoclast segmentation and counting. U-Net++ reports 0.793 mean Dice on a fixed 281-image-tile holdout.",
     "github": "https://github.com/yuvipaloozie/OCLAST",
     "slug": "chana-analyzer",
     "image": "/projects/oclast.svg",
@@ -43,7 +43,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_trading": {
     "title": "Regime-Aware Sector Rotation",
-    "summary": "Combines Gaussian HMM regimes with XGBRanker to allocate across sector ETFs using purged walk-forward evaluation.",
+    "summary": "Ranks 11 sector ETFs using Gaussian HMM regimes and XGBRanker, with a four-week purge/embargo in walk-forward evaluation.",
     "github": "https://github.com/yuvipaloozie/Regime-Aware-Sector-Trading",
     "slug": "regime-aware-trading",
     "image": "/projects/trading.svg",
@@ -62,7 +62,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_arrhythmia": {
     "title": "ECG Arrhythmia Classification",
-    "summary": "Compares physiology-based ECG features and logistic regression against a 1D CNN on MIT-BIH arrhythmia recordings.",
+    "summary": "Benchmarks physiology-based ECG features against a 1D CNN on MIT-BIH data. Reported binary accuracy: 83.0% for logistic regression versus 82.8% for the CNN.",
     "github": "https://github.com/yuvipaloozie/Arrythmia-Classification-with-ML",
     "slug": "arrhythmia-classification",
     "image": "/projects/arrhythmia.svg",
@@ -82,7 +82,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_yield": {
     "title": "Semiconductor Yield Optimization & RCA",
-    "summary": "Uses XGBoost on SECOM sensor data to predict batch failures, with cost-sensitive thresholds and SHAP-based sensor analysis.",
+    "summary": "Predicts SECOM batch failures with XGBoost and SHAP sensor analysis. Reports 0.733 ROC-AUC and 48% defect recall.",
     "github": "https://github.com/yuvipaloozie/Semiconductor-Yield-Optimization-and-RCA",
     "slug": "yield-optimization",
     "image": "/projects/yield.svg",
