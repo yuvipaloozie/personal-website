@@ -33,14 +33,10 @@ const originalGraphData: { nodes: NodeData[]; links: LinkData[] } = {
       type: "root",
       details: {
         title: profile.name,
-        subtitle: "Data Science & Process Engineering",
+        subtitle: "Industrial AI & Process Engineering",
         description:
           `${career.arclin.title} at ${career.arclin.employer} and graduate student in ${education.graduate.subject} at ${education.shortInstitution}. Interests include process safety knowledge graphs, machine learning, computer vision, and industrial automation.`,
-        fullDescription: [
-          "Welcome to my knowledge graph portfolio. I specialize in bridging the gap between heavy industrial engineering and modern data science.",
-          "With a foundation in Chemical and Biomolecular Engineering, I approach software and ML with a rigorous, process-oriented mindset. My goal is to build automated, highly reliable systems that solve complex physical and digital problems.",
-          "Click around the graph to explore my specific projects, work experiences, and the core technologies I utilize to bring these solutions to life.",
-        ],
+        fullDescription: [profile.introduction],
         image: "/profile.jpg",
         link: "/about",
         github: profile.github,
@@ -64,83 +60,14 @@ const originalGraphData: { nodes: NodeData[]; links: LinkData[] } = {
       },
     })),
 
-    // EXPERIENCE
-    {
-      id: "e_arclin",
-      label: career.arclin.employer,
-      group: 2,
-      type: "detail",
-      details: {
-        title: career.arclin.title,
-        subtitle: `${career.arclin.employer} | ${career.arclin.dates}`,
-        description: career.arclin.summary,
-        fullDescription: [career.arclin.summary],
-        link: "/experience/arclin",
-      },
-    },
-    {
-      id: "e_wood",
-      label: career.wood.employer,
-      group: 2,
-      type: "detail",
-      details: {
-        title: career.wood.title,
-        subtitle: `${career.wood.employer} | ${career.wood.dates}`,
-        description: career.wood.summary,
-        fullDescription: [
-          "Worked with industrial automation hardware to modernize legacy process controls.",
-          "Built Python and NLP tools to structure HAZOP, PHA, and alarm-rationalization data.",
-          "Established a reusable controls logic library that reduced engineering time by 40% across more than 200 I/O points.",
-        ],
-        link: "/experience/wood-plc",
-      },
-    },
-    {
-      id: "e_pcom",
-      label: "PCOM",
-      group: 2,
-      type: "detail",
-      details: {
-        title: career.pcom.title,
-        subtitle: `PCOM | ${career.pcom.dates}`,
-        description: career.pcom.summary,
-        fullDescription: [
-          "Spearheaded the development of deep learning models for biomedical imaging analysis (Project CHANA).",
-          "Collaborated with biologists to refine feature extraction and segmentation protocols for cellular datasets.",
-        ],
-        link: "/experience/pcom-research",
-      },
-    },
-    {
-      id: "e_alcon",
-      label: "Alcon",
-      group: 2,
-      type: "detail",
-      details: {
-        title: career.alcon.title,
-        subtitle: `${career.alcon.employer} | ${career.alcon.dates}`,
-        description: career.alcon.summary,
-        fullDescription: [
-          "Worked on backend equipment engineering at Alcon during an August–December 2023 co-op.",
-          "Applied ARIMA and change detection methods to equipment telemetry for predictive maintenance.",
-        ],
-        link: "/resume",
-      },
-    },
-
-    {
-      id: "e_bayer",
-      label: career.bayer.employer,
-      group: 2,
-      type: "detail",
-      details: {
-        title: career.bayer.title,
-        subtitle: `${career.bayer.employer} | ${career.bayer.dates}`,
-        description: career.bayer.summary,
-        fullDescription: [career.bayer.summary],
-        link: "/experience/bayer",
-      },
-    },
+    // Shared professional facts also drive the resume and experience pages.
+    ...Object.entries(career).map(([key, role]): NodeData => ({
+      id: key === "bayer2023" ? "e_bayer_2023" : `e_${key}`,
+      label: key === "pcom" ? "PCOM" : role.employer,
+      group: 2, type: "detail",
+      details: { title: role.title, subtitle: `${role.employer} | ${role.dates}`,
+        description: role.summary, fullDescription: [...role.details], link: role.link },
+    })),
 
     // BLOG POSTS
     {
@@ -247,6 +174,8 @@ const originalGraphData: { nodes: NodeData[]; links: LinkData[] } = {
     { source: "experience", target: "e_pcom" },
     { source: "experience", target: "e_alcon" },
     { source: "experience", target: "e_bayer" },
+    { source: "experience", target: "e_bayer_2023" },
+    { source: "experience", target: "e_ambitus" },
 
     // Blog to Category
     { source: "blog", target: "b_unet" },
@@ -291,6 +220,8 @@ const originalGraphData: { nodes: NodeData[]; links: LinkData[] } = {
     { source: "s_auto", target: "e_wood" },
     { source: "s_auto", target: "e_alcon" },
     { source: "s_auto", target: "e_bayer" },
+    { source: "s_auto", target: "e_bayer_2023" },
+    { source: "s_auto", target: "e_ambitus" },
     { source: "s_auto", target: "b_iot" },
     { source: "s_auto", target: "b_dash" },
   ],

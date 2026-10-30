@@ -14,9 +14,10 @@ export default function AboutContent() {
             student in {education.graduate.subject} at {education.shortInstitution}.
           </p>
           <p>
-            With a background in Chemical and Biomolecular Engineering, I work
-            on applied machine learning and process safety. As a {career.pcom.title} at PCOM,
-            I study deep learning methods for microscopy image analysis.
+            I trained in {education.undergraduate.subject} at {education.shortInstitution},
+            graduating in {education.undergraduate.year}. My work connects process
+            control, manufacturing data and applied AI. As a {career.pcom.title} at PCOM,
+            I develop microscopy analysis tools and graph-based molecular models.
           </p>
 
         </div>

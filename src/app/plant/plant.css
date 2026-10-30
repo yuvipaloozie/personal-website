@@ -9,7 +9,12 @@
 .plant-hero { min-height: 980px; padding-top: 78px; padding-bottom: 70px; }
 /* An open, stationary affiliation network; feedback belongs to the selected logo. */
 .plant-background-details { display: grid; grid-template-columns: minmax(0, 1fr) 230px; align-items: start; gap: 12px; margin-top: 12px; scroll-margin-top: 110px; }
-.plant-background-details > p { margin: 28px 0 0; font-size: 15px; line-height: 1.65; }
+.plant-background-summary { padding-top: 20px; }
+.plant-background-summary > p { margin: 0; font-size: 15px; line-height: 1.65; }
+.plant-education { margin: 24px 0 20px; }
+.plant-education > div + div { margin-top: 16px; }
+.plant-education dt { font-size: 14px; font-weight: 500; }
+.plant-education dd { margin: 3px 0 0; font-size: 13px; line-height: 1.55; color: #454944; }
 .plant-background-details .affiliation-logos { margin-block: 0; }
 .affiliation-logos { position: relative; width: 230px; height: 270px; list-style: none; margin: 16px 0; padding: 0; }
 .affiliation-node { position: absolute; transform: translate(-50%, -50%); }
@@ -60,8 +65,7 @@
 .plant-writing li { margin-bottom: 20px; }
 .plant-writing li a { display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 17px; line-height: 1.5; min-height: 44px; padding-block: 6px; }
 .plant-writing li svg { flex-shrink: 0; width: 16px; }
-.plant-close { min-height: 380px; padding-top: 70px; }
-.plant-close h2 { font-size: clamp(32px, 4vw, 48px); }
+.plant-outlet { height: 110px; }
 .plant-disclaimer { font-size: 13px; color: #626a70; margin-top: 42px; }
 body:has(.plant-page) .site-footer { border: 0; margin-top: 0; }
 @media (min-width: 1400px) { .plant-content { padding-inline: 20px; } }
@@ -77,7 +81,6 @@ body:has(.plant-page) .site-footer { border: 0; margin-top: 0; }
   .plant-caption { left: 0; right: auto; bottom: 32px; }
   .plant-projects { min-height: 800px; padding-left: 0; padding-top: 60px; }
   .plant-writing { min-height: 630px; padding-top: 60px; }
-  .plant-close { min-height: 390px; padding-top: 40px; padding-right: 42px; }
   .plant-copy p { font-size: 16px; }
   .plant-content h2 { font-size: 38px; }
 }

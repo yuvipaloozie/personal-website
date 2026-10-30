@@ -179,3 +179,6 @@ The homepage introduction now combines the former hero and Background sections w
 
 
 Resume technical background uses three wrapping groups of navy marks and text labels. Real brand marks from the existing react-icons library identify supported tools; neutral Lucide symbols identify general methods and industrial systems without a suitable mark. All 24 skill names remain sourced from profile.ts. Static groups expose all skills without a carousel or idle motion. Soft blue-gray backgrounds, 8px corners and 44px minimum height match the site's restrained component language; print removes the fills and compacts the marks.
+
+
+The homepage leads with “Building AI for heavy industry.” The short introduction focuses on engineering knowledge and plant data; two distinct Georgia Tech degree entries appear beside the affiliation network. Professional descriptions are centralized in profile.ts; source-reconciliation working notes remain local. The standalone Contact section and its branch are retired; a short process outlet closes above the footer social icons. The academic structure, dither motion, two introductory units, external GitHub project links and placeholder blog remain.

@@ -14,7 +14,7 @@ const marks: Record<string, IconType> = {
   PySpark: SiApachespark, TypeScript: SiTypescript, GCP: SiGooglecloud,
   AWS: FaAws, GitHub: SiGithub, Docker: SiDocker, MQTT: SiMqtt,
   Ignition: Workflow, DeltaV: SlidersHorizontal, "Honeywell Experion": Activity,
-  "Allen Bradley": Cpu, RSLogix: Radio,
+  "Allen Bradley": Cpu, "RSLogix 500": Radio,
 };
 
 export default function TechnicalSkills() {

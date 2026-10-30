@@ -19,13 +19,21 @@ export default function PlantPage() {
         <section className="plant-hero" id="feed" aria-labelledby="plant-name">
           <div className="plant-copy">
             <h1 id="plant-name">Yuvraj<br />Tripathy</h1>
-            <p className="plant-intro">Process engineering.<br />Applied machine learning.</p>
+            <p className="plant-intro">{profile.headline}</p>
             <div className="plant-person">
               <FloatingPortrait width={112} height={136} preload />
-              <p>{career.arclin.title} at {career.arclin.employer}.<br />{education.graduate.subject} graduate student at {education.shortInstitution}.</p>
+              <p>{career.arclin.title} at {career.arclin.employer}.<br />Process control and ML for manufacturing.</p>
             </div>
             <div className="plant-background-details" id="conditioning">
-              <p>My background is in Chemical and Biomolecular Engineering. At PCOM, I research machine learning for biomedical imaging.</p>
+              <div className="plant-background-summary">
+                <p>{profile.introduction}</p>
+                <dl className="plant-education">
+                  {[education.undergraduate, education.graduate].map(degree => <div key={degree.year}>
+                    <dt>{education.shortInstitution}</dt>
+                    <dd>{degree.degree}<br />{degree === education.graduate ? "Expected " : ""}{degree.year}</dd>
+                  </div>)}
+                </dl>
+              </div>
               <AffiliationLogos />
             </div>
             <div className="plant-actions">
@@ -58,10 +66,7 @@ export default function PlantPage() {
           </div>
         </section>
 
-        <section className="plant-close" id="feedback" aria-labelledby="plant-close-title">
-          <h2 id="plant-close-title">Contact</h2>
-          <div className="plant-actions"><a className="sweep-target" data-process-output="contact" href={`mailto:${profile.email}`}><DitherSweep /><span className="sweep-label">Get in touch <PixelIcon name="mail" /></span></a><Link href="/graph">Explore the knowledge graph</Link></div>
-        </section>
+        <div className="plant-outlet" id="feedback" aria-hidden="true" />
       </div>
     </div>
   );

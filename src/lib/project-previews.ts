@@ -1,8 +1,8 @@
-/** Curated project copy, verified against GitHub listings and READMEs on October 29, 2026. */
+/** Curated project copy, checked against repository READMEs on October 30, 2026. */
 export const projectPreviews: Record<string, { title: string; summary: string; github: string; slug: string; image: string; imageAlt: string; year: number; tags: string[]; methods: string[] }> = {
   "p_psm": {
     "title": "PSM Knowledge Graph",
-    "summary": "Builds a process safety graph from HAZOPs and alarm registers using NLP and local GraphRAG. Synthetic demo: 3,584 nodes and 5,537 relationships.",
+    "summary": "Links HAZOPs, safeguards and alarm registers for traceable safety review and gap analysis. Synthetic demo: 219 equipment items and 104 safeguards audited; local GraphRAG supports graph-grounded queries.",
     "github": "https://github.com/yuvipaloozie/PSM-Knowledge-Graph",
     "slug": "psm-knowledge-graph",
     "image": "/projects/psm.svg",
@@ -23,7 +23,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_chana": {
     "title": "OCLAST",
-    "summary": "Curriculum learning for osteoclast segmentation and counting. U-Net++ reports 0.793 mean Dice on a fixed 281-image-tile holdout.",
+    "summary": "Automates osteoclast segmentation and counting with curriculum-trained U-Net++. On 281 held-out image tiles, Dice improved from 0.773 to 0.793 and count MAE fell from 2.12 to 1.90 cells per tile.",
     "github": "https://github.com/yuvipaloozie/OCLAST",
     "slug": "chana-analyzer",
     "image": "/projects/oclast.svg",
@@ -43,7 +43,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_trading": {
     "title": "Regime-Aware Sector Rotation",
-    "summary": "Ranks sector ETFs with HMM regimes and XGBRanker. Original backtest (legacy): Sharpe 0.88 versus 0.65 for SPY; not yet reproduced by the revised pipeline.",
+    "summary": "Tests HMM-guided sector allocation with purged walk-forward ranking and delayed execution. Legacy backtest: Sharpe 0.88 vs. 0.65 for SPY; revised-pipeline performance remains unverified.",
     "github": "https://github.com/yuvipaloozie/Regime-Aware-Sector-Trading",
     "slug": "regime-aware-trading",
     "image": "/projects/trading.svg",
@@ -62,7 +62,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_arrhythmia": {
     "title": "ECG Arrhythmia Classification",
-    "summary": "Benchmarks physiology-based ECG features against a 1D CNN on MIT-BIH data. Reported binary accuracy: 83.0% for logistic regression versus 82.8% for the CNN.",
+    "summary": "Tests efficient ECG classification using physiology-based features. Logistic regression matched CNN binary accuracy (83.0% vs. 82.8%) with 0.03 s vs. 37.38 s training time in the reported experiment.",
     "github": "https://github.com/yuvipaloozie/Arrythmia-Classification-with-ML",
     "slug": "arrhythmia-classification",
     "image": "/projects/arrhythmia.svg",
@@ -82,7 +82,7 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
   },
   "p_yield": {
     "title": "Semiconductor Yield Optimization & RCA",
-    "summary": "Predicts SECOM batch failures with XGBoost and SHAP sensor analysis. Reports 0.733 ROC-AUC and 48% defect recall.",
+    "summary": "Flags manufacturing defects from 590 SECOM sensor inputs using cost-sensitive XGBoost: 0.733 ROC-AUC and 48% defect recall. SHAP/PDP analysis supports inspection prioritization and candidate sensor-limit review.",
     "github": "https://github.com/yuvipaloozie/Semiconductor-Yield-Optimization-and-RCA",
     "slug": "yield-optimization",
     "image": "/projects/yield.svg",
