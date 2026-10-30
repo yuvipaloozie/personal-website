@@ -17,8 +17,8 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
     ],
     "methods": [
       "NLP",
-      "Knowledge Graphs",
-      "GraphRAG"
+      "GraphRAG",
+      "Ollama"
     ]
   },
   "p_chana": {
@@ -36,8 +36,9 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
       "Curriculum learning"
     ],
     "methods": [
-      "Semantic Segmentation",
-      "Curriculum Learning"
+      "Diffusion Model",
+      "OpenCV",
+      "CNNs"
     ]
   },
   "p_trading": {
@@ -54,8 +55,9 @@ export const projectPreviews: Record<string, { title: string; summary: string; g
       "Walk-forward evaluation"
     ],
     "methods": [
-      "Hidden Markov Models",
-      "Learning to Rank"
+      "HMM",
+      "XGBRanker",
+      "Time Series"
     ]
   },
   "p_arrhythmia": {

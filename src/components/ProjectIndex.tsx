@@ -80,7 +80,7 @@ export default function ProjectIndex({
                 <a href={node.details!.github!} target="_blank" rel="noreferrer">{projectPreviews[node.id].title}</a>
               </ProjectHeading>
               <p>{projectPreviews[node.id]?.summary ?? node.details!.description}</p>
-              <ul className="project-methods" aria-label="Machine learning methods">
+              <ul className="project-methods" aria-label="Libraries and skills">
                 {projectPreviews[node.id].methods.map(method => <li key={method}>{method}</li>)}
               </ul>
               <div className="project-links">
