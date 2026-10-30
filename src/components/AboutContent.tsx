@@ -1,9 +1,7 @@
 import FloatingPortrait from "@/components/FloatingPortrait";
+import FavoriteMedia from "@/components/FavoriteMedia";
 import ProcessSurface from "@/components/ProcessSurface";
-import Link from "next/link";
-import { PixelIcon } from "@/components/ui/pixel-icon";
-import { DitherSweep } from "@/components/ui/dither-sweep";
-import { career, education, profile } from "@/lib/profile";
+import { career, education } from "@/lib/profile";
 import "@/styles/process-about-resume.css";
 export default function AboutContent() {
   return (
@@ -20,47 +18,14 @@ export default function AboutContent() {
             on applied machine learning and process safety. As a {career.pcom.title} at PCOM,
             I study deep learning methods for microscopy image analysis.
           </p>
-          <p className="process-about-actions">
-            <Link href="/resume"><PixelIcon name="document" />Resume</Link>
-            <a href={`mailto:${profile.email}`}><PixelIcon name="mail" />Get in touch</a>
-          </p>
+
         </div>
         <figure className="process-about-portrait">
           <FloatingPortrait width={248} height={310} />
         </figure>
       </section>
-      <section className="process-about-foundation" aria-labelledby="foundation-title">
-        <h2 id="foundation-title">Background</h2>
-        <ol className="process-about-path">
-          <li data-process-item>
-            <Link href="/resume#education" className="sweep-target">
-              <DitherSweep /><span className="process-foundation-label sweep-label">
-              <span className="process-about-path-title">Chemical engineering</span>
-              <span className="process-about-path-subtitle">{education.shortInstitution}</span>
-              <PixelIcon name="arrow" />
-              </span>
-            </Link>
-          </li>
-          <li data-process-item>
-            <Link href="/experience/arclin" className="sweep-target">
-              <DitherSweep /><span className="process-foundation-label sweep-label">
-              <span className="process-about-path-title">Automation</span>
-              <span className="process-about-path-subtitle">{career.arclin.employer}</span>
-              <PixelIcon name="arrow" />
-              </span>
-            </Link>
-          </li>
-          <li data-process-item>
-            <Link href="/experience/pcom-research" className="sweep-target">
-              <DitherSweep /><span className="process-foundation-label sweep-label">
-              <span className="process-about-path-title">Applied machine learning</span>
-              <span className="process-about-path-subtitle">PCOM research</span>
-              <PixelIcon name="arrow" />
-              </span>
-            </Link>
-          </li>
-        </ol>
-      </section>
+      <FavoriteMedia />
+
     </ProcessSurface>
   );
 }

@@ -36,7 +36,7 @@ export default function ProcessBackdrop({ kind }: { kind: ProcessKind }) {
       const bounds = page!.getBoundingClientRect();
       pageHeight = page!.scrollHeight;
       const content = page!.querySelector<HTMLElement>(".process-content")!;
-      const areas = Array.from(content.querySelectorAll<HTMLElement>("h1, .page-intro, .prose, .process-about-profile, .process-about-foundation, .project-entry, .topic-filter, .process-resume-section, .process-post, .notes-index, .process-reading")).map(element => {
+      const areas = Array.from(content.querySelectorAll<HTMLElement>("h1, .page-intro, .prose, .process-about-profile, .favorite-media, .project-entry, .topic-filter, .process-resume-section, .process-post, .notes-index, .process-reading")).map(element => {
         const r = element.getBoundingClientRect();
         return { x: r.left - bounds.left, y: r.top - bounds.top, w: r.width, h: r.height };
       });

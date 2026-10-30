@@ -16,4 +16,4 @@ Follow the approved Process direction in DESIGN.md and the purpose in PRODUCT.md
 
 21st.dev is available through the authenticated 21st CLI; a Codex MCP connection is configured locally. Use curated components as considered references when they fit this design. Keep credentials outside this repository.
 
-The user has removed Outside the work and On my shelf from About. Keep them removed unless explicitly requested again.
+The user has removed Outside the work and On my shelf from About. Keep the old sections removed. The subsequently approved Favorites carousel replaces them with films, albums, books, podcasts and newsletters; podcast fillers stay visibly marked as placeholders.

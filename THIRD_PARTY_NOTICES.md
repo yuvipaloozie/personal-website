@@ -32,3 +32,21 @@ Geist Pixel Square is locally hosted from https://github.com/vercel/geist-font a
 ## Geist Mono
 
 The locally hosted `public/fonts/geist-mono-latin.woff2` is distributed with Next.js and originates from Vercel's Geist font family. Used for navigation and graph labels under the SIL Open Font License 1.1. See `public/fonts/Geist-LICENSE.txt` and https://github.com/vercel/geist-font.
+
+
+## Favorites carousel and cover artwork
+
+The About gallery is adapted from the 21st.dev CircularGallery component pasted by the user (circular-gallery-2.tsx). Local changes preserve natural image ratios, keep the title and controls in accessible HTML, confine pointer input to the gallery, add reduced-motion and offscreen handling, bound pixel density, and release GPU resources. It uses [OGL](https://github.com/oframe/ogl), distributed under MIT; see node_modules/ogl/LICENSE. The earlier Skiper/Swiper experiment is not included in the final implementation; no supplied sample artwork is used.
+
+Cover artwork remains the property of its respective publishers/artists. Locally stored covers identify the selected works; they are not original portfolio artwork.
+
+- Whiplash: Sony Pictures Classics, https://www.sonyclassics.com/whiplash/ (official anniversary poster).
+- Swades: theatrical poster, https://en.wikipedia.org/wiki/Swades .
+- Random Access Memories: Daft Life / Columbia / Sony, https://music.apple.com/us/album/random-access-memories/617154241 .
+- My Beautiful Dark Twisted Fantasy: UMG, https://music.apple.com/us/album/my-beautiful-dark-twisted-fantasy/1443160553 (official clean cover).
+- Born a Crime: Penguin Random House, https://www.penguinrandomhouse.com/books/537515/born-a-crime-by-trevor-noah/ .
+- A Little Life: Penguin Random House, https://www.penguinrandomhouse.com/books/239717/a-little-life-by-hanya-yanagihara/ .
+- 99% Invisible: podcast artwork via https://podcasts.apple.com/us/podcast/99-invisible/id394775318 .
+- Hard Fork: The New York Times, podcast artwork via https://podcasts.apple.com/us/podcast/hard-fork/id1528594034 .
+- Tangle: official purple logo from https://www.readtangle.com/ .
+- The Economist: wordmark by The Economist from https://commons.wikimedia.org/wiki/File:TheEconomistLogo.svg (2009/2011 version). This simple text logo is marked public domain on Commons; trademark ownership remains with The Economist.
