@@ -1,10 +1,10 @@
 # Yuvraj Tripathy: personal website
 
-![Next.js](https://img.shields.io/badge/Next.js-203858?style=flat-square)
-![React](https://img.shields.io/badge/React-203858?style=flat-square)
-![TypeScript](https://img.shields.io/badge/TypeScript-203858?style=flat-square)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-203858?style=flat-square)
-![Canvas animation](https://img.shields.io/badge/Canvas%20animation-203858?style=flat-square)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![OGL](https://img.shields.io/badge/OGL-333333?style=for-the-badge)
 
 My engineering and applied-ML portfolio, built with [Next.js](https://nextjs.org) and originally bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app). The site brings together projects, research writing and experience through an animated chemical-process diagram.
 
